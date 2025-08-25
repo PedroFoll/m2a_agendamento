@@ -1,0 +1,72 @@
+# Desafio Prático: Sistema de Agendamento para Salão de Beleza
+## 1. Contexto do Problema e Requisitos Técnicos
+Sua tarefa é desenvolver uma aplicação web para um salão de beleza 
+que ajude a organizar e gerenciar seus agendamentos de forma eficiente.
+Para este desafio, é **obrigatório** o uso das seguintes tecnologias:
+* **Python**
+* **Django**
+* **Ambiente virtual (`venv`)** para isolar as dependências do projeto.
+
+## 2. Requisitos de Negócio
+### **2.1. Cadastro de Clientes, Serviços e Equipe**
+O salão precisa de um lugar para registrar todos os seus clientes, os serviços que oferece (como "Corte de Cabelo" ou "Manicure") 
+e os profissionais que compõem a equipe.
+O sistema deve permitir que essas informações sejam cadastradas e consultadas facilmente.
+
+#2.1.1 - Eu como recepcionista, quero cadastrar :
+#clientes - nome, telefone, email, data de nascimento
+#serviços - nome, descrição, preço
+#profissionais - nome, telefone, email, especialidade, data de contratação
+
+#2.1.2 - Eu como recepcionista, quero consultar:
+#clientes - nome, telefone, email
+#serviços - nome, descrição, preço
+#profissionais - nome, telefone, email, especialidade
+
+#2.1.3 - Eu como recepcionista, quero que o sistema informe na consulta dos clientes:
+#1- A quantidade total de clientes cadastrados no sistema.
+#2- Nome, telefone, data de nascimento e email de cada cliente.
+
+### **2.2. Gestão de Agendamentos**
+O sistema deve permitir que a recepcionista agende serviços para os clientes com um profissional específico, 
+em uma data e horário definidos. A ferramenta precisa ser capaz de registrar o **status** de cada agendamento 
+(por exemplo, "Agendado", "Concluído" ou "Cancelado").
+
+#2.2.1 - Eu como reepcionista, quero poder agendar:
+#1- Um serviço para um cliente, com um profissional e um serviço, em uma data e horário específicos.
+#1.1- Preciso do nome do cliente, nome do profissionla, o serviço que será realizado, a data e o horário do agendamento.
+#2- O status do agendamento (Agendado, Concluído, Cancelado)
+
+
+### **2.3. Acompanhamento de Serviços**
+O dono do salão precisa de um relatório que mostre o total de serviços **concluídos** em um período de tempo. 
+Isso ajudará a medir o desempenho e a produtividade da equipe.
+
+#2.3.1 - Eu como dono do salão, quero um relatório que mostre:
+#1- O total de serviços concluídos em um período de tempo (data inicial e data final).
+#1.1- Preciso da data inicial e data final para gerar o relatório.
+#1.2- O relatório deve mostrar o total de serviços concluídos nesse período.
+#1.3- A pesquisa do relatório deve considerar apenas os agendamentos com status enviado na pesquisa.
+
+
+### **2.4. Atenção à Performance**
+A aplicação precisa ser rápida para que a equipe possa trabalhar sem lentidão. 
+Ao desenvolver o relatório de acompanhamento, pense em como a sua solução se comportaria caso o salão tivesse milhares de agendamentos.
+A performance da sua solução será um ponto importante de avaliação.
+
+
+##2.4.1 - Eu como dono do salão, quero que a aplicação seja rápida e eficiente, mesmo com muitos agendamentos.
+#1- A aplicação deve ser capaz de lidar com um grande volume de dados sem comprometer a performance.
+#1.1- A performance será avaliada, especialmente na geração do relatório de serviços concluídos.
+#1.2- Considere otimizações no banco de dados e na lógica de consulta para melhorar a performance. (Paginação)
+
+
+## 3. Entrega e Avaliação
+O projeto final deve ser um repositório Git com um arquivo `README.md` que explique como instalar e rodar a aplicação.
+O que será avaliado:
+* **Funcionalidade:** O sistema atende a todas as necessidades descritas?
+* **Organização e Clareza:** O código é fácil de ler e seguir? A estrutura do projeto é lógica e bem organizada?
+* **Qualidade da Solução:** A solução demonstra uma preocupação com a eficiência e a manutenção futura?
+* **Conformidade Técnica:** As versões de Python e Django especificadas foram utilizadas? O ambiente virtual foi configurado corretamente?
+* **Observação sobre Ferramentas de IA:** O uso de inteligência artificial (IA) é permitido durante o desafio, mas não é recomendado. A sua avaliação será focada na sua coerência, conhecimento, qualidade e domínio técnico sobre o que foi implementado. Valorizamos a sua capacidade de pensar e resolver problemas de forma autônoma.
+Você terá **5 dias úteis** para concluir este desafio. Ao finalizar, envie o link do seu repositório para o e-mail que recebeu. Se tiver alguma dúvida, pode nos contatar por e-mail.
