@@ -1,4 +1,3 @@
-
 from faker import Faker
 
 from django.core.management.base import BaseCommand
