@@ -1,6 +1,7 @@
 from random import randint
 from faker import Faker
 import random
+from datetime import datetime
 from os import sys
 
 class Helpers():
@@ -10,7 +11,13 @@ class Helpers():
         dia=random.randint(1,28)
         mes=random.randint(1,12)
         ano=random.randint(1970,2025)
-        data=dia+"/"+mes+"/"+ano
+
+        data= datetime.now().replace(
+            month=mes,
+            day=dia,
+            year=ano
+        )
+        
         return data
 
     def gerador_telefone():
@@ -24,9 +31,8 @@ class Helpers():
         
     def gerador_email(domain="randommail.com"):
 
-            fake=Faker()
+            fake=Faker('pt_BR')
             nome = fake.first_name().lower()
             sobrenome=fake.last_name().lower()
-            randomMail=()
 
             return f'{nome}.{sobrenome}@{domain}'

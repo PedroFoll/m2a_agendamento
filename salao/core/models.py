@@ -14,5 +14,10 @@ class Base(models.Model):
         blank=True,
         verbose_name='Data de Modificação'
     )
+    ativo = models.BooleanField(
+        verbose_name='Ativo',
+        default=True
+    )
+
     class Meta:
         abstract = True

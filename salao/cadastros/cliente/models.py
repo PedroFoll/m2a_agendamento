@@ -12,19 +12,25 @@ from core.models import Base
 class Cliente(Base):
     nome = models.CharField(
         max_length=100, 
-        verbose_name='Nome')
+        verbose_name='Nome'
+        )
     telefone = models.CharField(
         max_length=20, 
-        verbose_name='Telefone')
+        verbose_name='Telefone'
+        )
     email = models.EmailField(
         max_length=100, 
-        verbose_name='Email')
+        verbose_name='Email'
+        )
     data_nascimento = models.DateField(
-        verbose_name='Data de Nascimento')
+        verbose_name='Data de Nascimento'
+        )
     cpf = models.CharField(
         max_length=11, 
         verbose_name='CPF', 
-        unique=True)
+        unique=True
+        )
+        
 
     class Meta:
         verbose_name = 'Cliente'

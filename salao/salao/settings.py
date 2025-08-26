@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'agendamento', 
     'core',
-    'cliente',
+    'servicos.agendamento.apps.AgendamentoConfig',
+    'cadastros.cliente.apps.CadastroClienteConfig',
 ]
 
 MIDDLEWARE = [
