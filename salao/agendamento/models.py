@@ -2,7 +2,7 @@ from django.db import models
 
 from core.models import Base
 
-from cadastro_Cliente.models import *
+from cliente.models import *
 
 #2.2.1 - Eu como reepcionista, quero poder agendar:
 #1- Um serviço para um cliente, com um profissional e um serviço, em uma data e horário específicos.

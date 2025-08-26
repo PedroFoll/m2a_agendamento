@@ -29,40 +29,59 @@ class Cliente(Base):
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+    
+    def __str__(self):
+        return f'{self.nome} - {self.email} - {self.data_nascimento} - {self.cpf}'
 
 
 class Servico(Base):
     nome = models.CharField(
         max_length=100, 
-        verbose_name='Nome')
+        verbose_name='Serviço'
+        )
     descricao = models.TextField(
-        verbose_name='Descrição')
+        verbose_name='Descrição'
+        )
     preco = models.DecimalField(
         max_digits=10, 
         decimal_places=2, 
-        verbose_name='Preço')
+        verbose_name='Valor'
+        )
 
     class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
+    
+    def __str__(self):
+        return f'{self.nome}'
 
 
 class Profissional(Base):
     nome = models.CharField(
         max_length=100, 
-        verbose_name='Nome')
+        verbose_name='Nome'
+        )
     telefone = models.CharField(
         max_length=20, 
-        verbose_name='Telefone')
+        verbose_name='Telefone'
+        )
     email = models.EmailField(
         max_length=100, 
-        verbose_name='Email')
-    especialidade = models.CharField(
-        max_length=100, 
-        verbose_name='Especialidade')
+        verbose_name='Email'
+        )
+    especialidade = models.ForeignKey(
+        Servico,
+        to_field='id',
+        on_delete=models.CASCADE,
+        verbose_name="especialidade"
+        )
     data_contratacao = models.DateField(
-        verbose_name='Data de Contratação')
+        verbose_name='Data de Contratação'
+        )
 
     class Meta:
         verbose_name = 'Profissional'
         verbose_name_plural = 'Profissionais'
+
+    def __str__(self):
+        return f'{self.nome} - Especialidade: {self.especialidade} - Contato: {self.telefone} - Email: {self.email}'

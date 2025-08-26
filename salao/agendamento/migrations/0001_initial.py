@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('cadastro_Cliente', '0001_initial'),
+        ('cliente', '0001_initial'),
     ]
 
     operations = [
@@ -21,9 +21,9 @@ class Migration(migrations.Migration):
                 ('data_modificacao', models.DateTimeField(auto_now=True, null=True, verbose_name='Data de Modificação')),
                 ('status', models.CharField(default='Agendado', max_length=20, verbose_name='Estado do agendamento')),
                 ('data_agendada', models.DateTimeField(verbose_name='Dia agendado')),
-                ('cliente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cadastro_Cliente.cliente', verbose_name='Cliente')),
-                ('profissional', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cadastro_Cliente.profissional', verbose_name='Profissionais')),
-                ('servico', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cadastro_Cliente.servico', verbose_name='Serviço')),
+                ('cliente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cliente.cliente', verbose_name='Cliente')),
+                ('profissional', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cliente.profissional', verbose_name='Profissionais')),
+                ('servico', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='cliente.servico', verbose_name='Serviço')),
             ],
             options={
                 'abstract': False,
