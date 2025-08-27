@@ -13,7 +13,7 @@ class Cliente(Base):
     nome = models.CharField(
         max_length=100, 
         verbose_name='Nome'
-        )
+    )
     telefone = models.CharField(
         max_length=20, 
         verbose_name='Telefone'
@@ -30,14 +30,14 @@ class Cliente(Base):
         verbose_name='CPF', 
         unique=True
         )
-        
-
+    
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+        db_table = 'cliente_cliente'
     
     def __str__(self):
-        return f'{self.nome}'
+        return f'{self.nome} - {self.cpf}'
 
 
 class Servico(Base):
@@ -57,6 +57,7 @@ class Servico(Base):
     class Meta:
         verbose_name = 'Serviço'
         verbose_name_plural = 'Serviços'
+        db_table = 'cliente_servico'
     
     def __str__(self):
         return f'{self.nome}'
@@ -88,6 +89,7 @@ class Profissional(Base):
     class Meta:
         verbose_name = 'Profissional'
         verbose_name_plural = 'Profissionais'
+        db_table ='cliente_profissional'
 
     def __str__(self):
         return f'{self.nome}'

@@ -43,6 +43,12 @@ class Agendamento(Base):
     data_agendada = models.DateTimeField(
         verbose_name="Dia agendado"
     )
-
+    #Foto
+    foto = models.ImageField(
+        upload_to='agendamentos/', 
+        blank=True, 
+        null=True
+    )
+    
     def __str__(self):
         return f'{self.cliente.nome}-{self.servico.nome}- {self.data_agendada.strftime('%d/%m/%y %H:%M')} - {'Ativo' if self.ativo else 'Inativo'}'

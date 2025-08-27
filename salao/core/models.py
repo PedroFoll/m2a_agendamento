@@ -21,3 +21,15 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+
+class ImageModel(models.Model):
+    title = models.CharField(max_length=122)
+    image = models.ImageField(
+        upload_to="demo",
+        null=False,
+        blank=False,
+        help_text="Tamanho da imagem precisa ser 1080px"
+    )
+
+    def __str__(self):
+        return self.title
