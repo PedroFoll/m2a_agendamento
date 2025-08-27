@@ -45,4 +45,4 @@ class Agendamento(Base):
     )
 
     def __str__(self):
-        return f'{self.cliente} - {self.data_agendada}'
+        return f'{self.cliente.nome}-{self.servico.nome}- {self.data_agendada.strftime('%d/%m/%y %H:%M')} - {'Ativo' if self.ativo else 'Inativo'}'

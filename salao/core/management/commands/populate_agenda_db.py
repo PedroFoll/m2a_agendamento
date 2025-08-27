@@ -1,43 +1,36 @@
-from faker import Faker
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 
 from django.core.management.base import BaseCommand
 
-from core.utils.geradores import Helpers
-
 from cadastros.cliente.models import Profissional, Servico, Cliente
+from servicos.agendamento.models import Agendamento
 
 class Command(BaseCommand):
     help = "Cria dados falsos no banco de dados"
 
     def handle(self, *args, **kwargs):
-
         nome = random.choice(list(Cliente.objects.all()))
         profissional=random.choice(list(Profissional.objects.all()))
-        email = Helpers.gerador_email()
-        random_number = Helpers.gerador_telefone()
         espec=random.choice(list(Servico.objects.all()))
-        data = datetime.now()
+        days=random.randint(1,10)
+        data_hoje = datetime.now()
+        data = data_hoje + timedelta(days=days)
 
         #cria manualmente objetos de model empresa
-        profissionais = [
-            Profissional(
-                nome=nome,
-                profissional=profissional,
-                telefone=random_number,
-                especialidade=espec,
-                data_contratacao=data,
+        agendamentos = [
+            Agendamento(
+                cliente_id=nome.id,
+                profissional_id=profissional.id,
+                servico_id=espec.id,
+                data_agendada=data,
             ),           
         ]
         #insere no banco
-        for profissional in profissionais:
+        for agendamento in agendamentos:
           try:
-            print("salvando "+profissional.nome)
-            print(data)
-            profissional.save()
+            agendamento.save()
           except Exception as erro:
-            print(erro)
             pass
         #redireciona para pegar do banco de dados
-        profissional = Profissional.objects.all()
+        agendamento = Agendamento.objects.all()

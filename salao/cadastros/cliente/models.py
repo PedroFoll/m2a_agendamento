@@ -37,7 +37,7 @@ class Cliente(Base):
         verbose_name_plural = 'Clientes'
     
     def __str__(self):
-        return f'{self.nome} - {self.email} - {self.data_nascimento} - {self.cpf}'
+        return f'{self.nome}'
 
 
 class Servico(Base):
@@ -90,4 +90,4 @@ class Profissional(Base):
         verbose_name_plural = 'Profissionais'
 
     def __str__(self):
-        return f'{self.nome} - Especialidade: {self.especialidade} - Contato: {self.telefone} - Email: {self.email}'
+        return f'{self.nome}'
