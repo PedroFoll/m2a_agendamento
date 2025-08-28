@@ -17,14 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-#Medias
 from django.conf import settings
 from django.conf.urls.static import static
 
-#imports da aplicação
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('cadastros', include('cadastros.urls')),
-    # path('servicos', include('servicos.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('cadastros/', include('cadastros.urls')),
+    path('login/', include('login.urls')),
+    path('home/', include('core.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

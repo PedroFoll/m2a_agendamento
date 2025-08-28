@@ -1,11 +1,9 @@
-#criar uma side bar
-
 from django.urls import path, include
 from . import views
 
 
-app_name ='core'
+app_name ='cadastros'
 urlpatterns =[
-    path('home/', views.sidebar, name='home'),
+    path('cliente/', views.cadastro_usuario, name='cliente'),
     #path('cadastro_gestor_cliente/', views.cadastro_gestor_cliente, name='cadastro_gestor_cliente')
 ]

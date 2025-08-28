@@ -75,3 +75,7 @@ Você terá **5 dias úteis** para concluir este desafio. Ao finalizar, envie o 
 
 
 #for ($i=1; $i -le 20; $i++) { python manage.py populate_funcionario_db } 
+
+
+
+#Preciso criar uma tela de cadastro, onde o proprio usuário possa se cadastra com email, senha, nome de usuário,

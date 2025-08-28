@@ -3,7 +3,6 @@ from django.utils.html import format_html
 
 
 from .models import *
-from core.utils.filtragem import PrecoRangeFilter
 
 
 # Register your models here.
