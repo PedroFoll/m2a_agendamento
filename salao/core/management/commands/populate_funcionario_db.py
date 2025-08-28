@@ -6,7 +6,8 @@ from django.core.management.base import BaseCommand
 
 from core.utils.geradores import Helpers
 
-from cadastros.cliente.models import Profissional, Servico
+from cadastros.funcionarios.models import Profissional
+from cadastros.servicos.models import Servico
 
 class Command(BaseCommand):
     help = "Cria dados falsos no banco de dados"

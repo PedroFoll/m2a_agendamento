@@ -12,23 +12,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cliente',
+            name='Servico',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('data_criacao', models.DateTimeField(auto_now_add=True, null=True, verbose_name='Data de Criação')),
                 ('data_modificacao', models.DateTimeField(auto_now=True, null=True, verbose_name='Data de Modificação')),
                 ('ativo', models.BooleanField(default=True, verbose_name='Ativo')),
-                ('nome', models.CharField(max_length=100, verbose_name='Nome')),
-                ('telefone', models.CharField(max_length=20, verbose_name='Telefone')),
-                ('email', models.EmailField(max_length=100, verbose_name='Email')),
-                ('data_nascimento', models.DateField(verbose_name='Data de Nascimento')),
-                ('cpf', models.CharField(max_length=11, unique=True, verbose_name='CPF')),
-                ('foto', models.ImageField(blank=True, null=True, upload_to='clientes/')),
+                ('nome', models.CharField(max_length=100, verbose_name='Serviço')),
+                ('descricao', models.TextField(verbose_name='Descrição')),
+                ('preco', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Valor')),
             ],
             options={
-                'verbose_name': 'Cliente',
-                'verbose_name_plural': 'Clientes',
-                'db_table': 'cliente_cliente',
+                'verbose_name': 'Serviço',
+                'verbose_name_plural': 'Serviços',
+                'db_table': 'cliente_servico',
             },
         ),
     ]

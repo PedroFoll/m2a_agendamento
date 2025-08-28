@@ -14,7 +14,7 @@ class AgendamentoAdmin(admin.ModelAdmin):
         'profissional',
         'data_agendada',
         'status',
-        'ativo'
+        'ativo',
         )
     list_filter = (
         "data_agendada",
@@ -28,38 +28,3 @@ class AgendamentoAdmin(admin.ModelAdmin):
         )
     raw_id_fields = "cliente", 
     date_hierarchy = "data_agendada"
-
-
-    def get_fields(self, request, obj = ...):
-        return super().get_fields(request, obj)
-    fieldsets=[
-        (
-            'Informações do Agendamento',
-            {
-                "fields": (
-                    "cliente",
-                    "data_agendada",
-                    "servico", 
-                    "profissional", 
-                    "status", 
-                    "ativo",
-                )
-            }
-        ),
-        (
-            'Imagem',
-            {
-                "fields":(
-                    "foto",
-                    "preview_image"
-                )
-            }
-        )
-    ]
-    readonly_fields = ("preview_image",) 
-
-    def preview_image(self, obj):
-        if obj.foto:
-            return format_html('<img src="{}" style="max-height: 200px; border-radius: 8px;" />', obj.foto.url)
-        return "Nenhuma imagem"
-    preview_image.short_description = "Pré-visualização"

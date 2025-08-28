@@ -3,6 +3,8 @@ from django.db import models
 from core.models import Base
 
 from cadastros.cliente.models import *
+from cadastros.servicos.models import *
+from cadastros.funcionarios.models import *
 
 #2.2.1 - Eu como reepcionista, quero poder agendar:
 #1- Um serviço para um cliente, com um profissional e um serviço, em uma data e horário específicos.
@@ -44,11 +46,7 @@ class Agendamento(Base):
         verbose_name="Dia agendado"
     )
     #Foto
-    foto = models.ImageField(
-        upload_to='agendamentos/', 
-        blank=True, 
-        null=True
-    )
+    
     
     def __str__(self):
         return f'{self.cliente.nome}-{self.servico.nome}- {self.data_agendada.strftime('%d/%m/%y %H:%M')} - {'Ativo' if self.ativo else 'Inativo'}'

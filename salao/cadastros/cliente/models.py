@@ -30,6 +30,11 @@ class Cliente(Base):
         verbose_name='CPF', 
         unique=True
         )
+    foto = models.ImageField(
+        upload_to='clientes/', 
+        blank=True, 
+        null=True
+    )
     
     class Meta:
         verbose_name = 'Cliente'
@@ -37,59 +42,4 @@ class Cliente(Base):
         db_table = 'cliente_cliente'
     
     def __str__(self):
-        return f'{self.nome} - {self.cpf}'
-
-
-class Servico(Base):
-    nome = models.CharField(
-        max_length=100, 
-        verbose_name='Serviço'
-        )
-    descricao = models.TextField(
-        verbose_name='Descrição'
-        )
-    preco = models.DecimalField(
-        max_digits=10, 
-        decimal_places=2, 
-        verbose_name='Valor'
-        )
-
-    class Meta:
-        verbose_name = 'Serviço'
-        verbose_name_plural = 'Serviços'
-        db_table = 'cliente_servico'
-    
-    def __str__(self):
-        return f'{self.nome}'
-
-
-class Profissional(Base):
-    nome = models.CharField(
-        max_length=100, 
-        verbose_name='Nome'
-        )
-    telefone = models.CharField(
-        max_length=20, 
-        verbose_name='Telefone'
-        )
-    email = models.EmailField(
-        max_length=100, 
-        verbose_name='Email'
-        )
-    especialidade = models.ForeignKey(
-        Servico,
-        to_field='id',
-        on_delete=models.CASCADE,
-        verbose_name="especialidade"
-        )
-    data_contratacao = models.DateField(
-        verbose_name='Data de Contratação'
-        )
-
-    class Meta:
-        verbose_name = 'Profissional'
-        verbose_name_plural = 'Profissionais'
-        db_table ='cliente_profissional'
-
-    def __str__(self):
-        return f'{self.nome}'
+        return f'{self.nome} - {self.cpf} - {self.data_nascimento} - {self.foto}'

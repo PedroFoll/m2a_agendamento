@@ -3,7 +3,10 @@ import random
 
 from django.core.management.base import BaseCommand
 
-from cadastros.cliente.models import Profissional, Servico, Cliente
+from cadastros.cliente.models import Cliente
+from cadastros.funcionarios.models import Profissional
+from cadastros.servicos.models import Servico
+
 from servicos.agendamento.models import Agendamento
 
 class Command(BaseCommand):

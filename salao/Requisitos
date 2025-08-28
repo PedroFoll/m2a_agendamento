@@ -70,3 +70,8 @@ O que será avaliado:
 * **Conformidade Técnica:** As versões de Python e Django especificadas foram utilizadas? O ambiente virtual foi configurado corretamente?
 * **Observação sobre Ferramentas de IA:** O uso de inteligência artificial (IA) é permitido durante o desafio, mas não é recomendado. A sua avaliação será focada na sua coerência, conhecimento, qualidade e domínio técnico sobre o que foi implementado. Valorizamos a sua capacidade de pensar e resolver problemas de forma autônoma.
 Você terá **5 dias úteis** para concluir este desafio. Ao finalizar, envie o link do seu repositório para o e-mail que recebeu. Se tiver alguma dúvida, pode nos contatar por e-mail.
+
+
+
+
+#for ($i=1; $i -le 20; $i++) { python manage.py populate_funcionario_db } 

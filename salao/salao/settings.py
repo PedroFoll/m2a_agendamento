@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'core',
     'servicos.agendamento.apps.AgendamentoConfig',
     'cadastros.cliente.apps.CadastroClienteConfig',
+    'cadastros.funcionarios.apps.CadastroClienteConfig',
+    'cadastros.servicos.apps.CadastroClienteConfig',
 ]
 
 MIDDLEWARE = [
