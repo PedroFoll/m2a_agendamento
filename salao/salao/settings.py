@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'cadastros.cliente.apps.CadastroClienteConfig',
     'cadastros.funcionarios.apps.CadastroClienteConfig',
     'cadastros.servicos.apps.CadastroClienteConfig',
-    'login.clientes.apps.LoginClienteConfig'
+    'login.clientes.apps.LoginClienteConfig',
+    'home.apps.HomePageConfig'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+LOGIN_URL = 'cadastros/cliente'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

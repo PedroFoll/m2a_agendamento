@@ -26,4 +26,5 @@ urlpatterns = [
     path('cadastros/', include('cadastros.urls')),
     path('login/', include('login.urls')),
     path('home/', include('core.urls')),
+    path('', include('home.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
