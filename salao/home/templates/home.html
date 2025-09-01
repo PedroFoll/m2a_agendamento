@@ -1,2 +1,75 @@
 {%load static%}
 <link rel="stylesheet" href="{% static 'home_static/css/home_style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        .container{
+            width: 100%;
+            height: 500px;
+            background-image: 
+            url()
+            url('/static/home/background/cabelereira.png');
+            background-repeat: no-repeat, no-repeat;
+            background-position: center center, top left;
+            background-size: 50% 100%, cover;
+            background-attachment: scroll,fixed;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+        <label class="navbar-title" for="">Barra de navegação</label>
+        <div class="navabr-primary">
+            <ul>
+                <a class="brand"href=""></a>
+                <a class="navbar-home" href="">Inicio</a>
+                <a class="navbar-produtos" href="">Produtos</a>
+                <a class="navbar-servico" href="">Serviços</a>
+                <a class="navbar-nos" href="">Sobre Nós</a>
+                <a class="navbar-join" href="">Trabalhe conosco</a>
+            </ul>
+        </div>
+        <div class="navbar-secondary">
+            <ul class="navbar-login">
+                <a class="button btn-primary" href="#">Logar</a>
+                <a class="button btn-secondary" href="#">Cadastrar</a>           
+            </ul>
+        </div>
+    </nav>
+    </header>
+
+    <div class="body-type">
+        <label for="">Algo</label><br>
+        <label for="">Foto</label>
+        <img src="" alt="">
+        <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+        <br>
+        <a class="btn-agendar" href=""></a>
+        
+        <label for="">Serviços:</label>
+        
+        <div class="desc-servico">
+            <img class="img-servico" src="/media/home/servicos/lava_cabelo.jpg" alt="">
+            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+            <img class="img-servico" src="/media/home/servicos/manicure.jpg" alt="">
+            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+            <img class="img-servico" src="/media/home/servicos/sobrancelhas.jpg" alt="">
+            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+        </div>
+
+        <div>
+            <label for="">Sobre</label>
+            <label for="">Noses</label>
+            <br>
+            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+        </div>
+    </div> 
+</body>
+</html>

@@ -5,3 +5,39 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
+
+.navbar{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar .navbar-title{
+    background: #fff;
+    border-radius: 5px;
+
+}
+
+.navbar div ul a{
+    background: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.body-type{
+    background-image: linear-gradient(to top, #eb9f6de8, #a14b11);
+    height: 100vh;
+}
+
+
+
+.body-type .img-servico{
+    max-width: 250px;
+    max-height: 250px;
+    border-radius: 12px;
+}
