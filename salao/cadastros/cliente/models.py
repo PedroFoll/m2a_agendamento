@@ -22,9 +22,6 @@ class Cliente(Base):
         max_length=100, 
         verbose_name='Email'
         )
-    data_nascimento = models.DateField(
-        verbose_name='Data de Nascimento'
-        )
     cpf = models.CharField(
         max_length=11, 
         verbose_name='CPF', 

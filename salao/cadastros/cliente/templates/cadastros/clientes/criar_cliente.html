@@ -1,0 +1,35 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Cliente</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="stylesheet" href="{% static 'cliente_static/css/criacao_Style.css' %}">
+</head>
+<body class="body">
+    <div class="div-Form">
+        <form class="form-cadastro" action="" method="POST">{% csrf_token %}
+            <label class="name-form">Cadastre seu Cliente</label>
+            <br>
+            <div class="form-div-primary">
+                <label for="nome">Nome:</label>
+                <input class="form-input" type="text" name="nome" placeholder="Digite seu nome" class="form-control">
+    
+                <label for="email">Email:</label>
+                <input class="form-input" type="email" name="email" placeholder="Digite seu e-mail" class="form-control">
+               
+                <label for="telefone">Telefone:</label>
+                <input class="form-input" type="text" name="telefone" placeholder="Digite seu telefone" class="form-control">
+               
+                <label for="tipo_usuario">Cpf</label>
+                <input class="form-input" type="text" name="cpf" placeholder="Digite seu cpf" class="form-control">
+               
+                <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">   
+            </div>        
+        </form>
+        <hr>
+    </div> 
+  </body>
+</html>

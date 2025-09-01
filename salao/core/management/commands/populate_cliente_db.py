@@ -26,7 +26,6 @@ class Command(BaseCommand):
                 nome=nome,
                 email=email,
                 telefone=random_number,
-                data_nascimento=data,
                 cpf=cpf_validado
             ),           
         ]
