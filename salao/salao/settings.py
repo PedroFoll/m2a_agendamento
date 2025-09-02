@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'cadastros.funcionarios.apps.CadastroClienteConfig',
     'cadastros.servicos.apps.CadastroClienteConfig',
     'login.clientes.apps.LoginClienteConfig',
-    'home.apps.HomePageConfig'
+    'home.apps.HomePageConfig',
+    'relatorios.clientes.apps.RelatorioClienteConfig',
 ]
 
 MIDDLEWARE = [
@@ -63,13 +64,18 @@ ROOT_URLCONF = 'salao.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'home' / 'templates',
+            BASE_DIR / 'relatorios' / 'clientes' / 'templates',
+        ],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -125,9 +131,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = Path(BASE_DIR / "staticfiles")
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+#BASE_DIR = salao
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'relatorios', 'clientes', 'static'),
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

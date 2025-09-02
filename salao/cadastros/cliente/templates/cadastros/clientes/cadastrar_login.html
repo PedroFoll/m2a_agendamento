@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{% static 'cliente_static/css/cadastro_Style.css' %}">
 </head>
 <body class="body">
+    {% include 'core/sidebar.html'%}
+    
     <div class="div-cadastro">
         <form class="form-cadastro" action="{% url 'cadastros:cliente'%}" method="POST">{%csrf_token%}
             <label class="form-label">Cadastro</label>

@@ -39,7 +39,7 @@ class Agendamento(Base):
     status = models.CharField(
         verbose_name='Estado do agendamento',
         max_length=20, 
-        default='Agendado'
+        default='Agendado', #choices=TipoStatus.choices
     )
     #Data e hora especificada
     data_agendada = models.DateTimeField(
@@ -47,6 +47,7 @@ class Agendamento(Base):
     )
     #Foto
     
-    
+    #gendamento.TipoStatus.CONCLUIDO 1: 
+
     def __str__(self):
         return f'{self.cliente.nome}-{self.servico.nome}- {self.data_agendada.strftime('%d/%m/%y %H:%M')} - {'Ativo' if self.ativo else 'Inativo'}'

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+
+/* Estilo geral */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    padding: auto;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: linear-gradient(#F1FAFF, #cbe4ff);
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar{
+    width: 65px;
+    margin: 16px;
+    border-radius: 16px;
+    height: calc(100vh - 32px);
+    background-color: #383838;
+    transition: 2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 5);
+    overflow: hidden;
+}
+
+.sidebar:hover{
+    width: 250px;
+    transition:0.6s ease;
+}
+
+.sidebar .nav-list{
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    padding: 12px 15px;
+    border-radius: 16px;
+    flex-direction: column;
+}
+
+
+.sidebar .nav-link{
+    color: #F1FAFF;
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: 0.4s ease;
+    transform: translateY(20px);
+}
+
+.sidebar .nav-link:hover{
+    color: rgb(26, 26, 26);
+    background: #f094c9;
+}
+
+.sidebar .nav-link .nav-label{
+    transition: 0.4 ease;
+}
+
+.sidebar .nav-label{
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease;
+}
+
+.sidebar:hover .nav-label{
+    opacity: 1;
+}
+
+.sidebar .secondary-nav{
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
+
+
+/* Responsividade */
+@media screen and (max-width: 200px) {
+  .sidebar {
+    width: 15%;
+    height: auto;
+    position: relative;
+  }
+
+  .sidebar a {
+    text-align: center;
+    padding: 10px;
+  }
+
+ .content {
+    margin-left: 0;
+  }
+}

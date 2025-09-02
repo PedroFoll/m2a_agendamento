@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'cliente_static/css/criacao_Style.css' %}">
 </head>
 <body class="body">
+    {% include 'core/sidebar.html'%}
     <div class="div-Form">
         <form class="form-cadastro" action="" method="POST">{% csrf_token %}
             <label class="name-form">Cadastre seu Cliente</label>
@@ -25,11 +26,12 @@
                
                 <label for="tipo_usuario">Cpf</label>
                 <input class="form-input" type="text" name="cpf" placeholder="Digite seu cpf" class="form-control">
+                <br>
                
-                <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">   
             </div>        
+            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">   
         </form>
-        <hr>
+
     </div> 
-  </body>
+</body>
 </html>

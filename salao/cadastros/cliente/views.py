@@ -29,7 +29,7 @@ def cadastro_usuario(request):
 
         return HttpResponse('Deu bom')
 
-
+@login_required(login_url='/admin/')
 def criar_cliente(request):
     if request.method == "GET":
         return render(request, "cadastros/clientes/criar_cliente.html")
