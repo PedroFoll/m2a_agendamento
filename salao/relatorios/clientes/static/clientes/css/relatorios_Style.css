@@ -40,6 +40,9 @@ form label {
     margin-bottom: 6px;
 }
 
+.acoes{
+    text-decoration: none;
+}
 .form-control,
 .form-select {
     width: 100%;
@@ -65,7 +68,6 @@ form label {
     background: #414b57;
 }
 
-/* ========== LISTA DE AGENDAMENTOS ========== */
 .div-log a {
     display: block;
     background: #f9f9f9;
@@ -82,9 +84,10 @@ form label {
     background: #eef1f5;
 }
 
-.div-log h5 {
+.desc-agend{
     font-size: 0.95rem;
     margin-bottom: 6px;
+    text-decoration: none;
 }
 
 /* ========== PAGINAÇÃO ========== */

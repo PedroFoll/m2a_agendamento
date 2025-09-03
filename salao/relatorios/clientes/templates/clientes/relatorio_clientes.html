@@ -7,46 +7,39 @@
     <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
 </head>
 <body>
-    {% include 'core/sidebar.html'%}
+    {% include 'core/sidebar.html' %}
     <div class="container">  
-        <h1>Relatório de Agendamentos</h1>
-
+        <h1>Consultar Clientes</h1>
+        
         <form action="" method="GET">
-            {% csrf_token %}                
-            <label>Data range</label>
-            <input type="date" name="data_inicio" class="form-control">
-            <input type="date" name="data_fim" class="form-control">
-
-            <label>Status</label>
-            <select name="selecionar_status" class="form-select">
-                <option value="">Todos</option>
-                <option value="Agendado">Agendado</option>
-                <option value="Concluído">Concluído</option>
-                <option value="Cancelado">Cancelado</option>
-            </select>
-
-            <input type="submit" class="btn" value="Filtrar"> 
+            {% csrf_token %}
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome_filtrar" class="form-control">
+            
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email_filtrar" class="form-control">
+            <input type="submit" value="Filtrar" class="btn btn-success">
         </form>
         <div class="div-log">
-            {% for i in agendamentos %}                
-             <a href="/ver_cliente/{{i.id}}" class = "text-reset text-decoration-none"> 
-                <h5>Cliente Agendado: <span>{{ i.cliente.nome }}</span></h5>
-                <h5>Serviço Agendado: <span>{{ i.servico }}</span></h5>
-                <h5>Prestador do Serviço: <span>{{ i.profissional.nome }}</span></h5>
-                <h5>Status do Agendamento: <span>{{ i.status }}</span></h5>
-                <h5>Data e Hora do Agendamento: <span>{{ i.data_agendada }}</span></h5>
+            {% for i in clientes %}                
+             <a href="{% url 'relatorios:ver_cliente' i.id %}">          
+                    <h5>CPF: <span>{{ i.cpf}}</span></h5>
+                    <h5>Nome: <span>{{ i.nome }}</span></h5> 
+                    <h5>Email: <span>{{ i.email }}</span></h5>
+                    <h5>Telefone: <span>{{ i.telefone }}</span></h5>
+                    <h5>Ativo: <span>{{ i.ativo|yesno:"Sim,Não" }}</span></h5>
+
             </a>
             {% empty %}
-            <p>Nenhum agendamento encontrado.</p>
+            <p>Nenhum cliente encontrado.</p>
             {% endfor %}
         </div>
-
-        <!-- PAGINAÇÃO -->
         <form>
-            <span class="qtd_age">Total de Agendamentos: {{ qtd_agendamentos }}</span>
+            <span class="qtd_age">Total de Clientes: {{ qtd_clientes }}</span>
             <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
             <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
         </form> 
     </div>
+
 </body>
 </html>

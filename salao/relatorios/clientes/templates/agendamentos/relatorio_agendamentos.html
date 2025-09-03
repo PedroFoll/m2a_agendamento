@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Clientes</title>  
+    <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+</head>
+<body>
+    {% include 'core/sidebar.html'%}
+    <div class="container">  
+        <h1>Relatório de Agendamentos</h1>
+
+        <form action="" method="GET">
+            {% csrf_token %}                
+            <label>Data range</label>
+            <input type="date" name="data_inicio" class="form-control">
+            <input type="date" name="data_fim" class="form-control">
+
+            <label>Status</label>
+            <select name="selecionar_status" class="form-select">
+                <option value="">Todos</option>
+                <option value="Agendado">Agendado</option>
+                <option value="Concluído">Concluído</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+
+            <input type="submit" class="btn" value="Filtrar"> 
+        </form>
+        <div class="div-log">
+            {% for i in agendamentos %}                
+             <a href="{% url 'relatorios:ver_agendamento' i.id %}">          
+                <h5>Cliente Agendado: <span>{{ i.cliente.nome }}</span></h5>
+                <h5>Serviço Agendado: <span>{{ i.servico }}</span></h5>
+                <h5>Prestador do Serviço: <span>{{ i.profissional.nome }}</span></h5>
+                <h5>Status do Agendamento: <span>{{ i.status }}</span></h5>
+                <h5>Data e Hora do Agendamento: <span>{{ i.data_agendada }}</span></h5>
+            </a>
+            {% empty %}
+            <p>Nenhum agendamento encontrado.</p>
+            {% endfor %}
+        </div>
+        <form>
+            <span class="qtd_age">Total de Agendamentos: {{ qtd_agendamentos }}</span>
+            <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
+            <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
+        </form> 
+    </div>
+</body>
+</html>

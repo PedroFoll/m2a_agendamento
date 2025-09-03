@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de Clientes</title>
+  <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+</head>
+<body>
+  {% include 'core/sidebar.html' %}
+  <main class="container">
+    <form class="div-log">
+      <h5>Nome do Cliente: <span>{{ cliente.nome }}</span></h5>
+      <h5>Email: <span>{{ cliente.email }}</span></h5>
+      <h5>Telefone: <span>{{ cliente.telefone }}</span></h5>
+      <h5>CPF: <span>{{ cliente.cpf }}</span></h5>
+      <h5>Ativo: <span>{{ cliente.ativo|yesno:"Sim,Não" }}</span></h5>
+
+    
+
+    </form>
+    <form class="">
+      <a href="{% url 'relatorios:deletar_cliente' cliente.id %}" class="btn btn-danger acoes">Excluir</a>
+      <a href="/relatorios/clientes/" class="btn btn-primary acoes">Voltar</a>
+    </form>
+  </main>
+
+</body>
+</html>
