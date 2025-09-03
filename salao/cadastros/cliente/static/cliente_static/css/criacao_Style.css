@@ -12,7 +12,7 @@ body{
     display: flex;
     height: 100vh;
     flex-grow: 1;
-    background: #f4f6f8;
+    background: #383838;
 }
 .div-Form{
     display: flex;
@@ -24,7 +24,7 @@ body{
 }
 
 .div-Form .form-cadastro{
-    background: #929292;
+    background: #383838;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0,0,0,0.1);

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
 </head>
 <body>
+    {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html'%}
     <div class="container">  
         <h1>Relatório de Agendamentos</h1>
-
         <form action="" method="GET">
             {% csrf_token %}                
             <label>Data range</label>

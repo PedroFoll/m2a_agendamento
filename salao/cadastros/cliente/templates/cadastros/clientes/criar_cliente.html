@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'cliente_static/css/criacao_Style.css' %}">
 </head>
 <body class="body">
+    {%include 'core/navbar.html'%}
     {% include 'core/sidebar.html'%}
     <div class="div-Form">
         <form class="form-cadastro" action="" method="POST">{% csrf_token %}

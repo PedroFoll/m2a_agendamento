@@ -1,79 +1,54 @@
-{%load static%}
-<link rel="stylesheet" href="{% static 'home_static/css/home_style.css' %}">
+{% load static %}
+<link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <style>
-        .container{
-            width: 100%;
-            height: 500px;
-            background-image: 
-            url()
-            url('/static/home/background/cabelereira.png');
-            background-repeat: no-repeat, no-repeat;
-            background-position: center center, top left;
-            background-size: 50% 100%, cover;
-            background-attachment: scroll,fixed;
-            border: 1px solid black;
-        }
-    </style>
+    <title>Home</title>
 </head>
-
-
 <body>
-    {% include 'core/sidebar.html'%}
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}
 
-    <header>
-        <nav class="navbar">
-        <label class="navbar-title" for="">Barra de navegação</label>
-        <div class="navabr-primary">
-            <ul>
-                <a class="brand"href=""></a>
-                <a class="navbar-home" href="">Inicio</a>
-                <a class="navbar-produtos" href="">Produtos</a>
-                <a class="navbar-servico" href="">Serviços</a>
-                <a class="navbar-nos" href="">Sobre Nós</a>
-                <a class="navbar-join" href="">Trabalhe conosco</a>
-            </ul>
-        </div>
-        <div class="navbar-secondary">
-            <ul class="navbar-login">
-                <a class="button btn-primary" href="#">Logar</a>
-                <a class="button btn-secondary" href="/cadastros/cliente/cliente">Cadastrar</a>           
-            </ul>
-        </div>
-    </nav>
-    </header>
+    <div class="search-container">
+        <label class="search-title">Pesquisar</label>
+        <input class="search-text" type="text">
+        <span class="nav-icon material-symbols-rounded">search</span>
+    </div>
 
-    <div class="body-type">
-        <label for="">Algo</label><br>
-        <label for="">Foto</label>
-        <img src="" alt="">
-        <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
-        <br>
-        <a class="btn-agendar" href=""></a>
-        
-        <label for="">Serviços:</label>
-        
-        <div class="desc-servico">
-            <img class="img-servico" src="/media/home/servicos/lava_cabelo.jpg" alt="">
-            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
-            <img class="img-servico" src="/media/home/servicos/manicure.jpg" alt="">
-            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
-            <img class="img-servico" src="/media/home/servicos/sobrancelhas.jpg" alt="">
-            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+    <div class="container">
+        <div class="dash">
+            <a href="">
+                <label class="lb-title">Clientes</label>
+                <span class="qtd-agen">Total de Clientes: {{ qntd_clientes }}</span>
+                <span class="qtd-agen">Total de Clientes Ativos: {{ qntd_clientes.ativo }}</span>
+                <span class="qtd-agen">Total de Clientes Cancelados: {{ qntd_clientes }}</span>
+            </a>
         </div>
-
-        <div>
-            <label for="">Sobre</label>
-            <label for="">Noses</label>
-            <br>
-            <textarea readonly class="desc-empresa" name="" id="">What is Lorem Ipsum?</textarea>
+        <div class="dash">
+             <a href="">
+            <label class="lb-title">Agendamentos</label>
+            <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+            <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+            <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+            </a>
         </div>
-    </div> 
-            
+        <div class="dash">
+             <a href="">
+            <label class="lb-title">Funcionarios</label>
+            <span class="qtd-agen">Total de Funcionarios: {{ qntd_funcionarios }}</span>
+            <span class="qtd-agen">Total de Funcionarios: {{ qntd_funcionarios }}</span>
+            <span class="qtd-agen">Total de Funcionarios: {{ qntd_funcionarios }}</span>
+            </a>
+        </div>
+        <div class="dash">
+             <a href="">
+            <label class="lb-title">Serviços</label>
+            <span class="qtd-agen">Total de Serviços: {{ qntd_servicos }}</span>
+            <span class="qtd-agen">Total de Serviços: {{ qntd_servicos }}</span>
+            <span class="qtd-agen">Total de Serviços: {{ qntd_servicos }}</span>
+            </a>
+        </div>
+    </div>
 </body>
-</html>

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{% static 'funcionario_static/css/funcionario_style.css' %}">
 </head>
 <body class="body">
-      {% include 'core/sidebar.html'%}
-    <div class="div-cadastro">
+    {%include 'core/navbar.html'}
+    {% include 'core/sidebar.html'%}    <div class="div-cadastro">
       <h1>Cadastro de Funcionario</h1>
       <form class="form-cadastro" action="" method="POST">
         <label for="Cadastre seu Cliente"></label>{% csrf_token %}

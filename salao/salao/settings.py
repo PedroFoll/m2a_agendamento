@@ -143,6 +143,8 @@ STATICFILES_FINDERS = [
 #BASE_DIR = salao
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'relatorios', 'clientes', 'static'),
+    os.path.join(BASE_DIR, 'core', 'static', 'base_static'),
+    os.path.join(BASE_DIR, 'home', 'static'),
 ]
 
 
