@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+app_name='login'
 urlpatterns =[
-    #path('cliente/', include('cliente.urls'),),
+    path('', include('login.clientes.urls'),),
 ]

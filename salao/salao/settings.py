@@ -145,6 +145,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'relatorios', 'clientes', 'static'),
     os.path.join(BASE_DIR, 'core', 'static', 'base_static'),
     os.path.join(BASE_DIR, 'home', 'static'),
+    os.path.join(BASE_DIR, 'login', 'clientes','static'),
 ]
 
 

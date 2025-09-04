@@ -1,24 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="stylesheet" href="{% static 'cliente_static/css/cliente.css' %}">
 </head>
 <body>
-    <div>
-        <form action="{% url 'login:cliente'%}" method="POST">{%csrf_token%}
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}
 
-            <input type="text" placeholder="Usuario" name="username">
-            <br>
-            <br>
-            <input type="password" placeholder="senha" name="senha" id="">
-            <br>
-            <br>
-            <input type="submit" value="Logar" id="">
-            <br>
+
+    <div class="div-login">
+        <form class="form-login" action="" method="POST">{%csrf_token%}
+            <input class="form-input" type="text" name="" id="">
+
         </form>
-
     </div>
 </body>
 </html>
