@@ -1,11 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
+
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 
 
 
 def relatorio_agendamentos(request):
-    limit = 15
+    limit = 5
     pagina = int(request.GET.get('pagina', 1))
     agendamentos = Agendamento.objects.all()
     qntd_agendamentos = agendamentos.count()
@@ -33,7 +34,7 @@ def relatorio_agendamentos(request):
     return render(request, "agendamentos/relatorio_agendamentos.html", contexto)
 
 def relatorio_clientes(request):
-    limit = 15
+    limit = 5
     pagina = int(request.GET.get('pagina', 1))
     clientes = Cliente.objects.all()
     qntd_clientes = clientes.count()

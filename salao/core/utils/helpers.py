@@ -1,8 +1,9 @@
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.funcionarios.models import Profissional
-from cadastros.servicos.models import Servico
 from django.db.models import Count
+from django.db.models.functions import TruncDate
+
 
 
 class Helpers():
@@ -53,4 +54,24 @@ class Helpers():
             'qntd_funcionarios':qntd_funcionarios,
             'total_func':total_func,            }
             )
+    
+
+    def agrup_agen():    
         
+        agrp_data = Agendamento.objects.annotate(
+        dia=TruncDate('data_agendada')
+            ).values('dia').annotate(
+        total_agendamentos=Count('dia')
+            ).order_by('dia')
+    
+        agrp_ajustado = []
+        for data in agrp_data:
+            data_ajustada = data['dia'].strftime("%d/%m/%Y")
+            conta_agendamentos = data['total_agendamentos']
+
+            agrp_ajustado.append({
+                'dia': data_ajustada,
+                'total_agendamentos': conta_agendamentos
+            })
+    
+        return agrp_ajustado

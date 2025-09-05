@@ -43,20 +43,20 @@ body{
     transition: border 0.3s;
 }
 
-.form-div-primary{
-    display: flex;
-    flex-direction: row;
+.rec-pass{
+    text-decoration: none;
+    color: #fff;
+    margin: 10;
+    font-size: 17px;
+
 }
 
-.form-div-secondary{
-    display: flex;
-    flex-direction: row;
+.rec-pass:hover{
+    color: aquamarine;
+    font-size: 18px;
+
 }
 
-.form-div-third{
-    display: flex;
-    flex-direction: row;
-}
 
 .form-btn{
     width: 100%;

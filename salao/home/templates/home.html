@@ -1,90 +1,59 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html' %}
+  <div class="dashboard">
 
-    <!-- Barra de pesquisa -->
-    <div class="search-container">
-        <label class="search-title">Pesquisar</label>
-        <input class="search-text" type="text">
-        <span class="nav-icon material-symbols-rounded">search</span>
+    <div class="cards">
+      <div class="card">
+        <h2>Agendamentos Hoje</h2>
+        <p>12</p>
+      </div>
+      <div class="card">
+        <h2>Semana Atual</h2>
+        <p>88</p>
+      </div>
+      <div class="card">
+        <h2>Cancelados</h2>
+        <p>5</p>
+      </div>
+      <div class="card">
+        <h2>Receita</h2>
+        <p>R$ 1.200</p>
+      </div>
     </div>
 
-    <!-- Filtro -->
-    <div class="drop-down">
-       <select name="" class="form-select">
-            <option value="">Hoje</option>
-            <option value="Agendado">Última semana</option>
-            <option value="Concluído">Essa Semana</option>
-            <option value="Cancelado">Próxima Semana</option>
-        </select>
+    <div class="charts">
+      <div class="chart-box">
+        <h3>Distribuição de Serviços</h3>
+        <canvas id="servicosChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Agendamentos por Dia</h3>
+        <canvas id="linhaChart"></canvas>
+      </div>
     </div>
 
-    <!-- Container principal -->
-    <div class="container">
-        <!-- Cards -->
-        <div class="dash-div">
-            <div class="dash">
-                <a href="">
-                    <label class="lb-title">Clientes</label>
-                    <span class="qtd-agen">Total de Clientes: {{ qntd_clientes }}</span>
-                    {% for c in total_clientes %}
-                        {% if c.ativo %}
-                            <p class="qtd-agen">Ativos: {{ c.total }}</p>
-                        {% else %}
-                            <p class="qtd-agen">Cancelados: {{ c.total }}</p>
-                        {% endif %}
-                    {% endfor %}
-                </a>
-            </div>
-
-            <div class="dash">
-                <a href="">
-                    <label class="lb-title">Agendamentos</label>
-                    <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                    {% for servico in total_agendamentos_serv %}
-                        <li class="qtd-agen">{{ servico.servico__nome }}: {{ servico.total }}</li>
-                    {% endfor %}
-                </a>
-            </div>
-
-            <div class="dash">
-                <a href="">
-                    <label class="lb-title">Funcionários</label>
-                    <span class="qtd-agen">Total de Funcionários: {{ qntd_funcionarios }}</span>
-                    {% for c in total_func %}
-                        {% if c.ativo %}
-                            <p class="qtd-agen">Ativos: {{ c.total }}</p>
-                        {% else %}
-                            <p class="qtd-agen">Cancelados: {{ c.total }}</p>
-                        {% endif %}
-                    {% endfor %}
-                </a>
-            </div>
-        </div>
-
-            <!-- Bloco preto que vai embaixo -->
-            <div class="dash-board">
-                <div class="grafic">
-                    <a href="">
-                        <label class="lb-title">Agendamentos</label>
-                        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                        {% for servico in total_agendamentos_serv %}
-                            <li class="qtd-agen" data-percent="{{servico.percentual}}">
-                                {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)</li>
-                        {% endfor %}
-                    </a>
-                </div>
-            </div>
-        </div>
-        <script src="{% static 'home_static/js/home.js' %}"></script>
-    </body>
+    <div class="agenda">
+      <h3>Próximos Agendamentos</h3>
+      <ul>
+        <li>Maria - Corte de cabelo - 14:00</li>
+        <li>João - Unhas - 15:00</li>
+        <li>Ana - Maquiagem - 16:30</li>
+        <li>Carlos - Pacote Spa - 17:00</li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="{% static 'home_static/js/home.js' %}"></script>
 
 </html>

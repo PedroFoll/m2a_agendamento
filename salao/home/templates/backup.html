@@ -1,0 +1,75 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}
+    <div class="search-container">
+        <label class="search-title">Pesquisar</label>
+        <input class="search-text" type="text">
+        <span class="nav-icon material-symbols-rounded">search</span>
+    </div>
+
+    <div class="drop-down">
+       <select name="" class="form-select">
+            <option value="">Hoje</option>
+            <option value="Agendado">Última semana</option>
+            <option value="Concluído">Essa Semana</option>
+            <option value="Cancelado">Próxima Semana</option>
+        </select>
+    </div>
+
+    <div class="container">
+            <div class="dash-board">
+                <div class="grafic">
+                    <a href="">
+                        <label class="lb-title">Agendamentos</label>
+                        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+                        {% for servico in total_agendamentos_serv %}
+                            <li class="qtd-agen" style="--bar-width: {{servico.total}}%">
+                                {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)
+                            </li>
+                        {% endfor %}
+                    </a>
+                </div>
+                
+                <div class="grafic">
+                    <a href="">
+                        <label class="lb-title">Realtorio de datas</label>
+                        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+                       {% for item in agrp %}
+                            <li class="qtd-agen">
+                                <label >{{ item.dia }}: </label>
+                                <span>{{ item.total_agendamentos }}</span>
+                            </li>
+                        {% endfor %}
+                    </a>
+                    
+                    <div class="pagination">
+                        {% if agrp.has_previous %}
+                            <a class="nandb" href="?pagina={{ agrp.previous_page_number }}">Anterior</a>
+                        {% else %}
+                            <a class="nandb">Anterior</a>
+                        {% endif %}
+
+    
+                        <span>Página {{ agrp.number }} de {{ agrp.paginator.num_pages }}</span>
+    
+                        {% if agrp.has_next %}
+                            <a class="nandb" href="?pagina={{ agrp.next_page_number }}">Próxima</a>
+                        {% else %}
+                            <a class="nandb">Próxima</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script src="{% static 'home_static/js/home.js' %}"></script>
+    </body>
+</html>
