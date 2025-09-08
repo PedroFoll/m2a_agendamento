@@ -11,16 +11,26 @@
     
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html' %}
-  <div class="dashboard">
+    <div class="search-container">
+        <label class="search-title">Pesquisar</label>
+        <input class="search-text" type="text">
+        <span class="nav-icon material-symbols-rounded">search</span>
+    </div>
 
+  <div class="dashboard">
+  
     <div class="cards">
+      <div class="card servico">
+        <h2>Serviços</h2>
+          <p>{{ data_range.agendamentos_hoje }}</p>
+      </div>
       <div class="card">
         <h2>Agendamentos Hoje</h2>
-        <p>12</p>
+          <p>{{ data_range.agendamentos_hoje }}</p>
       </div>
       <div class="card">
         <h2>Semana Atual</h2>
-        <p>88</p>
+        <p>{{ data_range.agendamentos_semana }}</p>
       </div>
       <div class="card">
         <h2>Cancelados</h2>
@@ -32,25 +42,49 @@
       </div>
     </div>
 
+  
+
     <div class="charts">
       <div class="chart-box">
         <h3>Distribuição de Serviços</h3>
         <canvas id="servicosChart"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Agendamentos por Dia</h3>
-        <canvas id="linhaChart"></canvas>
+          {% for servico in total_agendamentos_serv %}
+            <li class="qtd-agen"
+              data-percent="{{servico.percentual}}"
+              data-servico-nome="{{servico.servico__nome}}">
+              {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)
+            </li>
+          {% endfor %}
       </div>
     </div>
 
-    <div class="agenda">
-      <h3>Próximos Agendamentos</h3>
-      <ul>
-        <li>Maria - Corte de cabelo - 14:00</li>
-        <li>João - Unhas - 15:00</li>
-        <li>Ana - Maquiagem - 16:30</li>
-        <li>Carlos - Pacote Spa - 17:00</li>
-      </ul>
+  <div class="grafic">
+    <a href="">
+      <label class="lb-title">Realtorio de datas</label>
+        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+        {% for item in agrp %}
+          <li class="qtd-agen">
+            <label >{{ item.dia_nome }}: </label>
+            <span>{{ item.total_agendamentos }}</span>
+          </li>
+        {% endfor %}
+    </a>
+     
+      <div class="pagination">
+          {% if agrp.has_previous %}
+              <a class="nandb" href="?pagina={{ agrp.previous_page_number }}">Anterior</a>
+          {% else %}
+              <a class="nandb">Anterior</a>
+          {% endif %}
+
+      
+      <span>Página {{ agrp.number }} de {{ agrp.paginator.num_pages }}</span>      
+          {% if agrp.has_next %}
+              <a class="nandb" href="?pagina={{ agrp.next_page_number }}">Próxima</a>
+          {% else %}
+              <a class="nandb">Próxima</a>
+          {% endif %}
+      </div>
     </div>
   </div>
 </body>

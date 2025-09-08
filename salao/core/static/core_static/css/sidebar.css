@@ -1,0 +1,109 @@
+/* Importação de fontes (ex: se usar uma fonte customizada) */
+/* @import url('https://fonts.googleapis.com/css2?family=...&display=swap'); */
+
+:root {
+  --sidebar-background-start: #0f172a; /* Cor do topo do gradiente (slate-900) */
+  --sidebar-background-end: #1e293b; /* Cor da base do gradiente (slate-800) */
+  --text-white: #fff;
+  --text-white-70: rgba(255, 255, 255, 0.7);
+  --hover-bg-white-5: rgba(255, 255, 255, 0.05);
+  --active-bg-white-10: rgba(255, 255, 255, 0.1);
+  --text-red: #f87171; /* Cor para o texto de logout em hover (red-300) */
+  --hover-bg-red-20: rgba(239, 68, 68, 0.2);
+}
+
+.sidebar {
+  width: 16rem; /* w-64 */
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  background: linear-gradient(to bottom, var(--sidebar-background-start), var(--sidebar-background-end));
+  border-right: 0; /* border-r-0 */
+}
+
+/* Estado Colapsado (Opcional, se você quiser a funcionalidade de colapsar com CSS) */
+/* .sidebar.collapsed {
+  width: 4rem; 
+} */
+
+.sidebar-content {
+  height: 100%;
+  background-color: transparent;
+}
+
+.sidebar-group {
+  margin-top: 1rem; /* mt-4 */
+  padding: 0 0.5rem; /* px-2 */
+}
+
+.sidebar-group-label {
+  color: var(--text-white-70);
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500; /* font-medium */
+  padding: 0 1rem; /* px-4 */
+  margin-bottom: 1rem; /* mb-4 */
+  display: block;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* space-y-1 */
+  list-style: none; /* Remove os pontos da lista */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu-item a,
+.sidebar-menu-item button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  margin: 0 0.5rem; /* mx-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s ease-in-out;
+  color: var(--text-white-70);
+  text-decoration: none;
+}
+
+.sidebar-menu-item a:hover,
+.sidebar-menu-item button:hover {
+  background-color: var(--hover-bg-white-5);
+  color: var(--text-white);
+}
+
+/* Estilo para o link ativo (Home) */
+.sidebar-menu-item .active-link {
+  background-color: var(--active-bg-white-10);
+  color: var(--text-white);
+  font-weight: 500; /* font-medium */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-elegant */
+}
+
+/* Estilo para o botão de Logout */
+.sidebar-menu-item .logout-btn {
+  color: var(--text-white-70);
+}
+
+.sidebar-menu-item .logout-btn:hover {
+  background-color: var(--hover-bg-red-20);
+  color: var(--text-red);
+}
+
+.sidebar-menu-item svg {
+  height: 1.25rem; /* h-5 */
+  width: 1.25rem; /* w-5 */
+}
+
+.sidebar-menu-item span {
+  margin-left: 0.75rem; /* ml-3 */
+}
+
+/* Ajuste para o botão de logout */
+.logout-item {
+  margin-top: 2rem; /* mt-8 */
+}
+
+.logout-btn {
+  width: 100%;
+  text-align: left;
+}

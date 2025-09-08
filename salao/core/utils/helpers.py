@@ -3,6 +3,7 @@ from cadastros.cliente.models import Cliente
 from cadastros.funcionarios.models import Profissional
 from django.db.models import Count
 from django.db.models.functions import TruncDate
+from datetime import datetime, timedelta
 
 
 
@@ -52,26 +53,65 @@ class Helpers():
         )
         return ({
             'qntd_funcionarios':qntd_funcionarios,
-            'total_func':total_func,            }
+            'total_func':total_func,
+            }
             )
     
 
     def agrup_agen():    
         
-        agrp_data = Agendamento.objects.annotate(
-        dia=TruncDate('data_agendada')
-            ).values('dia').annotate(
-        total_agendamentos=Count('dia')
-            ).order_by('dia')
-    
+        hoje = datetime.now().date()
+        
+        # Calcule o dia do início da semana (segunda-feira)
+        # hoje.weekday() retorna 0 para segunda, 1 para terça, ..., 6 para domingo
+        dias_para_subtrair = hoje.weekday()
+        inicio_da_semana = hoje - timedelta(days=dias_para_subtrair)
+        
+        # Calcule o fim da semana (domingo)
+        fim_da_semana = inicio_da_semana + timedelta(days=6)
+        
+        # 2. Modifique a query para filtrar os agendamentos da semana atual
+        agrp_data = Agendamento.objects.filter(
+            data_agendada__date__range=[inicio_da_semana, fim_da_semana]
+        ).annotate(
+            dia=TruncDate('data_agendada')
+        ).values('dia').annotate(
+            total_agendamentos=Count('dia')
+        ).order_by('dia')
+        
         agrp_ajustado = []
+        
+        dias_semana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo']
+        
         for data in agrp_data:
-            data_ajustada = data['dia'].strftime("%d/%m/%Y")
+            data_objeto = data['dia']
+            nome_dia_semana = dias_semana[data_objeto.weekday()]
+            data_formatada = data_objeto.strftime("%d/%m/%Y")
             conta_agendamentos = data['total_agendamentos']
 
             agrp_ajustado.append({
-                'dia': data_ajustada,
+                'dia_nome': f"{data_formatada}: {nome_dia_semana}",
                 'total_agendamentos': conta_agendamentos
             })
-    
-        return agrp_ajustado
+            return agrp_ajustado
+
+
+    def data_range_semana():
+        hoje = datetime.now().date()
+        agendamentos_hoje = Agendamento.objects.filter(data_agendada__date=hoje).count()
+
+        dia_da_semana = hoje.weekday()
+        inicio_da_semana = hoje - timedelta(days=dia_da_semana)
+        fim_da_semana = inicio_da_semana + timedelta(days=6)
+        agendamentos_semana = Agendamento.objects.filter(data_agendada__date__range=[inicio_da_semana, fim_da_semana]).count()
+
+
+        agendamentos = Agendamento.objects.filter(
+            data_agendada__date__range=[inicio_da_semana, fim_da_semana]
+        )
+        context={
+            'agendamentos_hoje': agendamentos_hoje,
+            'agendamentos_semana': agendamentos_semana,
+        }
+
+        return context

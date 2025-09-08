@@ -137,30 +137,22 @@ Comparativo mês atual vs mês anterior.
 
 🔹 Ideias de Layout
 
-Você pode organizar assim:
+Topo com cards resumidos: [v]
 
-Topo com cards resumidos (KPI):
+Total de agendamentos hoje [v]
 
-Total de agendamentos hoje
+Total da semana [v]
 
-Total da semana
+Cancelamentos []
 
-Cancelamentos
+Receita estimada []
 
-Receita estimada
+Linha do tempo []
 
-Gráficos principais:
+Pizza [v]
 
-Linha do tempo (agendamentos por dia)
+Lista de próximos agendamentos [v]
 
-Pizza (serviços mais agendados)
+Lista de clientes novos []
 
-Barras (funcionários mais ocupados)
-
-Seção detalhada:
-
-Lista de próximos agendamentos
-
-Lista de clientes novos
-
-Lista de cancelamentos recentes
+Lista de cancelamentos recentes []

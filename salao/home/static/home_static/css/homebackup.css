@@ -8,9 +8,6 @@
 body{
     background: #b8b8b8;
     font-family: "Poppins", sans-serif;
-      background: #0578ec;
-      
-    
 }
 
 .container {
@@ -160,6 +157,8 @@ body{
 .nandb:hover{
     background: #878787;
 }
+
+
 
 @media screen and (max-width: 576px) {
     body {

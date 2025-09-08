@@ -3,7 +3,6 @@
 
 
 *{
-    margin: auto;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
@@ -12,15 +11,16 @@ body{
     display: flex;
     height: 100vh;
     flex-grow: 1;
-    background: #383838;
+    background: #fff;
 }
 .div-Form{
     display: flex;
+    color: #fff;
     position: relative;
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #f4f6f8;
+    background: none;
 }
 
 .div-Form .form-cadastro{
