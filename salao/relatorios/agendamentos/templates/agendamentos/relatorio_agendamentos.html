@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Relatório de Clientes</title>  
+        <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        {% include 'core/sidebar.html'%}
+        <div class="container">  
+            <label class="tt-serv"><h1>Relatório de Agendamentos</h1></label>
+            <form action="" method="GET">
+                {% csrf_token %}                
+
+                <label>Data range</label>
+                <input type="date" name="data_inicio" class="form-control">
+                <input type="date" name="data_fim" class="form-control">
+
+                 <label for="Funcionario">Funcionário:</label>
+                <select id="funcionario" name="selecionar_funcionario"class = "form-control">
+                    {% for i in agendamentos %}
+                        <option value="{{i.id}}">{{ i.profissional }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="servico">Serviço:</label>
+                <select id="servico" name="selecionar_servico" class="form-control">
+                <option value="">Todos</option>
+                {% for agendamento in agendamentos %}
+                    <option value="{{ agendamento.id }}">{{ agendamento.servico }}
+                    </option>
+                {% endfor %}
+                </select>
+
+
+                <label>Status</label>
+                <select name="selecionar_status" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Agendado">Agendado</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+
+                <input type="submit" class="btn" value="Filtrar">
+                <a href="/servicos/agendamento/" class="form-btn"> Registrar Agendamento</a>
+            </form>
+            <div class="div-log">
+                {% for i in agendamentos %}                
+                <a href="{% url 'relatorios:ver_agendamento' i.id %}">          
+                    <h5>Cliente Agendado: <span>{{ i.cliente.nome }}</span></h5>
+                    <h5>Serviço Agendado: <span>{{ i.servico }}</span></h5>
+                    <h5>Prestador do Serviço: <span>{{ i.profissional.nome }}</span></h5>
+                    <h5>Status do Agendamento: <span>{{ i.status }}</span></h5>
+                    <h5>Data e Hora do Agendamento: <span>{{ i.data_agendada }}</span></h5>
+                </a>
+                {% empty %}
+                <p>Nenhum agendamento encontrado.</p>
+                {% endfor %}
+            </div>
+            <form>
+                <span class="qtd_age">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+                <a class="form-btn" href="?pagina={{ pagina|add:-1 }}
+                &data_inicio={{request.GET.data_inicio}}
+                &data_fim={{request.GET.data_fim}}
+                &selecionar_status{{request.GET.selecionar_status}}"
+                >Anterior</a>
+                <a class="form-btn" href="?pagina={{ pagina|add:+1 }}
+                &data_inicio={{request.GET.data_inicio}}
+                &data_fim={{request.GET.data_fim}}
+                &selecionar_status{{request.GET.selecionar_status}}"
+                >Próxima</a>
+            </form> 
+        </div>
+    </body>
+</html>

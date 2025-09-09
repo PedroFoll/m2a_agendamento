@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'login.clientes.apps.LoginClienteConfig',
     'home.apps.HomePageConfig',
     'relatorios.clientes.apps.RelatorioClienteConfig',
-    'configuracao.sistema.apps.ConfiguracaoSistemaConfig',]
+    'configuracao.sistema.apps.ConfiguracaoSistemaConfig',
+    
+    
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,8 +69,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'home' / 'templates',
+            BASE_DIR / 'relatorios' / 'agendamentos' / 'templates',
             BASE_DIR / 'relatorios' / 'clientes' / 'templates',
             BASE_DIR / 'configuracao' / 'sistema' / 'templates',
+            BASE_DIR / 'servicos' / 'agendamento' / 'templates',
+
         ],
 
         'APP_DIRS': True,
@@ -143,11 +149,13 @@ STATICFILES_FINDERS = [
 
 #BASE_DIR = salao
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'relatorios', 'agendamentos', 'static'),
     os.path.join(BASE_DIR, 'relatorios', 'clientes', 'static'),
     os.path.join(BASE_DIR, 'core', 'static', 'base_static'),
     os.path.join(BASE_DIR, 'home', 'static'),
     os.path.join(BASE_DIR, 'login', 'clientes','static'),
     os.path.join(BASE_DIR, 'configuracao', 'sistema', 'static'),
+    
 ]
 
 

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agendamento de Serviços</title>
+        <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        {% include 'core/sidebar.html'%}
+        <div class="container">
+            <h1>Agendamento de Serviços</h1>
+            <form action="/agendar_servico/" method="POST">
+            {% csrf_token %}
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" name="cliente" class="form-control">
+                {% for i in clientes %}
+                    {% if i.tipo_usuario and i.tipo_usuario|lower == 'cliente' %}
+                        <option value="{{i.id}}">{{ i.nome }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="Funcionario">Funcionário:</label>
+            <select id="funcionario" name="funcionario"class = "form-control">
+                {% for i in clientes %}
+                    {% if i.tipo_usuario and i.tipo_usuario|lower == 'funcionario' %}
+                        <option value="{{i.id}}">{{ i.nome }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="Servico">Serviço:</label>
+            <select id="servico" name="servico" class="form-control">
+                {% for i in servicos %}
+                    <option value="{{i.id}}">{{ i.servico }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="data_hora">Data e Hora:</label>
+            <input type="datetime-local" id="data_hora" name="data_hora" class="form-control">                    
+            <label for="">Status</label>
+            <select name="status_filtrar" class = "form-control">
+                <option value="">Selecione</option>
+                <option value="Agendado">Agendado</option>
+                <option value="Concluido">Concluido</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+            
+            <input type="submit" value="Agendar" class="btn btn-success">
+            </form>
+
+            <form>
+                {% for i in agendamentos %}
+                    <a href="/ver_agendamento/{{i.id}}" class = "text-reset text-decoration-none">
+                    <div>
+                    <h5>Cliente Agendado: <span class="fw-normal">{{ i.cliente.nome }}</span></h5>
+                    <h5>Serviço Agendado: <span class="fw-normal">{{ i.servico.servico }}</span></h5>
+                    <h5>Prestador do Serviço: <span class="fw-normal">{{ i.funcionario.nome }}</span></h5>
+                    <h5>Status do Agendamento: <span class="fw-normal">{{ i.status }}</span></h5>
+                    <h5>Data e Hora do Agendamento: <span class="fw-normal">{{ i.data_hora }}</span></h5>
+                    </div></a>  
+                {% endfor %}
+                <span>Total de Agendamentos: {{ qtd_agendamentos }}</span>
+                <input type="submit" name="back" id="back" class="btn btn-primary" value="Anterior">
+                <input type="submit" name="next" id="next" class="btn btn-primary" value="Próximo">
+            </form>
+        </div> 
+    </body>
+</html>

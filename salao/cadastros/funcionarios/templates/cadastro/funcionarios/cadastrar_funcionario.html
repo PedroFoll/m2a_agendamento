@@ -9,24 +9,33 @@
     <link rel="stylesheet" href="{% static 'funcionario_static/css/funcionario_style.css' %}">
 </head>
 <body class="body">
-    {%include 'core/navbar.html'}
-    {% include 'core/sidebar.html'%}    <div class="div-cadastro">
-      <h1>Cadastro de Funcionario</h1>
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}    <div class="div-cadastro">
+        <label class="tt-serv"><h1>Cadastro de Funcionario</h1></label>
       <form class="form-cadastro" action="" method="POST">
         <label for="Cadastre seu Cliente"></label>{% csrf_token %}
             <label for="nome">Nome:</label>
-            <input class="form-input" type="text" name="nome" placeholder="Digite seu nome" class="form-control"><br>
+            <input  type="text" name="nome" placeholder="Digite seu nome" class="form-control">
 
             <label for="email">Email:</label>
-            <input class="form-input" type="email" name="email" placeholder="Digite seu e-mail" class="form-control"><br>
+            <input  type="email" name="email" placeholder="Digite seu e-mail" class="form-control">
 
             <label for="telefone">Telefone:</label>
-            <input class="form-input" type="text" name="telefone" placeholder="Digite seu telefone" class="form-control"><br>
+            <input  type="text" name="telefone" placeholder="Digite seu telefone" class="form-control">
+            
+            <label for="Servico">Serviço:</label>
+            <select id="servico" name="servico" class="form-control">
+                {% for i in servicos %}
+                    <option value="{{i.id}}">{{ i.servico }}</option>
+                {% endfor %}
+            </select>
 
             <label for="endereco">Endereço:</label>
-            <input class="form-input" type="text" name="endereco" placeholder="Digite seu endereço" class="form-control"><br>
-            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">           
+            <input  type="text" name="endereco" placeholder="Digite seu endereço" class="form-control">
+
+            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">    
+
       </form>  
-    </div>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    </div> 
   </body>
 </html>

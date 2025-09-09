@@ -1,25 +1,25 @@
-#Imports Nativos
+from django.shortcuts import render, HttpResponse, redirect
 
-#Imports de Terceiros
-from django.shortcuts import render
+from servicos.agendamento.models import Agendamento
+from cadastros.cliente.models import Cliente
+from cadastros.servicos.models import Servico
 
-#imports core/common
+def agendar_servico(request):
+    if request.method == 'GET':
+         return render(request, 'agendar.html', {})
 
-#imports da aplicação
+    """ else:
+        cliente_ID = request.POST.get('cliente')
+        funcionario_ID = request.POST.get('funcionario')
+        servico_ID = request.POST.get('servico')
+        status = request.POST.get('status_filtrar')
+        data_hora = request.POST.get('data_hora')
 
-# Create your views here.
+        clientes = Cliente.objects.get(pk=cliente_ID)
+        servicos = Servico.objects.get(pk=servico_ID)
+        funcionarios = Cliente.objects.get(pk=funcionario_ID)
 
-def home(request):
+        agendamento = Agendamento(cliente=clientes, funcionario=funcionarios, servico=servicos, status=status, data_hora=data_hora)
+        agendamento.save()        
 
-
-    return render(request, 'home.html')
-
-
-def cadastro_cliente(request):
-    
-
-    return render(request, 'cadastro_cliente.html')
-#2.1.1 - Eu como recepcionista, quero cadastrar :
-#clientes - nome, telefone, email, data de nascimento
-#serviços - nome, descrição, preço
-#profissionais - nome, telefone, email, especialidade
+        return redirect('/agendamento/') """

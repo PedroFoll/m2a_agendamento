@@ -18,31 +18,40 @@
     </div>
 
   <div class="dashboard">
-  
     <div class="cards">
-      <div class="card servico">
-        <h2>Serviços</h2>
+      <a href="cadastros/servicos/cadastrar_servico/">
+        <div class="card servico">
+          <h2>Serviços</h2>
+          <p>{{ servicos}}</p>
+        </div>
+      </a>
+
+      <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.amanha}}">
+        <div class="card">
+          <h2>Agendamentos Hoje</h2>
           <p>{{ data_range.agendamentos_hoje }}</p>
-      </div>
-      <div class="card">
-        <h2>Agendamentos Hoje</h2>
-          <p>{{ data_range.agendamentos_hoje }}</p>
-      </div>
-      <div class="card">
-        <h2>Semana Atual</h2>
-        <p>{{ data_range.agendamentos_semana }}</p>
-      </div>
+        </div>
+      </a>
+
+      <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.fim_da_semana}}">
+        <div class="card">
+          <h2>Semana Atual</h2>
+          <p>{{ data_range.agendamentos_semana }}</p>
+        </div>
+      </a>
+
+
       <div class="card">
         <h2>Cancelados</h2>
         <p>5</p>
       </div>
+
       <div class="card">
         <h2>Receita</h2>
         <p>R$ 1.200</p>
       </div>
-    </div>
 
-  
+    </div>
 
     <div class="charts">
       <div class="chart-box">
@@ -77,7 +86,6 @@
               <a class="nandb">Anterior</a>
           {% endif %}
 
-      
       <span>Página {{ agrp.number }} de {{ agrp.paginator.num_pages }}</span>      
           {% if agrp.has_next %}
               <a class="nandb" href="?pagina={{ agrp.next_page_number }}">Próxima</a>
@@ -89,5 +97,4 @@
   </div>
 </body>
 <script src="{% static 'home_static/js/home.js' %}"></script>
-
 </html>

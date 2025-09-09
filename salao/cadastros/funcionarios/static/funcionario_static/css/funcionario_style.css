@@ -2,16 +2,28 @@
 
 
 *{
-    margin: auto;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 
 body{
+    margin: auto;
     display: flex;
     height: 100vh;
     flex-grow: 1;
     background: #f4f6f8;
+}
+
+form label {
+    display: block;
+    font-weight: 500;
+}
+
+.tt-serv{
+    font-size: larger;
+    position: absolute;
+    top: 0;
+
 }
 
 .div-cadastro{
@@ -32,6 +44,16 @@ body{
     max-width: 700px;
     max-height: 700px;
     text-align: center;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 .form-input{

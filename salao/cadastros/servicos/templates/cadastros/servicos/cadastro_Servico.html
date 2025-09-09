@@ -10,9 +10,10 @@
 
 </head>
   <body class="body">
-    {%include 'core/navbar.html'}
-    {% include 'core/sidebar.html'%}    <div class="div-cadastro">
-        <h1>Cadastro Serviço</h1>
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}    
+    <div class="div-cadastro">
+        <label class="tt-serv"><h1>Cadastro de Serviço</h1></label>
         <form class="form-cadastro" action="" method="POST">{% csrf_token %}
 
             <label for="nome_servico">Cadastre seu Serviço</label><br>

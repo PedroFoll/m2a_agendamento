@@ -1,25 +1,28 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 
 
-
 def relatorio_agendamentos(request):
     limit = 5
     pagina = int(request.GET.get('pagina', 1))
-    agendamentos = Agendamento.objects.all()
-    qntd_agendamentos = agendamentos.count()
-    selecionar_status = request.GET.get('selecionar_status')
 
     data_inicio = request.GET.get('data_inicio')
     data_fim = request.GET.get('data_fim')
 
+    agendamentos = Agendamento.objects.all()
+    qntd_agendamentos = agendamentos.count()
+    selecionar_status = request.GET.get('selecionar_status')
+
+
     if selecionar_status:
-        agendamentos = agendamentos.filter(status__iexact=selecionar_status.lower())
+        agendamentos = agendamentos.filter(
+            status__iexact=selecionar_status.lower())
 
     if data_inicio and data_fim:
-        agendamentos = agendamentos.filter(data_agendada__range=[data_inicio, data_fim])
+        agendamentos = agendamentos.filter(
+            data_agendada__range=[data_inicio, data_fim])
 
     offset = (pagina - 1) * limit
     agendamentos = agendamentos.order_by('data_agendada')[offset:offset + limit]

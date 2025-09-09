@@ -1,6 +1,7 @@
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.funcionarios.models import Profissional
+from cadastros.servicos.models import Servico
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 from datetime import datetime, timedelta
@@ -51,6 +52,7 @@ class Helpers():
             .annotate(total=Count('id'))
             .order_by('ativo')
         )
+        
         return ({
             'qntd_funcionarios':qntd_funcionarios,
             'total_func':total_func,
@@ -81,7 +83,15 @@ class Helpers():
         
         agrp_ajustado = []
         
-        dias_semana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo']
+        dias_semana = [
+                'Segunda-feira',
+                'Terça-feira',
+                'Quarta-feira',
+                'Quinta-feira',
+                'Sexta-feira',
+                'Sábado',
+                'Domingo'
+                ]
         
         for data in agrp_data:
             data_objeto = data['dia']
@@ -93,25 +103,38 @@ class Helpers():
                 'dia_nome': f"{data_formatada}: {nome_dia_semana}",
                 'total_agendamentos': conta_agendamentos
             })
-            return agrp_ajustado
+        return agrp_ajustado
 
 
     def data_range_semana():
         hoje = datetime.now().date()
-        agendamentos_hoje = Agendamento.objects.filter(data_agendada__date=hoje).count()
+        agendamentos_hoje = Agendamento.objects.filter(
+            data_agendada__date=hoje).count()
 
         dia_da_semana = hoje.weekday()
         inicio_da_semana = hoje - timedelta(days=dia_da_semana)
+
         fim_da_semana = inicio_da_semana + timedelta(days=6)
-        agendamentos_semana = Agendamento.objects.filter(data_agendada__date__range=[inicio_da_semana, fim_da_semana]).count()
+        amanha = inicio_da_semana + timedelta(days=1)
+
+        agendamentos_semana = Agendamento.objects.filter(
+            data_agendada__date__range=[
+                inicio_da_semana, 
+                fim_da_semana]).count()
 
 
-        agendamentos = Agendamento.objects.filter(
-            data_agendada__date__range=[inicio_da_semana, fim_da_semana]
-        )
         context={
             'agendamentos_hoje': agendamentos_hoje,
             'agendamentos_semana': agendamentos_semana,
+            'inicio_da_semana': inicio_da_semana.strftime('%Y-%m-%d'),
+            'fim_da_semana': fim_da_semana.strftime('%Y-%m-%d'),
+            'amanha': amanha.strftime('%Y-%m-%d'),
         }
 
         return context
+    
+    def serv_count():
+        servicos= Servico.objects.all()
+        qntd_servicos = servicos.count()
+
+        return qntd_servicos
