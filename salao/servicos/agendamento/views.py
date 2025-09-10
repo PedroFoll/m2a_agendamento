@@ -1,25 +1,40 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.servicos.models import Servico
+from cadastros.funcionarios.models import Profissional
 
 def agendar_servico(request):
     if request.method == 'GET':
-         return render(request, 'agendar.html', {})
+        clientes = Cliente.objects.all().order_by('nome')
+        servicos = Servico.objects.all()
+        profissional = Profissional.objects.all().order_by('nome')
 
-    """ else:
+        contexto = {
+            'clientes': clientes,
+            'servicos': servicos,
+            'profissional': profissional
+        }
+
+        return render(request, 'agendar.html', contexto)
+
+    else:
         cliente_ID = request.POST.get('cliente')
         funcionario_ID = request.POST.get('funcionario')
         servico_ID = request.POST.get('servico')
-        status = request.POST.get('status_filtrar')
         data_hora = request.POST.get('data_hora')
 
         clientes = Cliente.objects.get(pk=cliente_ID)
+        funcionarios = Profissional.objects.get(pk=funcionario_ID)
         servicos = Servico.objects.get(pk=servico_ID)
-        funcionarios = Cliente.objects.get(pk=funcionario_ID)
 
-        agendamento = Agendamento(cliente=clientes, funcionario=funcionarios, servico=servicos, status=status, data_hora=data_hora)
+        agendamento = Agendamento(
+            cliente=clientes, 
+            profissional=funcionarios, 
+            servico=servicos, 
+            data_agendada=data_hora
+            )
         agendamento.save()        
 
-        return redirect('/agendamento/') """
+        return redirect('/servicos/agendamento/')

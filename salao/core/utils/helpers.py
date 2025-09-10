@@ -2,7 +2,7 @@ from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.funcionarios.models import Profissional
 from cadastros.servicos.models import Servico
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from datetime import datetime, timedelta
 
@@ -138,3 +138,52 @@ class Helpers():
         qntd_servicos = servicos.count()
 
         return qntd_servicos
+    
+
+    def rank_funcionarios():
+        ranking = (
+            Agendamento.objects.values('profissional__nome')
+            .annotate(total_servicos=Count('id'))
+            .order_by('-total_servicos')[:5]
+        )
+        return ranking
+    
+    def rank_servicos():
+        ranking = (
+            Agendamento.objects.values('servico__nome')
+            .annotate(total_servicos=Count('id'))
+            .order_by('-total_servicos')[:5]
+        )
+        return ranking
+    
+    def rank_clientes():
+        ranking = (
+            Agendamento.objects.values('cliente__nome')
+            .annotate(total_servicos=Count('id'))
+            .order_by('-total_servicos')[:5]
+        )
+        return ranking
+    
+    def agendamento_concluido():
+
+        agendamentos_concluidos = Agendamento.objects.filter(status='Concluído').count()
+        return agendamentos_concluidos
+    
+    def agendamento_cancelado():
+
+        agendamentos_cancelados = Agendamento.objects.filter(status='Cancelado').count()
+        return agendamentos_cancelados
+    
+    def agendamento_agendado():
+
+        agendamentos_agendados = Agendamento.objects.filter(status='Agendado').count()
+        return agendamentos_agendados
+    
+    @staticmethod
+    def valor_total_servicos():
+        total_valor_servicos = (
+            Agendamento.objects
+            .filter(status="Concluído")  # só pega concluídos
+            .aggregate(total_valor=Sum('servico__preco'))['total_valor'] or 0
+        )
+        return total_valor_servicos

@@ -73,6 +73,7 @@ TEMPLATES = [
             BASE_DIR / 'relatorios' / 'clientes' / 'templates',
             BASE_DIR / 'configuracao' / 'sistema' / 'templates',
             BASE_DIR / 'servicos' / 'agendamento' / 'templates',
+            BASE_DIR / 'relatorios' / 'geral' / 'templates',
 
         ],
 
@@ -155,6 +156,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home', 'static'),
     os.path.join(BASE_DIR, 'login', 'clientes','static'),
     os.path.join(BASE_DIR, 'configuracao', 'sistema', 'static'),
+    os.path.join(BASE_DIR, 'relatorios', 'geral', 'static'),
     
 ]
 

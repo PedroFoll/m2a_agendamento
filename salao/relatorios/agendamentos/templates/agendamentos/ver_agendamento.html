@@ -19,7 +19,9 @@
         <h5 class="desc-agend">Prestador do Serviço: <span> {{ agendamento.profissional.nome }}</h5> </span>
         <h5 class="desc-agend">Status do Agendamento: <span> {{ agendamento.status }}</h5> </span>
         <h5 class="desc-agend">Data e Hora do Agendamento: <span> {{ agendamento.data_agendada}}</h5> </span>
-    </form>
+        
+        <a href="{% url 'relatorios:editar_agendamento' agendamento.id %}" class="btn btn-danger acoes">Editar</a>
+      </form>
 
     <form class="">
       <a href="{% url 'relatorios:deletar_agendamento' agendamento.id %}" class="btn btn-danger acoes">Excluir</a>

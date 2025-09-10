@@ -1,0 +1,18 @@
+#1-Um layout que junta todas as seguintes informações:
+#1.1- Número total de agendamentos realizados.
+#1.2- Número total de clientes cadastrados.
+#1.3- Número total de serviços oferecidos.
+#1.4- Número total de agendamentos cancelados.
+#1.5- Número total de agendamentos concluídos.
+#1.6- Número total de agendamentos pendentes.
+#1.7- Gráfico de barras mostrando o número de agendamentos por serviço.
+#1.8- Gráfico de pizza mostrando a distribuição percentual dos agendamentos por status (concluído, cancelado, pendente).
+#1.9- Filtros para selecionar um intervalo de datas e visualizar os dados correspondentes.
+#1.10- Valor total faturado em um período selecionado.
+#1.11- Lista dos 5 serviços mais populares com base no número de agendamentos.
+#1.12- Lista dos 5 clientes com o maior número de agendamentos.
+#1.14- Lista dos 5 funcionários com o maior número de agendamentos realizados.
+
+#2-Implementar a funcionalidade de exportação do relatório em PDF ou Excel.
+#3-Garantir que o layout seja responsivo e funcione bem em dispositivos móveis.
+#4-Adicionar opções de impressão para o relatório.
