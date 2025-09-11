@@ -9,63 +9,89 @@
     <link rel="stylesheet" href="{% static 'core_static/css/arquivo.css' %}">
 
 </head>
-  <body>
-    <div class="sidebar">
-        <ul class="nav-list primary-nav">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon material-symbols-rounded">DashBoard</span>                      
-                    <span class="nav-label">Menu</span>
-                </a>
-            </li>
-            <li>
-                <a href="/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">House</span>
-                    <span class="nav-label">Home</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/relatorios/agendamentos/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">article</span>
-                    <span class="nav-label">Agendamentos</span>  
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a href="/servicos/agendamento/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">article</span>
-                    <span class="nav-label">Agendar</span>  
-                </a>
-            </li>
+  <div class="sidebar">
 
-            <li class="nav-item">
-                <a href="/relatorios/clientes/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">diversity_3</span>
-                    <span class="nav-label">Clientes</span>  
-                </a>
-            </li>
-        </ul>
+  <div class="sidebar-header">
+    <ul class="nav-list primary-nav">
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">DashBoard</span>                      
+          <span class="nav-label">Menu</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">House</span>
+          <span class="nav-label">Home</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="sidebar-section">
+    <span class="nav-title">Relatórios</span> 
+    <ul class="nav-list primary-nav">
+      <li class="nav-item">
+        <a href="/relatorios/agendamentos/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">article</span>
+          <span class="nav-label">Agendamentos</span>  
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/relatorios/clientes/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">diversity_3</span>
+          <span class="nav-label">Clientes</span>  
+        </a>
+      </li>
+    </ul>
+  </div>
 
+  <div class="sidebar-section">
+    <span class="nav-title">Serviços</span> 
+    <ul class="nav-list primary-nav">
+      <li class="nav-item">
+        <a href="/servicos/agendamento/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">article</span>
+          <span class="nav-label">Agendar</span>  
+        </a>
+      </li>
+    </ul>
+  </div>
 
-        <ul class="nav-list secondary-nav">
-            <li class="nav-item">
-                <a href="/cadastros/cliente/perfil" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">server_person</span>
-                    <span class="nav-label">Perfil</span>
-                </a>
-            </li>
-            <li>
-                <a href="/config/sistema/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">settings</span>
-                    <span class="nav-label">Configurações</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/admin/logout/" class="nav-linki">
-                    <span class="nav-icon material-symbols-rounded">logout</span>
-                    <span class="nav-label">Logout</span>
-                </a>
-            </li> 
-        </ul>
-    </div> 
+  <div class="sidebar-section">
+    <span class="nav-title">Cadastros</span> 
+    <ul class="nav-list primary-nav">
+      <li class="nav-item">
+        <a href="/cadastros/cliente/criar_cliente/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">diversity_3</span>
+          <span class="nav-label">Clientes</span>  
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/cadastros/servicos/cadastrar_servico/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">content_cut</span>
+          <span class="nav-label">Serviços</span>  
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/cadastros/funcionarios/criar_funcionario/" class="nav-linki">
+          <span class="nav-icon material-symbols-rounded">badge</span>
+          <span class="nav-label">Profissionais</span>  
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="nav-list secondary-nav">
+    <li class="nav-item">
+      <a href="/admin/logout/" class="nav-linki">
+        <span class="nav-icon material-symbols-rounded">logout</span>
+        <span class="nav-label">Logout</span>
+      </a>
+    </li> 
+  </ul>
+
+</div>
+
 </html>

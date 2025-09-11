@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 class Helpers():
 
     def cliente_Count():
-        clientes = Cliente.objects.all()
+        clientes = Cliente.objects.all().order_by('nome')[:5]
         qntd_clientes = clientes.count()
 
         total_clientes = (
@@ -22,10 +22,12 @@ class Helpers():
         
         return ({
             'qntd_clientes': qntd_clientes,
-            'total_clientes':total_clientes})
+            'total_clientes':total_clientes,
+            'clientes':clientes 
+            })
     
     def agenda_Count():
-        agendamentos = Agendamento.objects.all()
+        agendamentos = Agendamento.objects.all().order_by('data_agendada')[:5]
         qntd_agendamentos = agendamentos.count()
 
         total_agendamentos_serv = (
@@ -40,11 +42,11 @@ class Helpers():
         return({
             'qntd_agendamentos':qntd_agendamentos,
             'total_agendamentos_serv': total_agendamentos_serv,
-            }
+            'agendamentos':agendamentos}
             )
     
     def func_count():
-        funcionarios = Profissional.objects.all()
+        funcionarios = Profissional.objects.all().order_by('nome')[:5]
         qntd_funcionarios = funcionarios.count()
 
         total_func = (
@@ -56,6 +58,7 @@ class Helpers():
         return ({
             'qntd_funcionarios':qntd_funcionarios,
             'total_func':total_func,
+            'funcionarios':funcionarios,
             }
             )
     

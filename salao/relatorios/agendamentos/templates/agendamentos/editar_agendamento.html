@@ -12,7 +12,7 @@
 
   {% include 'core/sidebar.html' %}
   <main class="container">
-    <form class="div-logs">
+    <form method="POST" class="div-logs">
         {% csrf_token %}
 
         <h5 class="desc-agend" class="desc-agend">Cliente Agendado: 
@@ -33,17 +33,28 @@
         <label for="funcionario">Funcionário:</label>
         <select id="profissional" name="profissional" class="form-control">
             {% for i in profissionais %}
-                <option value="{{ i.id }}" {% if agendamento.profissional_id == i.id %}selected{% endif %}>
+                <option value="{{ i.id }}" 
+                {% if agendamento.profissional_id == i.id %}
+                selected{% endif %}>
                     {{ i.nome }}
                 </option>
             {% endfor %}
         </select>
 
         <label for="status">Status do Agendamento:</label>
-        <select name="status" class="form-select"> <!-- Corrigido -->
-            <option value="Agendado" {% if agendamento.status == "Agendado" %}selected{% endif %}>Agendado</option>
-            <option value="Concluído" {% if agendamento.status == "Concluído" %}selected{% endif %}>Concluído</option>
-            <option value="Cancelado" {% if agendamento.status == "Cancelado" %}selected{% endif %}>Cancelado</option>
+        <select id="status" name="status" class="form-select"> <!-- Corrigido -->
+            <option value="Agendado" 
+            {% if agendamento.status == "Agendado" %}
+            selected{% endif %}>
+            Agendado</option>
+            <option value="Concluído"
+            {% if agendamento.status == "Concluído" %}
+            selected{% endif %}>
+            Concluído</option>
+            <option value="Cancelado" 
+            {% if agendamento.status == "Cancelado" %}
+            selected{% endif %}>
+            Cancelado</option>
         </select>
 
         <label for="data_agendada">Data do Agendamento:</label>

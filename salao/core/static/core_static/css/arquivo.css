@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -19,6 +18,33 @@
   z-index: 1000;
 }
 
+.sidebar-section {
+  margin-top: 10px;   /* antes: 20px */
+  border-top: 1px solid #555;
+  padding-top: 6px;   /* antes: 10px */
+}
+
+.nav-title {
+  color: #F1FAFF;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centraliza horizontal */
+  font-size: 12px;          /* levemente menor */
+  font-weight: 600;         /* menos “pesado” que bold puro */
+  margin: 8px 0;            /* espaço mais equilibrado */
+  padding: 4px 8px;         /* dá um respiro interno */
+  border-radius: 6px;       /* arredondado pra combinar com os links */
+  background: rgba(255, 255, 255, 0.05); /* fundo sutil */
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.4s ease, background 0.3s ease;
+}
+
+.sidebar:hover .nav-title {
+  opacity: 1;
+}
+
+
 .sidebar:hover {
   width: 250px;
 }
@@ -28,8 +54,8 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 0;
+  gap: 2px;           /* antes: 4px */
+  padding: 6px 0; 
 }
 
 /* Links */
@@ -38,9 +64,7 @@
   margin-top: -20px;
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
-  padding: 12px 18px;
   border-radius: 12px;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -50,12 +74,17 @@
   color: #F1FAFF;
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
-  padding: 12px 18px;
   border-radius: 12px;
   transition: background 0.3s ease, color 0.3s ease;
 }
+
+.sidebar .nav-link,
+.sidebar .nav-linki {
+  padding: 8px 12px;  /* antes: 12px 18px */
+  gap: 8px;           /* antes: 12px */
+}
+
 
 .sidebar .nav-linki:hover {
   color: rgb(26, 26, 26);
@@ -64,12 +93,12 @@
 
 /* Ícones centralizados */
 .sidebar .nav-icon {
-  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  min-width: 28px;
+  font-size: 24px;    /* antes: 28px */
+  width: 24px;        /* antes: 28px */
+  min-width: 24px;
 }
 
 /* Labels (texto) */
@@ -86,7 +115,7 @@
 /* Nav secundária sempre no fim */
 .sidebar .secondary-nav {
   margin-top: auto;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
 }
 
 /* Responsividade */

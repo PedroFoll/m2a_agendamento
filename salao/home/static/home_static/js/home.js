@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-
     document.addEventListener("DOMContentLoaded", () => {
     const listItems = document.querySelectorAll(".qtd-agen[data-percent]");
     let labels = [];
@@ -32,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
         item.style.setProperty("--bar-width", `${percent}%`); 
     });
 
+
+    
     // AQUI É O AJUSTE PRINCIPAL: Use .getContext("2d")
     const ctx1 = document.getElementById("servicosChart").getContext("2d");
 
@@ -41,7 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
             labels: labels, // Array de nomes de serviços
             datasets: [{
                 data: data, // Array de percentuais (agora como números)
-                backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#e91e63', '#9c27b0', '#673ab7', '#00bcd4'] 
+                backgroundColor: [
+                    '#4caf50', 
+                    '#2196f3', 
+                    '#ff9800', 
+                    '#e91e63', 
+                    '#9c27b0', 
+                    '#673ab7', 
+                    '#00bcd4',
+                    '#8bc34a',
+                ] 
                 // Adicione mais cores se tiver mais de 4 serviços
             }]
         },

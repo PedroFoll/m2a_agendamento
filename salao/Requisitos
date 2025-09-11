@@ -143,9 +143,9 @@ Total de agendamentos hoje [v]
 
 Total da semana [v]
 
-Cancelamentos []
+Cancelamentos [V]
 
-Receita estimada []
+Receita estimada [v]
 
 Linha do tempo []
 
@@ -156,6 +156,14 @@ Lista de próximos agendamentos [v]
 Lista de clientes novos []
 
 Lista de cancelamentos recentes []
+
+Ajustar a side e a nav bar
+
+adicionar separação por funcionalidade
+    Botão home separado[v]
+    Campo de cadastros [v]
+    Campo de serviços [v]
+    campo de relatórios [v]
 
 
       request.sharedstorage

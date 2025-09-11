@@ -73,7 +73,7 @@ def editar_agendamento(request, id):
         agendamento.cliente_id = request.POST.get('cliente') or agendamento.cliente_id
         agendamento.servico_id = request.POST.get('servico') or agendamento.servico_id
         agendamento.profissional_id = request.POST.get('profissional') or agendamento.profissional_id
-        agendamento.status = request.POST.get('status') or agendamento.status  
+        agendamento.status = request.POST.get('status') or agendamento.status
         agendamento.data_agendada = request.POST.get('data_agendada') or agendamento.data_agendada
 
         agendamento.save()
@@ -85,5 +85,4 @@ def editar_agendamento(request, id):
         'servicos': servicos,
         'profissionais': profissionais,
     }
-
     return render(request, "agendamentos/editar_agendamento.html", context)

@@ -1,6 +1,7 @@
 from django.urls import path, include
 from .clientes import views as cliente_views
 from .agendamentos import views as agend_views
+from .geral import views as geral_views
 
 
 app_name ='relatorios'
@@ -16,4 +17,5 @@ urlpatterns =[
 
     path('editar_agendamento/<int:id>', agend_views.editar_agendamento, name='editar_agendamento'),
     #path('cadastro_gestor_cliente/', views.cadastro_gestor_cliente, name='cadastro_gestor_cliente')
+    path('relatorio_geral/', geral_views.relatorio_geral, name='relatorio_geral'),
 ]

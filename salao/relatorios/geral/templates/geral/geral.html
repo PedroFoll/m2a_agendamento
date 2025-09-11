@@ -1,158 +1,117 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-      <meta charset="UTF-8">
-      <title>Geraltorio</title>  
-      <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </head>
-  <body>
-        {% include 'core/navbar.html' %}
-        {% include 'core/sidebar.html'%}
-    <div class="header">
-      <h1>Relatório de Agendamentos</h1>
-      <p>Visão geral dos agendamentos e performance</p>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório de Agendamentos</title>
+  <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo">
+    <h1>Relatório de Agendamentos</h1>
+    <span>Sistema XYZ</span>
+  </header>
 
-    <div class="filters">
-      <button>🖨️ Imprimir</button>
-      <button>⬇️ Exportar</button>
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <span class="icon">📅</span>
-        <h2>{{qntd_agendamentos}}</h2>
-        <p>Total de Agendamentos</p>
-      </div>
-      
-
-      <div class="card">
-        <span class="icon">⏳</span>
-        <h2>{{agend_pendentes}}</h2>
-        <p>Agendamentos Pendentes</p>
-      </div>
-      
-    
-      <div class="card">
-        <span class="icon">✔️</span>
-        <h2>{{agend_concluidos}}</h2>
-        <p>Agendamentos Concluídos</p>
-      </div>
-      
-      
-      <div class="card">
-        <span class="icon">❌</span>
-        <h2>{{agend_cancelados}}</h2>
-        <p>Agendamentos Cancelados</p>
-      </div>
-      
-      <div class="card">
-        <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.amanha}}">
-          <span class="icon">📅</span>
-          <h2>{{ data_range.agendamentos_hoje }}</h2>
-          <p>Agendamentos Hoje</p>
-        </a>
-      </div>
-      
-      <div class="card">
-        <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.fim_da_semana}}">
-          <span class="icon">📅</span>
-          <h2>{{ data_range.agendamentos_semana }}</h2>
-          <p>Semana Atual</p>
-        </a>
-      </div>
-
-      <div class="card">
-        <a href="/cadastros/servicos/cadastrar_servico/">
-          <span class="icon">🎁</span>
-          <h2>{{ servicos}}</h2>
-          <p>Serviços Oferecidos</p>
-        </a>
-      </div>
-      
-      <div class="card">
-        <span class="icon">👥</span>
-        <h2>{{qntd_clientes }}</h2>
-        <p>Clientes Cadastrados</p>
-      </div>
-      
-      <div class="card">
-        <span class="icon">💲</span>
-        <h2>R$ {{ valor_total_serv|floatformat:2 }}</h2>
-        <p>Faturamento Total</p>
-    </div>
-                
-    </div>
-    
-    <div class="grid">
-      <div class="charts">
-        <div class="chart-box">
-          <h3>Distribuição de Serviços</h3>
-        <canvas id="servicosChart"></canvas>
-        {% for servico in total_agendamentos_serv %}
-        <li class="qtd-agen"
-        data-percent="{{servico.percentual}}"
-        data-servico-nome="{{servico.servico__nome}}">
-              {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)
-            </li>
-          {% endfor %}
-      </div>
-    </div>
-
-     <div class="charts">
-    <div class="card">
-      <h3>Distribuição por Status</h3>
-      <canvas id="statusChart"></canvas>
-      <div style="margin-top:10px; font-size: 0.9rem;">
-        <span style="color:green;">⬤ Concluídos</span> &nbsp;
-        <span style="color:orange;">⬤ Pendentes</span> &nbsp;
-        <span style="color:red;">⬤ Cancelados</span>
-      </div>
-      </div>
-    </div>
-
-</div>
-
-  <!-- === RANKINGS === -->
-  <div class="ranking-section">
-    <div class="card">
-      <h3>Top 5 Serviços</h3>
-      <div class="ranking">
-        {% for i in rank_serv %}
-          <div class="ranking-item">
-            {{ forloop.counter }}. {{ i.servico__nome }}
-            <small>{{ i.total_servicos }} agendamentos</small>
-          </div>
-        {% endfor %}      
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Top 5 Clientes</h3>
-      <div class="ranking">
-        {% for i in rank_cli %}
-          <div class="ranking-item">
-            {{ forloop.counter }}. {{ i.cliente__nome }}
-            <small>{{ i.total_servicos }} agendamentos</small>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Top 5 Funcionários</h3>
-      <div class="ranking">
-        {% for i in rank_func %}
-          <div class="ranking-item">
-            {{ forloop.counter }}. {{ i.profissional__nome }}
-            <small>{{ i.total_servicos }} agendamentos</small>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+  <div class="filtros">
+    <p><strong>Filtros:</strong> Período: {{request.GET.data_inicio}} a {{request.GET.data_fim}} | Status: {{request.GET.selecionar_status}}</p>
   </div>
+
+  <table>
+  <thead>
+    <tr>
+      <th>CPF</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Ativo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in clientes %}
+      <tr>
+        <td>{{ i.cpf }}</td>
+        <td>{{ i.nome }}</td>
+        <td>{{ i.email }}</td>
+        <td>{{ i.telefone }}</td>
+        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Serviço</th>
+      <th>Cliente</th>
+      <th>Funcionario</th>
+      <th>Status</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in agendamentos  %}
+      <tr>
+        <td>{{ i.servico }}</td>
+        <td>{{ i.cliente__nome}}</td>
+        <td>{{ i.profissional__nome}}</td>
+        <td>{{ i.status }}</td>
+        <td>{{ i.data_agendada}}</td>
+      </tr>
+    {% empty %}
+      <tr>
+
+        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Funcionario</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Ativo</th>
+      <th>Especialidade</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in funcionarios %}
+      <tr>
+        <td>{{ i.nome }}</td>
+        <td>{{ i.email }}</td>
+        <td>{{ i.telefone }}</td>
+        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
+        <td>{{ i.especialidade}}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr> 
+  <div class="resumo">
+    <p><strong>Resumo:</strong></p>
+    <ul>
+      <li>Total de agendamentos: {{qntd_agendamentos}}</li>
+      <li>Concluídos: {{agend_concluidos}}</li>
+      <li>Cancelados: {{agend_cancelados}}</li>
+      <li>Valor total: R$ {{ valor_total_serv|floatformat:2 }}</li>
+    </ul>
+  </div>
+
+  <footer>
+    Gerado em: 10/09/2025 às 15:42 | Página 1
+  </footer>
 </body>
-<script src="{% static 'geral/js/geral.js' %}"></script>
 </html>
