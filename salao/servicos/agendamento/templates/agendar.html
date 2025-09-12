@@ -4,7 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Agendamento de Serviços</title>
-        <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+        <link rel="stylesheet" href="{% static 'agendamento_static/css/agendamento_style.css' %}">
+        
+</span>
     </head>
     <body>
         {% include 'core/navbar.html' %}
@@ -38,9 +40,45 @@
             <label for="data_hora">Data e Hora:</label>
             <input type="datetime-local" id="data_hora" name="data_hora" class="form-control">                    
             <label for="">Status</label>
+
             
             <input type="submit" value="Agendar" class="btn btn-success">
             </form>
         </div> 
+
+        <div class="calendario">
+            <h2>Calendário de Agendamentos</h2>
+            <div class="mini-calendar">
+            {% for day in proximos_dias %}
+            <div class="day">
+                <div class="day-card ">
+                    <label class="day-txt">{{ day.data|date:"d/m" }} — {{ day.label }}</label>
+                    {% if day.appointments %}
+                    <ul>
+                        {% for a in day.appointments %}
+                        <div>
+                            <li>
+                                <strong>{{ a.cliente.nome }}</strong> ({{ a.cliente.telefone}})
+                                <div class="time">{{ a.data_agendada|date:"H:i" }} - {{ a.profissional.nome }} - ({{ a.servico.nome }})</div>
+                                <strong>R$ {{ a.servico.preco }}</strong>
+                                <a href="{% url 'relatorios:editar_agendamento' a.id %}">Editar</a>
+                                <a href="{% url 'relatorios:alterar_status' a.id 'cancelado' %}" class="btn">❌ Cancelar</a>
+                                <a href="{% url 'relatorios:alterar_status' a.id 'concluido' %}" class="btn">✅ Concluir</a>
+
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>Nenhum atendimento.</p>
+                    {% endif %}
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+
+
+                </div>
+        </div>
     </body>
 </html>

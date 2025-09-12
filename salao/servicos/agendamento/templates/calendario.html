@@ -1,0 +1,96 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Calendário de Agendamentos</title>
+  <style>
+    body{ font-family: Arial, sans-serif; margin: 24px; color:#222; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .calendar { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+    .month { border:1px solid #e1e1e1; border-radius:8px; padding:12px; background:#fff; }
+    .controls { display:flex; gap:8px; align-items:center; }
+    table.calendar-table { width:100%; border-collapse:collapse; }
+    table.calendar-table th, table.calendar-table td { border:1px solid #f0f0f0; padding:8px; vertical-align:top; height:90px; }
+    table.calendar-table th { background:#f7f7f7; font-weight:600; text-align:center; }
+    td.not-current { background:#fafafa; color:#aaa; }
+    .day-number { font-weight:700; margin-bottom:6px; display:block; }
+    .badge { background:#007bff; color:#fff; padding:2px 6px; border-radius:10px; font-size:12px; }
+    .today { outline: 2px solid #28a745; border-radius:6px; }
+    .side { border:1px solid #e1e1e1; border-radius:8px; padding:12px; background:#fff; max-height:720px; overflow:auto; }
+    .appointment { padding:8px; border-bottom:1px solid #f0f0f0; }
+    .time { color:#666; font-size:0.9rem; }
+    a.btn { padding:8px 12px; background:#007bff; color:#fff; border-radius:6px; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <h1>Calendário</h1>
+    <div class="controls">
+      <a class="btn" href="?month={{ prev_month }}&year={{ prev_year }}">&lt; Mês anterior</a>
+      <strong style="margin:0 8px;">{{ month }}/{{ year }}</strong>
+      <a class="btn" href="?month={{ next_month }}&year={{ next_year }}">Próximo mês &gt;</a>
+    </div>
+  </div>
+
+  <div class="calendar">
+    <div class="month">
+      <table class="calendar-table">
+        <thead>
+            <tr>
+                {% for weekday in dias_semana %}
+                <th>{{ weekday }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+          {% for week in weeks %}
+            <tr>
+              {% for day in week %}
+                <td class="{% if not day.is_current_month %}not-current{% endif %} {% if day.is_today %}today{% endif %}">
+                  <span class="day-number">{{ day.date.day }}</span>
+                  {% if day.count %}
+                    <span class="badge">{{ day.count }} ag.</span>
+                    <ul style="margin:8px 0 0 0; padding-left:14px;">
+                      {% for a in day.appointments|slice:":3" %}
+                        <li style="font-size:0.9rem;">
+                          <strong>{{ a.cliente.nome }}</strong>
+                          <div class="time">{{ a.data_agendada|date:"H:i" }} — {{ a.servico.nome }}</div>
+                        </li>
+                      {% endfor %}
+                      {% if day.count > 3 %}
+                        <li style="font-size:0.85rem; color:#666;">+{{ day.count|add:"-3" }} mais...</li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="side">
+      <h3>Atendimentos — {{ today|date:"d/m/Y" }}</h3>
+      {% if today_appointments %}
+        {% for a in today_appointments %}
+          <div class="appointment">
+            <div><strong>{{ a.cliente.nome }}</strong> — {{ a.servico.nome }}</div>
+            <div class="time">{{ a.data_agendada|date:"H:i" }} | {{ a.profissional.nome }}</div>
+            <div style="margin-top:6px; font-size:0.9rem; color:#333;">
+              Status: {{ a.status }}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>Nenhum atendimento hoje.</p>
+      {% endif %}
+
+      <div style="margin-top:12px;">
+        <a class="btn" href="">Exportar PDF</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

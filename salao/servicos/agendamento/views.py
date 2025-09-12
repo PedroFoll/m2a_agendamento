@@ -4,6 +4,7 @@ from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.servicos.models import Servico
 from cadastros.funcionarios.models import Profissional
+from core.utils.helpers import AgendarHelper
 
 def agendar_servico(request):
     if request.method == 'GET':
@@ -38,3 +39,17 @@ def agendar_servico(request):
         agendamento.save()        
 
         return redirect('/servicos/agendamento/')
+    
+
+def agendar_servico(request):
+    helper = AgendarHelper()
+
+    contexto = {}
+    id = request.GET.get('id')
+    contexto.update(
+        helper.proximos_dias_agendamentos(),
+        helper.alterar_status(status=None)
+    )
+    contexto['id'] = id
+
+    return render(request, 'agendar.html', contexto)

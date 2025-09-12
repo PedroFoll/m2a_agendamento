@@ -7,111 +7,53 @@
   <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo">
-    <h1>Relatório de Agendamentos</h1>
-    <span>Sistema XYZ</span>
-  </header>
+  <h2>Relatório Geral</h2>
 
-  <div class="filtros">
-    <p><strong>Filtros:</strong> Período: {{request.GET.data_inicio}} a {{request.GET.data_fim}} | Status: {{request.GET.selecionar_status}}</p>
-  </div>
+<p><strong>Total de Agendamentos:</strong> {{ total_agendamentos }}</p>
+<p><strong>Total Arrecadado:</strong> R$ {{ total_arrecadado }}</p>
 
-  <table>
-  <thead>
-    <tr>
-      <th>CPF</th>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Telefone</th>
-      <th>Ativo</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in clientes %}
-      <tr>
-        <td>{{ i.cpf }}</td>
-        <td>{{ i.nome }}</td>
-        <td>{{ i.email }}</td>
-        <td>{{ i.telefone }}</td>
-        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<p><strong>Cliente com mais agendamentos:</strong> 
+  {% if cliente_top %}
+  {{ cliente_top.cliente__nome }}
+  ({{ cliente_top.total }})
+  {% else %} - {% endif %}
+</p>
+
+<p><strong>Funcionário que mais concluiu:</strong> 
+  {% if funcionario_top %} 
+  {{ funcionario_top.profissional__nome }}
+  ({{ funcionario_top.total }})
+  {% else %} - {% endif %}
+</p>
+
+<hr>
 
 <table>
   <thead>
     <tr>
-      <th>Serviço</th>
       <th>Cliente</th>
-      <th>Funcionario</th>
-      <th>Status</th>
+      <th>Serviço</th>
+      <th>Profissional</th>
       <th>Data</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
-    {% for i in agendamentos  %}
-      <tr>
-        <td>{{ i.servico }}</td>
-        <td>{{ i.cliente__nome}}</td>
-        <td>{{ i.profissional__nome}}</td>
-        <td>{{ i.status }}</td>
-        <td>{{ i.data_agendada}}</td>
-      </tr>
-    {% empty %}
-      <tr>
-
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-<table>
-  <thead>
+    {% for ag in agendamentos %}
     <tr>
-      <th>Funcionario</th>
-      <th>Email</th>
-      <th>Telefone</th>
-      <th>Ativo</th>
-      <th>Especialidade</th>
+      <td>{{ ag.cliente.nome }}</td>
+      <td>{{ ag.servico.nome }}</td>
+      <td>{{ ag.profissional.nome }}</td>
+      <td>{{ ag.data_agendada|date:"d/m/Y H:i" }}</td>
+      <td>{{ ag.status }}</td>
     </tr>
-  </thead>
-  <tbody>
-    {% for i in funcionarios %}
-      <tr>
-        <td>{{ i.nome }}</td>
-        <td>{{ i.email }}</td>
-        <td>{{ i.telefone }}</td>
-        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
-        <td>{{ i.especialidade}}</td>
-      </tr>
     {% empty %}
-      <tr>
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
+    <tr>
+      <td colspan="5">Nenhum agendamento encontrado.</td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
 
-<hr> 
-  <div class="resumo">
-    <p><strong>Resumo:</strong></p>
-    <ul>
-      <li>Total de agendamentos: {{qntd_agendamentos}}</li>
-      <li>Concluídos: {{agend_concluidos}}</li>
-      <li>Cancelados: {{agend_cancelados}}</li>
-      <li>Valor total: R$ {{ valor_total_serv|floatformat:2 }}</li>
-    </ul>
-  </div>
-
-  <footer>
-    Gerado em: 10/09/2025 às 15:42 | Página 1
-  </footer>
 </body>
 </html>

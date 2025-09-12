@@ -45,6 +45,11 @@
 
                 <input type="submit" class="btn" value="Filtrar">
                 <a href="/servicos/agendamento/" class="form-btn"> Registrar Agendamento</a>
+                <form method="get" action="">
+                    {{ form.as_p }}
+                    <a href="/relatorios/relatorio_geral/?&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&status={{request.GET.selecionar_status}}" 
+                    class="form-btn" type="submit">Gerar Relatório</a>
+                    </form>
             </form>
             <div class="div-log">
                 {% for i in agendamentos %}                
@@ -61,15 +66,9 @@
             </div>
             <form>
                 <span class="qtd_age">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                <a class="form-btn" href="?pagina={{ pagina|add:-1 }}
-                &data_inicio={{request.GET.data_inicio}}
-                &data_fim={{request.GET.data_fim}}
-                &selecionar_status{{request.GET.selecionar_status}}"
+                <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
                 >Anterior</a>
-                <a class="form-btn" href="?pagina={{ pagina|add:+1 }}
-                &data_inicio={{request.GET.data_inicio}}
-                &data_fim={{request.GET.data_fim}}
-                &selecionar_status{{request.GET.selecionar_status}}"
+                <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
                 >Próxima</a>
             </form> 
         </div>

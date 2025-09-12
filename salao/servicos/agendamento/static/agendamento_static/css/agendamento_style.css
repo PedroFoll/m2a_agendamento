@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+   
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background: #f4f6f8;
+    color: #333;
+}
+
+
+.container {
+    margin-left: 50px;
+    padding: 2rem;
+    width: calc(100% - 250px);
+     background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+.calendario {
+    margin-left: 50px;
+    padding: 2rem;
+    width: calc(100% - 250px);
+     background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+
+.container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    
+}
+
+form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.acoes{
+    text-decoration: none;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.btn {
+    background: #2f3640;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #414b57;
+}
+
+.div-log a {
+    display: block;
+    background: #f9f9f9;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.2s;
+}
+
+.div-log a:hover {
+    background: #eef1f5;
+}
+
+.desc-agend{
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    text-decoration: none;
+}
+
+/* ========== PAGINAÇÃO ========== */
+.qtd_age {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.form-btn {
+    background: #2f3640;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 10px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.form-btn:hover {
+    background: #414b57;
+}
+
+.day-card {
+    background: #2f3640;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 160px;
+    max-width: 600px;
+    margin-bottom: 15px;
+    z-index: 1  ;
+}
+
+.day-txt{
+    color: #ffffff;
+    font-weight: 600;
+    background: #2f3640;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-top: -10px;
+    z-index: 2;
+}
+
+.mini-calendar {
+  max-height: 475px;  /* altura máxima do bloco */
+  overflow-y: auto;
+  padding-right: 8px; /* espaço pro scroll não encostar no texto */
+}
+
+.mini-calendar li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background: #f9f9f9;
+    list-style: none;
+}
+
+.mini-calendar li a {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 6px;
+    margin-left: 30px;
+    padding: 5px;
+    background: #e3e3e3;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* ========== RESPONSIVO ========== */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .container {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .container {
+        margin-left: 0;
+        width: 100%;
+    }
+}
