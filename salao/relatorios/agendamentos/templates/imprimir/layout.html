@@ -13,34 +13,11 @@
 
 
 <body>
-{% include 'core/navbar.html' %}
-        {% include 'core/sidebar.html'%}
+
   <div class="header">
     <h1>Relatório Agendamentos</h1>
     <p>Visão geral dos agendamentos</p>
   </div>
-  <form action="" method="GET">
-    {% csrf_token %}
-    <div class="filters">
-        <label for="data_inicio">Data Início</label>
-        <input type="date" id="data_inicio" name="data_inicio" value="{{ request.GET.data_inicio }}">
-
-        <label for="data_fim">Data Fim</label>
-        <input type="date" id="data_fim" name="data_fim" value="{{ request.GET.data_fim }}">
-
-        <label>Status</label>
-                <select name="selecionar_status" class="form-select">
-                    <option class="form-select" value="">Todos</option>
-                    <option class="form-select" value="Agendado">Agendado</option>
-                    <option class="form-select" value="Concluído">Concluído</option>
-                    <option class="form-select" value="Cancelado">Cancelado</option>
-                </select>
-        
-        <button type="submit" class="button">Filtrar</button>
-        <a href="{% url 'relatorios:imprimir_relatorio' %}?data_inicio={{ request.GET.data_inicio }}&data_fim={{ request.GET.data_fim }}&selecionar_status={{ request.GET.selecionar_status }}" 
-        class="button" target="_blank">Imprimir PDF</a>
-    </div>
-</form>
   <div class="cards">
     <div class="card">
       <span class="icon">✔️</span>
@@ -90,15 +67,7 @@
           {% endfor %}
         </tbody>
       </table>
-        <form>
-        <span class="qtd_age">Total de Agendamentos: {{ total_agendamentos }}</span><br> <br>
-        <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
-        >Anterior</a>
-        <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
-        >Próxima</a>
-        </form> 
     </div>
-
     <div>
       <div class="ranking-card">
         <h3>🏆 Ranking de Clientes</h3>

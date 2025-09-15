@@ -18,4 +18,8 @@ urlpatterns =[
     path('editar_agendamento/<int:id>', agend_views.editar_agendamento, name='editar_agendamento'),
     #path('cadastro_gestor_cliente/', views.cadastro_gestor_cliente, name='cadastro_gestor_cliente')
     path('relatorio_geral/', geral_views.relatorio_geral, name='relatorio_geral'),
+
+    path('imprimir/', agend_views.imprimir_relatorio, name='imprimir_relatorio'),
+    path('layout/',agend_views.layout, name='layout'),
+
 ]

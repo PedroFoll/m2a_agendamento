@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Cliente
+from relatorios.clientes.views import get_relatorio_clientes
 
 # Create your views here.
 def cadastro_usuario(request):
@@ -29,10 +30,21 @@ def cadastro_usuario(request):
 
         return HttpResponse('Deu bom')
 
-@login_required(login_url='/admin/')
 def criar_cliente(request):
+    consulta_cliente = get_relatorio_clientes(request)
+    clientes = consulta_cliente['clientes']
+    qntd_clientes = consulta_cliente['qntd_clientes']
+    pagina = consulta_cliente['pagina']
+    limit = consulta_cliente['limit']
+
     if request.method == "GET":
-        return render(request, "cadastros/clientes/criar_cliente.html")
+        contexto = {
+        'clientes': clientes,
+        'qntd_clientes': qntd_clientes,
+        'pagina': pagina,
+        'limit': limit,
+    }
+        return render(request, "cadastros/clientes/criar_cliente.html", contexto)
     else:
         nome = request.POST.get('nome')
         email = request.POST.get('email')
@@ -45,7 +57,6 @@ def criar_cliente(request):
         return redirect('/cadastros/cliente/criar_cliente/')
 
 
-@login_required(login_url='/cadastros/cliente/cliente')
 def perfil_usuario(request):
     cliente=User.objects.get(id=id)
     return  render(request, "cadastros/clientes/perfil.html", {'cliente': cliente})

@@ -17,7 +17,7 @@
 
 body {
   display: flex;
-  max-height: 100vh;
+  max-height: 97vh;
   background: #f3f0ff;
   color: #333;
   line-height: 1.5;
@@ -28,6 +28,7 @@ body {
 .calendario {
   margin-left: 50px;
   padding: 1.5rem 2rem;
+  height: 90vh;
   width: calc(100% - 250px);
   background: #383838; /* cinza escuro */
   border-radius: 12px;

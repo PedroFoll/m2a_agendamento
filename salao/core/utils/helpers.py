@@ -291,20 +291,36 @@ class AgendarHelper():
         return {"proximos_dias": dias}
     
 class PDFHelper():
-    def gerar_pdf(request):
-    # Criar documento PDF em memória
-        doc = fitz.open()
-        page = doc.new_page()
+    def gerar_pdf_relatorio(agendamentos, clientes, faturamento):
+        # cria um documento em memória
+        pdf = fitz.open()
 
-        # Adicionar texto
-        texto = "Relatório de Agendamentos\n\nCliente: Ana Clara Cardoso\nServiço: Cabelos\nValor: R$ 150,00"
-        page.insert_text((72, 72), texto, fontsize=12, fontname="helv")
+        # adiciona uma página
+        page = pdf.new_page()
 
-        # Salvar em memória
-        pdf_bytes = doc.write()
-        doc.close()
+        # título
+        page.insert_text((50, 50), "Relatório de Agendamentos", fontsize=18, fontname="helv")
 
-        # Retornar como download
-        response = HttpResponse(pdf_bytes, content_type="application/pdf")
-        response["Content-Disposition"] = "inline; filename=relatorio.pdf"
+        # insere métricas
+        page.insert_text((50, 90), f"Total de Agendamentos: {agendamentos}", fontsize=12)
+        page.insert_text((50, 110), f"Clientes Cadastrados: {clientes}", fontsize=12)
+        page.insert_text((50, 130), f"Faturamento do Período: R$ {faturamento}", fontsize=12)
+
+        # insere tabela simples de agendamentos recentes (exemplo)
+        y = 170
+        page.insert_text((50, y), "Agendamentos Recentes:", fontsize=14)
+        y += 30
+        for a in agendamentos[:10]:  # lista ou queryset
+            linha = f"{a.cliente.nome} - {a.servico.nome} - {a.profissional.nome} - {a.data_agendada:%d/%m/%Y %H:%M} - {a.status}"
+            page.insert_text((50, y), linha, fontsize=10)
+            y += 15
+
+        # retorna o PDF como HttpResponse
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="relatorio.pdf"'
+        response.write(pdf.tobytes())  # transforma em bytes e escreve na resposta
+        pdf.close()
         return response
+    
+
+    

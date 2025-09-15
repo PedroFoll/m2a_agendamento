@@ -92,3 +92,37 @@ def deletar_agendamento(request, id):
     agendamento.delete()
     return redirect('/relatorios/agendamentos/')
 
+
+
+def get_relatorio_clientes(request):
+    limit = 5
+    pagina = int(request.GET.get('pagina', 1))
+    clientes = Cliente.objects.all()
+    qntd_clientes = clientes.count()
+    nome_filtrar=request.GET.get('nome_filtrar')
+    email_filtrar=request.GET.get('email_filtrar')
+    tipo_usuario_filtrar= request.GET.get('tipo_usuario_filtrar')
+
+    clientes = Cliente.objects.all()
+
+    if nome_filtrar:
+        clientes = clientes.filter(nome__contains=nome_filtrar)
+    
+    if email_filtrar:
+        clientes = clientes.filter(email__contains=email_filtrar)
+    
+    if tipo_usuario_filtrar:
+        clientes = clientes.filter(tipo_usuario__iexact=tipo_usuario_filtrar.lower())
+
+    offset = (pagina - 1) * limit
+    clientes = clientes.order_by('nome')[offset:offset + limit]
+
+    contexto = {
+        'clientes': clientes,
+        'qntd_clientes': qntd_clientes,
+        'pagina': pagina,
+        'limit': limit,
+    }
+
+
+    return (contexto)
