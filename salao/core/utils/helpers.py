@@ -6,13 +6,15 @@ from cadastros.servicos.models import Servico
 from django.utils import timezone
 from django.db.models import Count, Sum, Prefetch
 from django.db.models.functions import TruncDate
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, HttpResponse
 
 
 from datetime import date, datetime, timedelta
 
 from datetime import datetime, timedelta
 from .forms import FiltroRelatorioForm
+
+import fitz 
 
 import calendar
 from collections import defaultdict
@@ -288,3 +290,21 @@ class AgendarHelper():
 
         return {"proximos_dias": dias}
     
+class PDFHelper():
+    def gerar_pdf(request):
+    # Criar documento PDF em memória
+        doc = fitz.open()
+        page = doc.new_page()
+
+        # Adicionar texto
+        texto = "Relatório de Agendamentos\n\nCliente: Ana Clara Cardoso\nServiço: Cabelos\nValor: R$ 150,00"
+        page.insert_text((72, 72), texto, fontsize=12, fontname="helv")
+
+        # Salvar em memória
+        pdf_bytes = doc.write()
+        doc.close()
+
+        # Retornar como download
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response["Content-Disposition"] = "inline; filename=relatorio.pdf"
+        return response
