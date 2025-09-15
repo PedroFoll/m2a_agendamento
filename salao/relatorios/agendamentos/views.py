@@ -4,26 +4,24 @@ from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.servicos.models import Servico
 from cadastros.funcionarios.models import Profissional
+from core.utils.helpers import Helpers
+
 
 def relatorio_agendamentos(request):
-    limit = 5
+    geral = Helpers.relatorio_geral(request)
+    rank_func = Helpers.rank_funcionarios()
+    rank_cli = Helpers.rank_clientes()
+    rank_serv = Helpers.rank_servicos()
+    limit = 25
     pagina = int(request.GET.get('pagina', 1))
     agendamentos = Agendamento.objects.all()
     servico = Servico.objects.all()
     qntd_agendamentos = agendamentos.count()
     selecionar_status = request.GET.get('selecionar_status')
-    selecionar_servico = request.GET.get('selecionar_servico')
-    selecionar_funcionario = request.GET.get('selecionar_funcionario')
-
+    
 
     data_inicio = request.GET.get('data_inicio')
     data_fim = request.GET.get('data_fim')
-
-    if selecionar_funcionario:
-        agendamentos = agendamentos.filter(status__iexact=selecionar_funcionario.lower())
-
-    if selecionar_servico:
-        agendamentos = agendamentos.filter(servico__iexact=selecionar_servico.lower())
 
     if selecionar_status:
         agendamentos = agendamentos.filter(status__iexact=selecionar_status.lower())
@@ -35,6 +33,13 @@ def relatorio_agendamentos(request):
     agendamentos = agendamentos.order_by('data_agendada')[offset:offset + limit]
 
     contexto = {
+        'form': geral['form'],
+        'agendamentos': geral['agendamentos'][:25],
+        'total_agendamentos': geral['total_agendamentos'],
+        'total_arrecadado': geral['total_arrecadado'],
+        'rank_func':rank_func,
+        'rank_cli':rank_cli,
+        'rank_serv':rank_serv,
         'agendamentos': agendamentos,
         'qntd_agendamentos': qntd_agendamentos,
         'pagina': pagina,

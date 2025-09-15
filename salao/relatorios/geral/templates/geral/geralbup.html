@@ -1,117 +1,76 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Relatório de Agendamentos</title>
-  <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
-</head>
-<body>
-  <header>
-    <img src="logo.png" alt="Logo">
-    <h1>Relatório de Agendamentos</h1>
-    <span>Sistema XYZ</span>
-  </header>
+    <head>
+        <meta charset="UTF-8">
+        <title>Relatório de Clientes</title>  
+        <link rel="stylesheet" href="{% static 'agendamentos/css/relatorios_Style.css' %}">
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        {% include 'core/sidebar.html'%}
+        <div class="container">  
+            <label class="tt-serv"><h1>Relatório de Agendamentos</h1></label>
+            <form action="" method="GET">
+                {% csrf_token %}                
 
-  <div class="filtros">
-    <p><strong>Filtros:</strong> Período: {{request.GET.data_inicio}} a {{request.GET.data_fim}} | Status: {{request.GET.selecionar_status}}</p>
-  </div>
+                <label>Data range</label>
+                <input type="date" name="data_inicio" class="form-control">
+                <input type="date" name="data_fim" class="form-control">
 
-  <table>
-  <thead>
-    <tr>
-      <th>CPF</th>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Telefone</th>
-      <th>Ativo</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in clientes %}
-      <tr>
-        <td>{{ i.cpf }}</td>
-        <td>{{ i.nome }}</td>
-        <td>{{ i.email }}</td>
-        <td>{{ i.telefone }}</td>
-        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+                 <label for="Funcionario">Funcionário:</label>
+                <select id="funcionario" name="selecionar_funcionario"class = "form-control">
+                    {% for i in agendamentos %}
+                        <option value="{{i.id}}">{{ i.profissional }}</option>
+                    {% endfor %}
+                </select>
 
-<table>
-  <thead>
-    <tr>
-      <th>Serviço</th>
-      <th>Cliente</th>
-      <th>Funcionario</th>
-      <th>Status</th>
-      <th>Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in agendamentos  %}
-      <tr>
-        <td>{{ i.servico }}</td>
-        <td>{{ i.cliente__nome}}</td>
-        <td>{{ i.profissional__nome}}</td>
-        <td>{{ i.status }}</td>
-        <td>{{ i.data_agendada}}</td>
-      </tr>
-    {% empty %}
-      <tr>
+                <label for="servico">Serviço:</label>
+                <select id="servico" name="selecionar_servico" class="form-control">
+                <option value="">Todos</option>
+                {% for agendamento in agendamentos %}
+                    <option value="{{ agendamento.id }}">{{ agendamento.servico }}
+                    </option>
+                {% endfor %}
+                </select>
 
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
-<table>
-  <thead>
-    <tr>
-      <th>Funcionario</th>
-      <th>Email</th>
-      <th>Telefone</th>
-      <th>Ativo</th>
-      <th>Especialidade</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for i in funcionarios %}
-      <tr>
-        <td>{{ i.nome }}</td>
-        <td>{{ i.email }}</td>
-        <td>{{ i.telefone }}</td>
-        <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
-        <td>{{ i.especialidade}}</td>
-      </tr>
-    {% empty %}
-      <tr>
-        <td colspan="5" style="text-align: center;">Nenhum cliente encontrado.</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+                <label>Status</label>
+                <select name="selecionar_status" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Agendado">Agendado</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
 
-<hr> 
-  <div class="resumo">
-    <p><strong>Resumo:</strong></p>
-    <ul>
-      <li>Total de agendamentos: {{qntd_agendamentos}}</li>
-      <li>Concluídos: {{agend_concluidos}}</li>
-      <li>Cancelados: {{agend_cancelados}}</li>
-      <li>Valor total: R$ {{ valor_total_serv|floatformat:2 }}</li>
-    </ul>
-  </div>
-
-  <footer>
-    Gerado em: 10/09/2025 às 15:42 | Página 1
-  </footer>
-</body>
+                <input type="submit" class="btn" value="Filtrar">
+                <a href="/servicos/agendamento/" class="form-btn"> Registrar Agendamento</a>
+                <form method="get" action="">
+                    {{ form.as_p }}
+                    <a href="/relatorios/relatorio_geral/?&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&status={{request.GET.selecionar_status}}" 
+                    class="form-btn" type="submit">Gerar Relatório</a>
+                    </form>
+            </form>
+            <div class="div-log">
+                {% for i in agendamentos %}                
+                <a href="{% url 'relatorios:ver_agendamento' i.id %}">          
+                    <h5>Cliente Agendado: <span>{{ i.cliente.nome }}</span></h5>
+                    <h5>Serviço Agendado: <span>{{ i.servico }}</span></h5>
+                    <h5>Prestador do Serviço: <span>{{ i.profissional.nome }}</span></h5>
+                    <h5>Status do Agendamento: <span>{{ i.status }}</span></h5>
+                    <h5>Data e Hora do Agendamento: <span>{{ i.data_agendada }}</span></h5>
+                </a>
+                {% empty %}
+                <p>Nenhum agendamento encontrado.</p>
+                {% endfor %}
+            </div>
+            <form>
+                <span class="qtd_age">Total de Agendamentos: {{ qntd_agendamentos }}</span>
+                <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+                >Anterior</a>
+                <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+                >Próxima</a>
+            </form> 
+        </div>
+    </body>
 </html>

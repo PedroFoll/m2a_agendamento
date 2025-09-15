@@ -1,105 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-
-*{
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+/* ===== Reset Global ===== */
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
 }
 
-body{
-    margin: auto;
-    display: flex;
-    height: 100vh;
-    flex-grow: 1;
-    background: #f4f6f8;
+/* ===== Layout Geral ===== */
+body {
+  margin: auto;
+  display: flex;
+  min-height: 100vh;
+  background: #f3f0ff;
+  color: #333;
 }
 
-form label {
-    display: block;
-    font-weight: 500;
+/* ===== Títulos ===== */
+.tt-serv {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #383838;
+  text-align: center;
 }
 
-.tt-serv{
-    font-size: larger;
-    position: absolute;
-    top: 0;
-
+/* ===== Container do Form ===== */
+.div-cadastro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
 }
 
-.div-cadastro{
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background: #f4f6f8;
+.form-cadastro {
+  background: #383838;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
 }
 
-.div-cadastro .form-cadastro{
-    background: #929292;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 700px;
-    max-height: 700px;
-    text-align: center;
-}
-
+/* ===== Inputs ===== */
 .form-control,
-.form-select {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
+.form-select,
+.form-input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
-.form-input{
-    width: 100%;
-    margin: 5px;
-    padding: 10px 12px;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border 0.3s;
+.form-input:focus,
+.form-control:focus,
+.form-select:focus {
+  border-color: #4deb89;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.25);
 }
 
-.form-div-primary{
-    display: flex;
-    flex-direction: row;
+/* ===== Grupos ===== */
+.form-div-primary,
+.form-div-secondary,
+.form-div-third {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 1rem;
 }
 
-.form-div-secondary{
-    display: flex;
-    flex-direction: row;
+/* ===== Botão ===== */
+.form-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #4deb89;
+  color: #222;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.form-div-third{
-    display: flex;
-    flex-direction: row;
+.form-btn:hover {
+  background: #3bc577;
+  transform: translateY(-2px);
 }
 
-.form-btn{
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    background: #4deb89;
-    transition: 1s;
+/* ===== Responsividade ===== */
+@media screen and (max-width: 768px) {
+  .form-div-primary,
+  .form-div-secondary,
+  .form-div-third {
+    flex-direction: column;
+  }
+
+  .form-cadastro {
+    padding: 1.5rem;
+  }
 }
 
-.form-btn:hover{
-    background: linear-gradient(
-        120deg,
-        #fff 0%,
-        #485e72 40%,
-        #fff 60%
-    );
-    transition: 1s;
-
+@media screen and (max-width: 480px) {
+  .div-cadastro {
+    padding: 1rem;
+  }
+  .form-cadastro {
+    padding: 1rem;
+  }
 }

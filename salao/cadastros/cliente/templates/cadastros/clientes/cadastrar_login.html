@@ -1,40 +1,44 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Cliente</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
+    <link rel="stylesheet" href="{% static 'cliente_static/css/cadastro_style.css' %}">
 </head>
-<body class="body">
+<body>
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html'%}  
+
     <div class="div-cadastro">
-        <form class="form-cadastro" action="{% url 'cadastros:cliente'%}" method="POST">{%csrf_token%}
-            <label class="form-label">Cadastro</label>
-            <br>
+        <form class="form-cadastro" action="{% url 'cadastros:cliente' %}" method="POST">
+            {% csrf_token %}
             
+            <h1>Cadastro</h1>
+
+            <!-- Nome -->
             <div class="form-div-primary">
-                <input class="form-input" type="text" placeholder="Nome" name="first_name">
-                <input class="form-input" type="text" placeholder="Sobrenome" name="last_name">
+                <input class="form-input" type="text" placeholder="Nome" name="first_name" required>
+                <input class="form-input" type="text" placeholder="Sobrenome" name="last_name" required>
             </div>
 
+            <!-- Usuário + Email -->
             <div class="form-div-secondary">
-                <input class="form-input" type="text" placeholder="Usuario" name="username">
-                <input class="form-input" type="email" placeholder="email" name= 'email' id="">
+                <input class="form-input" type="text" placeholder="Usuário" name="username" required>
+                <input class="form-input" type="email" placeholder="Email" name="email" required>
             </div>
 
+            <!-- Senhas -->
             <div class="form-div-third">
-                <input class="form-input type-password" type="password" placeholder="senha" name="senha" id="">
-                <input class="form-input type-password" type="password" placeholder="repita sua senha" name="senha" id="">
+                <input class="form-input" type="password" placeholder="Senha" name="password1" required>
+                <input class="form-input" type="password" placeholder="Repita sua senha" name="password2" required>
             </div>
 
-            <br>
-            <input class="form-btn" type="submit" value="cadastrar" id="">
+            <!-- Botão -->
+            <input class="form-btn" type="submit" value="Cadastrar">
         </form>
-
     </div>
 </body>
 </html>

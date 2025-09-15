@@ -1,0 +1,228 @@
+/* ===================================
+   Calendar & Scheduling Styles
+   Mantendo estilo moderno
+   Cores ajustadas ao projeto anterior
+   =================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f4f6f8; /* fundo claro */
+  color: #333;
+  line-height: 1.5;
+  padding: 1rem;
+}
+
+/* ===== Containers Principais ===== */
+.container,
+.calendario {
+  background: #383838; /* cinza escuro */
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+/* layout lado a lado */
+.page-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 992px) {
+  .page-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Cabeçalhos dos Cards ===== */
+.container h1,
+.calendario h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  background: #4deb89; /* verde do projeto */
+  color: #fff;
+  padding: 0.8rem 1rem;
+  border-radius: 12px 12px 0 0;
+}
+
+/* ===== Formulário ===== */
+form label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #fff; /* texto branco no fundo escuro */
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #4deb89; /* foco verde */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.3);
+}
+
+/* ===== Botão Principal ===== */
+.btn-success {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #4deb89; /* verde */
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background: #3bc577;
+  transform: translateY(-2px);
+}
+
+/* ===== Mini Calendário ===== */
+.mini-calendar {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.mini-calendar .day {
+  margin-bottom: 1rem;
+}
+
+.day-txt {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+/* ===== Itens dos Agendamentos ===== */
+.mini-calendar li {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background: #484848; /* cinza médio */
+  list-style: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #fff;
+}
+
+.mini-calendar li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.mini-calendar strong {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.mini-calendar .time {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin: 4px 0 6px;
+}
+
+.mini-calendar .price {
+  font-weight: 600;
+  color: #4deb89; /* verde */
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* ===== Botões de Ação ===== */
+.mini-calendar .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-right: 6px;
+  transition: all 0.3s;
+}
+
+.btn-edit {
+  background: #6c757d;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background: #5a6268;
+}
+
+.btn-cancel {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.btn-cancel:hover {
+  background: #d9363e;
+}
+
+.btn-done {
+  background: #4deb89;
+  color: #000;
+}
+
+.btn-done:hover {
+  background: #3bc577;
+}
+
+/* ===== Status Badges ===== */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.status-concluido {
+  background: #4deb89;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status-agendado {
+  background: #eef0a7;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status-cancelado {
+  background: #ff4d4f;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+}

@@ -11,9 +11,10 @@
 <body class="body">
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html' %}    <div class="div-cadastro">
-        <label class="tt-serv"><h1>Cadastro de Funcionario</h1></label>
       <form class="form-cadastro" action="" method="POST">
         <label for="Cadastre seu Cliente"></label>{% csrf_token %}
+            <label class="name-form"><h1>Cadastro de Funcionario</h1></label>
+
             <label for="nome">Nome:</label>
             <input  type="text" name="nome" placeholder="Digite seu nome" class="form-control">
 

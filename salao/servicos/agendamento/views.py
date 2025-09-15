@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
@@ -11,28 +11,36 @@ def agendar_servico(request):
         clientes = Cliente.objects.all().order_by('nome')
         servicos = Servico.objects.all()
         profissional = Profissional.objects.all().order_by('nome')
+        helper = AgendarHelper()
 
+        id = request.GET.get('id')
+
+        # Primeiro monta o contexto básico com os dados fixos
         contexto = {
             'clientes': clientes,
             'servicos': servicos,
-            'profissional': profissional
+            'profissional': profissional,
+            'id': id,
         }
 
-        return render(request, 'agendar.html', contexto)
+        # Atualiza com os dados que vêm do helper (ex: proximos_dias_agendamentos)
+        contexto.update(helper.proximos_dias_agendamentos())
 
-    else:
+        return render(request, 'agendar.html', contexto)
+    
+    elif request.method == 'POST':
         cliente_ID = request.POST.get('cliente')
         funcionario_ID = request.POST.get('funcionario')
         servico_ID = request.POST.get('servico')
         data_hora = request.POST.get('data_hora')
 
         clientes = Cliente.objects.get(pk=cliente_ID)
-        funcionarios = Profissional.objects.get(pk=funcionario_ID)
+        profissional = Profissional.objects.get(pk=funcionario_ID)
         servicos = Servico.objects.get(pk=servico_ID)
 
         agendamento = Agendamento(
             cliente=clientes, 
-            profissional=funcionarios, 
+            profissional=profissional, 
             servico=servicos, 
             data_agendada=data_hora
             )
@@ -41,15 +49,9 @@ def agendar_servico(request):
         return redirect('/servicos/agendamento/')
     
 
-def agendar_servico(request):
-    helper = AgendarHelper()
-
-    contexto = {}
-    id = request.GET.get('id')
-    contexto.update(
-        helper.proximos_dias_agendamentos(),
-        helper.alterar_status(status=None)
-    )
-    contexto['id'] = id
-
-    return render(request, 'agendar.html', contexto)
+def alterar_status(request, agendamento_id, status):
+    agendamento = get_object_or_404(Agendamento, pk=agendamento_id)
+    agendamento.status = status
+    agendamento.save()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+        

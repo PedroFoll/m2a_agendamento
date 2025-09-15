@@ -22,7 +22,7 @@ from collections import defaultdict
 class Helpers():
 
     def cliente_Count():
-        clientes = Cliente.objects.all().order_by('nome')[:5]
+        clientes = Cliente.objects.all().order_by('nome')
         qntd_clientes = clientes.count()
 
         total_clientes = (
@@ -38,7 +38,7 @@ class Helpers():
             })
     
     def agenda_Count():
-        agendamentos = Agendamento.objects.all().order_by('data_agendada')[:5]
+        agendamentos = Agendamento.objects.all().order_by('data_agendada')
         qntd_agendamentos = agendamentos.count()
 
         total_agendamentos_serv = (
@@ -57,7 +57,7 @@ class Helpers():
             )
     
     def func_count():
-        funcionarios = Profissional.objects.all().order_by('nome')[:5]
+        funcionarios = Profissional.objects.all().order_by('nome')
         qntd_funcionarios = funcionarios.count()
 
         total_func = (
@@ -129,7 +129,7 @@ class Helpers():
         inicio_da_semana = hoje - timedelta(days=dia_da_semana)
 
         fim_da_semana = inicio_da_semana + timedelta(days=6)
-        amanha = inicio_da_semana + timedelta(days=1)
+        amanha = hoje + timedelta(days=1)
 
         agendamentos_semana = Agendamento.objects.filter(
             data_agendada__date__range=[
@@ -143,6 +143,7 @@ class Helpers():
             'inicio_da_semana': inicio_da_semana.strftime('%Y-%m-%d'),
             'fim_da_semana': fim_da_semana.strftime('%Y-%m-%d'),
             'amanha': amanha.strftime('%Y-%m-%d'),
+            'hoje': hoje.strftime('%Y-%m-%d'),
         }
 
         return context
@@ -226,7 +227,7 @@ class Helpers():
 
             # 🔹 Aplica filtros
             if data_inicio:
-                agendamentos = agendamentos.filter(data_agendada__gte=data_inicio)
+                agendamentos = agendamentos.filter(data_agendada__gte=data_inicio).order_by('data_agendada')
             if data_fim:
                 agendamentos = agendamentos.filter(data_agendada__lte=data_fim)
             if status:
@@ -234,7 +235,7 @@ class Helpers():
 
         # 🔹 Métricas
         total_agendamentos = agendamentos.count()
-        total_arrecadado = agendamentos.aggregate(
+        total_arrecadado = agendamentos.filter(status='Concluído').aggregate(
             total=Sum('servico__preco')
         )['total'] or 0
 
@@ -274,7 +275,7 @@ class AgendarHelper():
 
         for i, label in enumerate(labels):
             dia = hoje + timedelta(days=i)
-            agendamentos = Agendamento.objects.filter(data_agendada__date=dia)
+            agendamentos = Agendamento.objects.filter(data_agendada__date=dia).order_by('data_agendada')
             conta_agend_hoje = Agendamento.objects.filter(data_agendada__date=hoje).count()
 
             dias.append({
@@ -287,11 +288,3 @@ class AgendarHelper():
 
         return {"proximos_dias": dias}
     
-
-    def alterar_status(request, id, status):
-        agendamento = Agendamento.objects.get(id=id)
-        agendamento.status = status
-        agendamento.save()
-
-        return redirect(request.META.get("HTTP_REFERER", "relatorios:lista_agendamentos"))
-        

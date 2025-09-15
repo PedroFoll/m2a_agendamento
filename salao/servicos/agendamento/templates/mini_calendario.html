@@ -1,0 +1,26 @@
+{% for day in proximos_dias %}
+            <div class="day">
+                <div class="day-card ">
+                    <label class="day-txt">{{ day.data|date:"d/m" }} — {{ day.label }}</label>
+                    {% if day.appointments %}
+                    <ul>
+                        {% for a in day.appointments %}
+                        <div>
+                            <li>
+                                <strong>{{ a.cliente.nome }}</strong> ({{ a.cliente.telefone}})
+                                <div class="time">{{ a.data_agendada|date:"H:i" }} - {{ a.profissional.nome }} - ({{ a.servico.nome }})</div>
+                                <strong>R$ {{ a.servico.preco }}</strong>
+                                <a href="{% url 'relatorios:editar_agendamento' a.id %}">Editar</a>
+                                <a href="" class="btn">❌ Cancelar</a>
+                                <a href="" class="btn">✅ Concluir</a>
+
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>Nenhum atendimento.</p>
+                    {% endif %}
+                </div>
+            </div>
+                {% endfor %}

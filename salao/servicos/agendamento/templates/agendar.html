@@ -15,7 +15,6 @@
             <h1>Agendamento de Serviços</h1>
             <form action="/servicos/agendamento/" method="POST">
             {% csrf_token %}
-
             <label for="cliente">Cliente:</label>
             <select id="cliente" name="cliente" class="form-control">
                 {% for i in clientes %}
@@ -59,11 +58,14 @@
                         <div>
                             <li>
                                 <strong>{{ a.cliente.nome }}</strong> ({{ a.cliente.telefone}})
-                                <div class="time">{{ a.data_agendada|date:"H:i" }} - {{ a.profissional.nome }} - ({{ a.servico.nome }})</div>
-                                <strong>R$ {{ a.servico.preco }}</strong>
+                                <div class="time">{{ a.data_agendada|date:"H:i" }}
+                                    - {{ a.profissional.nome }}
+                                    - ({{ a.servico.nome }})
+                                    - <span class="status-{{a.status|lower|slugify}}">({{a.status}})</span></div>
+                                <strong class="price">R$ {{ a.servico.preco }}</strong>
                                 <a href="{% url 'relatorios:editar_agendamento' a.id %}">Editar</a>
-                                <a href="{% url 'relatorios:alterar_status' a.id 'cancelado' %}" class="btn">❌ Cancelar</a>
-                                <a href="{% url 'relatorios:alterar_status' a.id 'concluido' %}" class="btn">✅ Concluir</a>
+                                <a href="/servicos/alterar_status/{{ a.id }}/Cancelado/" class="btn">❌ Cancelar</a>
+                                <a href="/servicos/alterar_status/{{ a.id }}/Concluído" class="btn">✅ Concluir</a>
 
                             </li>
                         </div>
@@ -78,7 +80,7 @@
             </div>
 
 
-                </div>
+        </div>
         </div>
     </body>
 </html>

@@ -1,76 +1,131 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Relatório de Clientes</title>  
-        <link rel="stylesheet" href="{% static 'clientes/css/relatorios_Style.css' %}">
-    </head>
-    <body>
-        {% include 'core/navbar.html' %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório Geral de Performance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
+</head>
+
+
+<body>
+{% include 'core/navbar.html' %}
         {% include 'core/sidebar.html'%}
-        <div class="container">  
-            <label class="tt-serv"><h1>Relatório de Agendamentos</h1></label>
-            <form action="" method="GET">
-                {% csrf_token %}                
+  <div class="header">
+    <h1>Relatório Agendamentos</h1>
+    <p>Visão geral dos agendamentos</p>
+  </div>
+  <form action="" method="GET">
+    {% csrf_token %}
+    <div class="filters">
+        <label for="data_inicio">Data Início</label>
+        <input type="date" id="data_inicio" name="data_inicio" value="{{ request.GET.data_inicio }}">
 
-                <label>Data range</label>
-                <input type="date" name="data_inicio" class="form-control">
-                <input type="date" name="data_fim" class="form-control">
+        <label for="data_fim">Data Fim</label>
+        <input type="date" id="data_fim" name="data_fim" value="{{ request.GET.data_fim }}">
 
-                 <label for="Funcionario">Funcionário:</label>
-                <select id="funcionario" name="selecionar_funcionario"class = "form-control">
-                    {% for i in agendamentos %}
-                        <option value="{{i.id}}">{{ i.profissional }}</option>
-                    {% endfor %}
-                </select>
-
-                <label for="servico">Serviço:</label>
-                <select id="servico" name="selecionar_servico" class="form-control">
-                <option value="">Todos</option>
-                {% for agendamento in agendamentos %}
-                    <option value="{{ agendamento.id }}">{{ agendamento.servico }}
-                    </option>
-                {% endfor %}
-                </select>
-
-
-                <label>Status</label>
+        <label>Status</label>
                 <select name="selecionar_status" class="form-select">
-                    <option value="">Todos</option>
-                    <option value="Agendado">Agendado</option>
-                    <option value="Concluído">Concluído</option>
-                    <option value="Cancelado">Cancelado</option>
+                    <option class="form-select" value="">Todos</option>
+                    <option class="form-select" value="Agendado">Agendado</option>
+                    <option class="form-select" value="Concluído">Concluído</option>
+                    <option class="form-select" value="Cancelado">Cancelado</option>
                 </select>
+        
+        <button type="submit" class="button">Filtrar</button>
+    </div>
+</form>
+  <div class="cards">
+    <div class="card">
+      <span class="icon">✔️</span>
+      <h2>{{ total_agendamentos }}</h2>
+      <small>Total de Agendamentos</small>
+    </div>
+    <div class="card">
+      <span class="icon">👥</span>
+      <h2>52</h2>
+      <small>Clientes Cadastrados</small>
+    </div>
+    <div class="card">
+      <span class="icon">💲</span>
+      <h2>R$ {{ total_arrecadado }}</h2>
+      <small>Faturamento do Periodo</small>
+    </div>
+  </div>
 
-                <input type="submit" class="btn" value="Filtrar">
-                <a href="/servicos/agendamento/" class="form-btn"> Registrar Agendamento</a>
-                <form method="get" action="">
-                    {{ form.as_p }}
-                    <a href="/relatorios/relatorio_geral/?&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&status={{request.GET.selecionar_status}}" 
-                    class="form-btn" type="submit">Gerar Relatório</a>
-                    </form>
-            </form>
-            <div class="div-log">
-                {% for i in agendamentos %}                
-                <a href="{% url 'relatorios:ver_agendamento' i.id %}">          
-                    <h5>Cliente Agendado: <span>{{ i.cliente.nome }}</span></h5>
-                    <h5>Serviço Agendado: <span>{{ i.servico }}</span></h5>
-                    <h5>Prestador do Serviço: <span>{{ i.profissional.nome }}</span></h5>
-                    <h5>Status do Agendamento: <span>{{ i.status }}</span></h5>
-                    <h5>Data e Hora do Agendamento: <span>{{ i.data_agendada }}</span></h5>
-                </a>
-                {% empty %}
-                <p>Nenhum agendamento encontrado.</p>
-                {% endfor %}
-            </div>
-            <form>
-                <span class="qtd_age">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
-                >Anterior</a>
-                <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
-                >Próxima</a>
-            </form> 
+  <div class="grid">
+    <div class="table-card">
+      <h3>📊 Agendamentos Recentes</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Profissional</th>
+            <th>Data</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ag in agendamentos %}
+          <tr>
+            <a href="{% url 'relatorios:ver_agendamento' ag.id %}">
+            <td>{{ ag.cliente.nome }}</td>
+            <td>{{ ag.servico.nome }}</td>
+            <td>{{ ag.profissional.nome }}</td>
+            <td>{{ ag.data_agendada|date:"d/m/Y H:i" }}</td>
+            <td class="status {{ag.status|lower|slugify}}">{{ ag.status }}</td>
+            </a>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">Nenhum agendamento encontrado.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+        <form>
+        <span class="qtd_age">Total de Agendamentos: {{ total_agendamentos }}</span><br> <br>
+        <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+        >Anterior</a>
+        <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+        >Próxima</a>
+        </form> 
+    </div>
+
+    <div>
+      <div class="ranking-card">
+        <h3>🏆 Ranking de Clientes</h3>
+        <div class="ranking">
+          {% for i in rank_cli %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.cliente__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
         </div>
-    </body>
+      </div>
+
+      <div class="ranking-card">
+        <h3>⭐ Ranking de Funcionários</h3>
+        <div class="ranking">
+          {% for i in rank_func %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.profissional__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
+<script>
+  Inputmask("99/99/9999").mask("#data");
+</script>
+</body>
 </html>

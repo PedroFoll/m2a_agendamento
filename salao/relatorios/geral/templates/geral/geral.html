@@ -1,59 +1,121 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Relatório de Agendamentos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório Geral de Performance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
 </head>
+
+
 <body>
-  <h2>Relatório Geral</h2>
 
-<p><strong>Total de Agendamentos:</strong> {{ total_agendamentos }}</p>
-<p><strong>Total Arrecadado:</strong> R$ {{ total_arrecadado }}</p>
+  <div class="header">
+    <h1>Relatório Geral de Performance</h1>
+    <p>Visão geral dos agendamentos, clientes, funcionários e performance</p>
+  </div>
+  <form action="" method="GET">
+    {% csrf_token %}
+    <div class="filters">
+        <label for="data_inicio">Data Início</label>
+        <input type="date" id="data_inicio" name="data_inicio" value="{{ request.GET.data_inicio }}">
 
-<p><strong>Cliente com mais agendamentos:</strong> 
-  {% if cliente_top %}
-  {{ cliente_top.cliente__nome }}
-  ({{ cliente_top.total }})
-  {% else %} - {% endif %}
-</p>
+        <label for="data_fim">Data Fim</label>
+        <input type="date" id="data_fim" name="data_fim" value="{{ request.GET.data_fim }}">
 
-<p><strong>Funcionário que mais concluiu:</strong> 
-  {% if funcionario_top %} 
-  {{ funcionario_top.profissional__nome }}
-  ({{ funcionario_top.total }})
-  {% else %} - {% endif %}
-</p>
+        <label>Status</label>
+                <select name="selecionar_status" class="form-select">
+                    <option class="form-select" value="">Todos</option>
+                    <option class="form-select" value="Agendado">Agendado</option>
+                    <option class="form-select" value="Concluído">Concluído</option>
+                    <option class="form-select" value="Cancelado">Cancelado</option>
+                </select>
+        
+        <button type="submit" class="button">Filtrar</button>
+    </div>
+</form>
+  <div class="cards">
+    <div class="card">
+      <span class="icon">✔️</span>
+      <h2>{{ total_agendamentos }}</h2>
+      <small>Total de Agendamentos</small>
+    </div>
+    <div class="card">
+      <span class="icon">👥</span>
+      <h2>52</h2>
+      <small>Clientes Cadastrados</small>
+    </div>
+    <div class="card">
+      <span class="icon">💲</span>
+      <h2>R$ {{ total_arrecadado }}</h2>
+      <small>Faturamento Total</small>
+    </div>
+  </div>
 
-<hr>
+  <div class="grid">
+    <div class="table-card">
+      <h3>📊 Agendamentos Recentes</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Profissional</th>
+            <th>Data</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ag in agendamentos %}
+          <tr>
+            <td>{{ ag.cliente.nome }}</td>
+            <td>{{ ag.servico.nome }}</td>
+            <td>{{ ag.profissional.nome }}</td>
+            <td>{{ ag.data_agendada|date:"d/m/Y H:i" }}</td>
+            <td class="status {{ag.status|lower|slugify}}">{{ ag.status }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">Nenhum agendamento encontrado.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cliente</th>
-      <th>Serviço</th>
-      <th>Profissional</th>
-      <th>Data</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for ag in agendamentos %}
-    <tr>
-      <td>{{ ag.cliente.nome }}</td>
-      <td>{{ ag.servico.nome }}</td>
-      <td>{{ ag.profissional.nome }}</td>
-      <td>{{ ag.data_agendada|date:"d/m/Y H:i" }}</td>
-      <td>{{ ag.status }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="5">Nenhum agendamento encontrado.</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    <div>
+      <div class="ranking-card">
+        <h3>🏆 Ranking de Clientes</h3>
+        <div class="ranking">
+          {% for i in rank_cli %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.cliente__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
 
+      <div class="ranking-card">
+        <h3>⭐ Ranking de Funcionários</h3>
+        <div class="ranking">
+          {% for i in rank_func %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.profissional__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
+<script>
+  Inputmask("99/99/9999").mask("#data");
+</script>
 </body>
 </html>
