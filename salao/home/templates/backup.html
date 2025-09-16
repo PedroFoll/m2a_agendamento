@@ -1,75 +1,158 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    {% include 'core/navbar.html' %}
-    {% include 'core/sidebar.html' %}
-    <div class="search-container">
-        <label class="search-title">Pesquisar</label>
-        <input class="search-text" type="text">
-        <span class="nav-icon material-symbols-rounded">search</span>
+<html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <title>Dashboard</title> 
+      <link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+  <body>
+        {% include 'core/navbar.html' %}
+        {% include 'core/sidebar.html'%}
+    <div class="header">
+      <h1>Relatório Geral de Performance</h1>
+      <p>Visão geral dos agendamentos, clientes, Funcionários e performance</p>
     </div>
 
-    <div class="drop-down">
-       <select name="" class="form-select">
-            <option value="">Hoje</option>
-            <option value="Agendado">Última semana</option>
-            <option value="Concluído">Essa Semana</option>
-            <option value="Cancelado">Próxima Semana</option>
-        </select>
+    <div class="filters">
+      <button>🖨️ Imprimir</button>
+      <button>⬇️ Exportar</button>
     </div>
 
-    <div class="container">
-            <div class="dash-board">
-                <div class="grafic">
-                    <a href="">
-                        <label class="lb-title">Agendamentos</label>
-                        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                        {% for servico in total_agendamentos_serv %}
-                            <li class="qtd-agen" style="--bar-width: {{servico.total}}%">
-                                {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)
-                            </li>
-                        {% endfor %}
-                    </a>
-                </div>
+    <div class="cards">
+      <div class="card">
+        <span class="icon" >📅</span>
+        <h2>{{qntd_agendamentos}}</h2>
+        <p>Total de Agendamentos</p>
+      </div>
+      
+
+      <div class="card">
+        <span class="icon">⏳</span>
+        <h2>{{agend_pendentes}}</h2>
+        <p>Agendamentos Pendentes</p>
+      </div>
+      
+    
+      <div class="card">
+        <span class="icon">✔️</span>
+        <h2>{{agend_concluidos}}</h2>
+        <p>Agendamentos Concluídos</p>
+      </div>
+      
+      
+      <div class="card">
+        <span class="icon">❌</span>
+        <h2>{{agend_cancelados}}</h2>
+        <p>Agendamentos Cancelados</p>
+      </div>
+      
+      <div class="card">
+        <a href="/relatorios/agendamentos/?data_inicio={{data_range.hoje}}&data_fim={{data_range.amanha}}">
+          <span class="icon">📅</span>
+          <h2>{{ data_range.agendamentos_hoje }}</h2>
+          <p>Agendamentos Hoje</p>
+        </a>
+      </div>
+      
+      <div class="card">
+        <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.fim_da_semana}}">
+          <span class="icon">📅</span>
+          <h2>{{ data_range.agendamentos_semana }}</h2>
+          <p>Semana Atual</p>
+        </a>
+      </div>
+
+      <div class="card">
+        <a href="/cadastros/servicos/cadastrar_servico/">
+          <span class="icon">🎁</span>
+          <h2>{{ servicos}}</h2>
+          <p>Serviços Oferecidos</p>
+        </a>
+      </div>
+      
+      <div class="card">
+        <span class="icon">👥</span>
+        <h2>{{qntd_clientes }}</h2>
+        <p>Clientes Cadastrados</p>
+      </div>
+      
+      <div class="card">
+        <span class="icon">💲</span>
+        <h2>R$ {{ valor_total_serv|floatformat:2 }}</h2>
+        <p>Faturamento Total</p>
+    </div>
                 
-                <div class="grafic">
-                    <a href="">
-                        <label class="lb-title">Realtorio de datas</label>
-                        <span class="qtd-agen">Total de Agendamentos: {{ qntd_agendamentos }}</span>
-                       {% for item in agrp %}
-                            <li class="qtd-agen">
-                                <label >{{ item.dia }}: </label>
-                                <span>{{ item.total_agendamentos }}</span>
-                            </li>
-                        {% endfor %}
-                    </a>
-                    
-                    <div class="pagination">
-                        {% if agrp.has_previous %}
-                            <a class="nandb" href="?pagina={{ agrp.previous_page_number }}">Anterior</a>
-                        {% else %}
-                            <a class="nandb">Anterior</a>
-                        {% endif %}
-
+    </div>
     
-                        <span>Página {{ agrp.number }} de {{ agrp.paginator.num_pages }}</span>
-    
-                        {% if agrp.has_next %}
-                            <a class="nandb" href="?pagina={{ agrp.next_page_number }}">Próxima</a>
-                        {% else %}
-                            <a class="nandb">Próxima</a>
-                        {% endif %}
-                    </div>
-                </div>
+    <div class="grid">
+      <div class="charts">
+        <div class="chart-box">
+          <h3>Distribuição de Serviços</h3>
+        <canvas id="servicosChart"></canvas>
+        {% for servico in total_agendamentos_serv %}
+        <li class="qtd-agen"
+        data-percent="{{servico.percentual}}"
+        data-servico-nome="{{servico.servico__nome}}">
+              {{ servico.servico__nome }}: {{ servico.total }} pedidos ({{servico.percentual}}%)
+            </li>
+          {% endfor %}
+      </div>
+    </div>
 
-            </div>
-        </div>
-        <script src="{% static 'home_static/js/home.js' %}"></script>
-    </body>
+     <div class="charts">
+    <div class="card">
+      <h3>Distribuição por Status</h3>
+      <canvas id="statusChart"></canvas>
+      <div style="margin-top:10px; font-size: 0.9rem;">
+        <span style="color:green;">⬤ Concluídos</span> &nbsp;
+        <span style="color:orange;">⬤ Pendentes</span> &nbsp;
+        <span style="color:red;">⬤ Cancelados</span>
+      </div>
+      </div>
+    </div>
+
+</div>
+
+  <!-- === RANKINGS === -->
+  <div class="ranking-section">
+    <div class="card">
+      <h3>Top 5 Serviços</h3>
+      <div class="ranking">
+        {% for i in rank_serv %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.servico__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}      
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Top 5 Clientes</h3>
+      <div class="ranking">
+        {% for i in rank_cli %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.cliente__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Top 5 Funcionários</h3>
+      <div class="ranking">
+        {% for i in rank_func %}
+          <div class="ranking-item">
+            {{ forloop.counter }}. {{ i.profissional__nome }}
+            <small>{{ i.total_servicos }} agendamentos</small>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+<script src="{% static 'geral/js/geral.js' %}"></script>
 </html>

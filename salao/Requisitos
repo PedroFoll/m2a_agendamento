@@ -167,3 +167,81 @@ adicionar separação por funcionalidade
 
 
       request.sharedstorage
+
+
+
+def layout(request):
+    geral = Helpers.relatorio_geral(request)
+    rank_func = Helpers.rank_funcionarios()
+    rank_cli = Helpers.rank_clientes()
+    rank_serv = Helpers.rank_servicos()
+    limit = 25
+    pagina = int(request.GET.get('pagina', 1))
+    agendamentos = Agendamento.objects.all()
+    servico = Servico.objects.all()
+    qntd_agendamentos = agendamentos.count()
+    selecionar_status = request.GET.get('selecionar_status')
+    
+
+    data_inicio = request.GET.get('data_inicio')
+    data_fim = request.GET.get('data_fim')
+
+    if selecionar_status:
+        agendamentos = agendamentos.filter(status__iexact=selecionar_status.lower())
+
+    if data_inicio and data_fim:
+        agendamentos = agendamentos.filter(data_agendada__range=[data_inicio, data_fim])
+
+    offset = (pagina - 1) * limit
+    agendamentos = agendamentos.order_by('data_agendada')[offset:offset + limit]
+
+    contexto = {
+        'form': geral['form'],
+        'agendamentos': geral['agendamentos'][:25],
+        'total_agendamentos': geral['total_agendamentos'],
+        'total_arrecadado': geral['total_arrecadado'],
+        'rank_func':rank_func,
+        'rank_cli':rank_cli,
+        'rank_serv':rank_serv,
+        'agendamentos': agendamentos,
+        'qntd_agendamentos': qntd_agendamentos,
+        'pagina': pagina,
+        'limit': limit,
+        'servico': servico,
+
+    }
+
+    return render(request, "imprimir/layout.html", contexto)
+
+
+
+
+def pydfe(self, request,):
+    qs = parse_qs(querstring)
+    
+    kwargs ={}
+    for key, value in qs.items():
+        kwargs[key] = value[0]
+
+    self.configuracao_documento = self.get_configuracao_documento()
+    context = self.get_context_data(**kwargs)
+
+    header_temporary = self.create_hearder_temporary(context)
+    html_str = render_to_string('imprimir/layout.html', context)
+    footer_temporary = self.create_footer_temporary(context)
+
+    relatorio_pdf = pydf.generate_pdf(
+        html_str,
+        page_size=self.configuracao_documento['page_size'],
+        margin_top=self.configuracao_documento['margin_top'],
+        margin_bottom=self.configuracao_documento['margin_bottom'],
+        margin_right=self.configuracao_documento['margin_right'],
+        margin_left=self.configuracao_documento['margin_left'],
+        header_html=header_temporary.name,
+        footer_html=footer_temporary.name,
+        image_quality=68,
+        image_dpi=300,
+    )
+
+    relatorio_pdf=self.set_header_footer(relatorio_pdf)
+    return relatorio_pdf

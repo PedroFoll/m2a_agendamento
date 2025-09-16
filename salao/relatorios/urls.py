@@ -2,7 +2,7 @@ from django.urls import path, include
 from .clientes import views as cliente_views
 from .agendamentos import views as agend_views
 from .geral import views as geral_views
-
+from pydf import generate_pdf
 
 app_name ='relatorios'
 urlpatterns =[
@@ -20,6 +20,5 @@ urlpatterns =[
     path('relatorio_geral/', geral_views.relatorio_geral, name='relatorio_geral'),
 
     path('imprimir/', agend_views.imprimir_relatorio, name='imprimir_relatorio'),
-    path('layout/',agend_views.layout, name='layout'),
 
 ]

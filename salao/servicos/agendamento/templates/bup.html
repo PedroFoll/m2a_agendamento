@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agendamento de Serviços</title>
+        <link rel="stylesheet" href="{% static 'agendamento_static/css/agendamento_style.css' %}">
+        
+</span>
+    </head>
+    <body>
+        {% include 'core/navbar.html' %}
+        {% include 'core/sidebar.html'%}
+        <div class="content">
+        <div class="container">
+            <h1>Agendamento de Serviços</h1>
+            <form action="/servicos/agendamento/" method="POST">
+            {% csrf_token %}
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" name="cliente" class="form-control">
+                {% for i in clientes %}
+                        <option value="{{i.id}}">{{ i.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="Funcionario">Funcionário:</label>
+            <select id="funcionario" name="funcionario"class = "form-control">
+                {% for i in profissional %}
+                        <option value="{{i.id}}">{{ i.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="Servico">Serviço:</label>
+            <select id="servico" name="servico" class="form-control">
+                {% for i in servicos %}
+                    <option value="{{i.id}}">{{ i.nome }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="data_hora">Data e Hora:</label>
+            <input type="datetime-local" id="data_hora" name="data_hora" class="form-control">                    
+            <label for="">Status</label>
+
+            
+            <input type="submit" value="Agendar" class="btn btn-success">
+            </form>
+        </div> 
+
+        <div class="calendario">
+            <h2>Calendário de Agendamentos</h2>
+            <div class="mini-calendar">
+            {% for day in proximos_dias %}
+            <div class="day">
+                <div class="day-card ">
+                    <label class="day-txt">{{ day.data|date:"d/m" }} — {{ day.label }}</label>
+                    {% if day.appointments %}
+                    <ul>
+                        {% for a in day.appointments %}
+                        <div>
+                            <li>
+                                <strong>{{ a.cliente.nome }}</strong> ({{ a.cliente.telefone}})
+                                <div class="time">{{ a.data_agendada|date:"H:i" }}
+                                    - {{ a.profissional.nome }}
+                                    - ({{ a.servico.nome }})
+                                    - <span class="status-{{a.status|lower|slugify}}">({{a.status}})</span></div>
+                                <strong class="price">R$ {{ a.servico.preco }}</strong>
+                                <a href="{% url 'relatorios:editar_agendamento' a.id %}">Editar</a>
+                                <a href="/servicos/alterar_status/{{ a.id }}/Cancelado/" class="btn">❌ Cancelar</a>
+                                <a href="/servicos/alterar_status/{{ a.id }}/Concluído" class="btn">✅ Concluir</a>
+
+                            </li>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>Nenhum atendimento.</p>
+                    {% endif %}
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

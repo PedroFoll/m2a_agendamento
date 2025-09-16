@@ -1,39 +1,54 @@
 /* ===================================
    Calendar & Scheduling Styles
-   Mantendo estilo moderno
-   Cores ajustadas ao projeto anterior
+   Projeto: Seu Projeto
+   Arquivo: calendar.css (ou integrado ao base.css)
+   Descrição: Estilos para páginas de calendário e agendamento
    =================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* ===== Fontes ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
 
 body {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: #f4f6f8; /* fundo claro */
+  background: #f3f0ff;
   color: #333;
+  font-family: "Poppins", sans-serif;
   line-height: 1.5;
-  padding: 1rem;
 }
 
-/* ===== Containers Principais ===== */
+.content {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 65px;
+    display: flex;
+  }
+
+/* ===== Containers ===== */
 .container,
 .calendario {
-  background: #383838; /* cinza escuro */
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
-  margin-bottom: 2rem;
-  flex: 1;
+  padding: 1.5rem 2rem;
+    /* height: 90vh; */
+    width: calc(100% - 250px);
+    background: #383838;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    margin-bottom: 2rem;
+    flex: 1;
+    margin: 0.5rem;
 }
 
-/* layout lado a lado */
+.container {
+    flex: 1;
+    height: calc(100vh - 180px);
+}
+.calendario {
+    flex: 3;
+    height: calc(100vh - 141px);
+
+}
+
 .page-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -46,17 +61,18 @@ body {
   }
 }
 
-/* ===== Cabeçalhos dos Cards ===== */
 .container h1,
 .calendario h2 {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  background: #4deb89; /* verde do projeto */
+  background: #888a89; /* verde do projeto */
   color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 12px 12px 0 0;
+  
 }
+
 
 /* ===== Formulário ===== */
 form label {
@@ -69,8 +85,8 @@ form label {
 .form-control,
 .form-select {
   width: 100%;
+  padding: 5px;
   margin-bottom: 1rem;
-  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -78,12 +94,11 @@ form label {
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #4deb89; /* foco verde */
+  border-color: #98b6a3; /* foco verde */
   outline: none;
   box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.3);
 }
 
-/* ===== Botão Principal ===== */
 .btn-success {
   width: 100%;
   padding: 12px;
@@ -102,24 +117,37 @@ form label {
   transform: translateY(-2px);
 }
 
+/* ===== Cards do Calendário ===== */
+.day-card {
+  background: #5f5f5f;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-y: auto;
+  max-height: 180px;
+  max-width: 1000px;
+  margin-bottom: 15px;
+  z-index: 1;
+}
+
+.day-txt {
+  color: #fff;
+  font-weight: 600;
+  background: #2f3640;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-top: -10px;
+  z-index: 2;
+}
+
 /* ===== Mini Calendário ===== */
 .mini-calendar {
   max-height: 70vh;
   overflow-y: auto;
   padding-right: 8px;
+  scrollbar-width: none;
 }
 
-.mini-calendar .day {
-  margin-bottom: 1rem;
-}
-
-.day-txt {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #fff;
-}
-
-/* ===== Itens dos Agendamentos ===== */
+/* Itens */
 .mini-calendar li {
   margin-bottom: 12px;
   padding: 12px 14px;
@@ -155,48 +183,18 @@ form label {
   display: block;
 }
 
-/* ===== Botões de Ação ===== */
-.mini-calendar .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
+/* Links */
+.mini-calendar li a {
+  font-size: 0.9rem;
+  color: #444;
+  margin-left: 20px;
+  padding: 6px 10px;
+  background: #e3e3e3;
+  border-radius: 5px;
   text-decoration: none;
-  margin-right: 6px;
-  transition: all 0.3s;
+  display: inline-block;
 }
 
-.btn-edit {
-  background: #6c757d;
-  color: #fff;
-}
-
-.btn-edit:hover {
-  background: #5a6268;
-}
-
-.btn-cancel {
-  background: #ff4d4f;
-  color: #fff;
-}
-
-.btn-cancel:hover {
-  background: #d9363e;
-}
-
-.btn-done {
-  background: #4deb89;
-  color: #000;
-}
-
-.btn-done:hover {
-  background: #3bc577;
-}
-
-/* ===== Status Badges ===== */
 .status {
   display: inline-block;
   padding: 4px 10px;
@@ -215,7 +213,7 @@ form label {
 
 .status-agendado {
   background: #eef0a7;
-  color: #fff;
+  color: #303030;
   padding: 4px 10px;
   border-radius: 20px;
 }
@@ -226,3 +224,50 @@ form label {
   padding: 4px 10px;
   border-radius: 20px;
 }
+
+
+
+/* ===== Responsividade ===== */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+  .container,
+  .calendario {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .container,
+  .calendario {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+
+/* ===== Responsividade ===== */
+@media screen and (max-width: 992px) {
+  .mini-calendar {
+    height: 60vh;
+    min-height: 250px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .mini-calendar {
+    height: auto;       /* deixa crescer natural em telas muito pequenas */
+    max-height: none;
+  }
+}
+

@@ -46,7 +46,7 @@
 
 
 .sidebar:hover {
-  width: 250px;
+  width: 260px;
 }
 
 /* Listas */
@@ -56,6 +56,15 @@
   flex-direction: column;
   gap: 2px;           /* antes: 4px */
   padding: 6px 0; 
+}
+
+.sidebar .nav-logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  width: 24px;
+  height: auto;
 }
 
 /* Links */
@@ -88,7 +97,7 @@
 
 .sidebar .nav-linki:hover {
   color: rgb(26, 26, 26);
-  background: #f094c9;
+  background: #af83a9;
 }
 
 /* Ícones centralizados */
@@ -96,8 +105,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;    /* antes: 28px */
-  width: 24px;        /* antes: 28px */
+  font-size: 24px;
+  width: 24px; 
   min-width: 24px;
 }
 
