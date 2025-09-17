@@ -34,49 +34,45 @@
         <p>Agendamentos Pendentes</p>
       </div>
       
-    
-      <div class="card">
-        <span class="icon">✔️</span>
-        <h2>{{agend_concluidos}}</h2>
-        <p>Agendamentos Concluídos</p>
-      </div>
+      <a href="/relatorios/agendamentos/?selecionar_status=Concluído">
+        <div class="card">
+          <span class="icon">✔️</span>
+          <h2>{{agend_concluidos}}</h2>
+          <p>Agendamentos Concluídos</p>
+        </div>
+      </a>
       
-      
+      <a href="/relatorios/agendamentos/?selecionar_status=Cancelado">
       <div class="card">
         <span class="icon">❌</span>
         <h2>{{agend_cancelados}}</h2>
         <p>Agendamentos Cancelados</p>
       </div>
+      </a>
       
-      <div class="card">
-        <a href="/relatorios/agendamentos/?data_inicio={{data_range.hoje}}&data_fim={{data_range.amanha}}">
+      <a href="/relatorios/agendamentos/?data_inicio={{data_range.hoje}}&data_fim={{data_range.amanha}}">
+        <div class="card">
           <span class="icon">📅</span>
           <h2>{{ data_range.agendamentos_hoje }}</h2>
           <p>Agendamentos Hoje</p>
-        </a>
-      </div>
+        </div>
+      </a>
       
-      <div class="card">
-        <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.fim_da_semana}}">
+      <a href="/relatorios/agendamentos/?data_inicio={{data_range.inicio_da_semana}}&data_fim={{data_range.fim_da_semana}}">
+        <div class="card">
           <span class="icon">📅</span>
           <h2>{{ data_range.agendamentos_semana }}</h2>
           <p>Semana Atual</p>
-        </a>
-      </div>
+        </div>
+      </a>
 
-      <div class="card">
-        <a href="/cadastros/servicos/cadastrar_servico/">
-          <span class="icon">🎁</span>
-          <h2>{{ servicos}}</h2>
-          <p>Serviços Oferecidos</p>
-        </a>
-      </div>
-      
+      <a href="/relatorios/clientes/">
       <div class="card">
         <span class="icon">👥</span>
         <h2>{{qntd_clientes }}</h2>
         <p>Clientes Cadastrados</p>
       </div>
+      </a>
       
       <div class="card">
         <span class="icon">💲</span>

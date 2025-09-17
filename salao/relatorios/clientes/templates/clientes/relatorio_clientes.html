@@ -4,45 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Relatório de Clientes</title>  
-    <link rel="stylesheet" href="{% static 'agendamentos/css/relatorios_Style.css' %}">
+    <link rel="stylesheet" href="{% static 'geral/css/geral_Style.css' %}">
 </head>
 <body>
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html' %}
-    <div class="container">  
-        <h1>Consultar Clientes</h1>
-        
-        <form action="" method="GET">
+    <div class="header">
+        <h1>Relatório Clientes</h1>
+        <form class="filters" method="GET">
             {% csrf_token %}
             <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome_filtrar" class="form-control">
-            
+            <input type="text" id="nome" name="nome-filtrar" class="nome-filtrar">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email_filtrar" class="form-control">
+            <input type="text" id="email" name="email-filtrar" class="email-filtrar">
             <input type="submit" value="Filtrar" class="btn btn-success">
-            <a href="/cadastros/cliente/criar_cliente/" class="form-btn">Cadastrar cliente</a>
-
         </form>
-        <div class="div-log">
-            {% for i in clientes %}                
-             <a href="{% url 'relatorios:ver_cliente' i.id %}">          
-                    <h5>CPF: <span>{{ i.cpf}}</span></h5>
-                    <h5>Nome: <span>{{ i.nome }}</span></h5> 
-                    <h5>Email: <span>{{ i.email }}</span></h5>
-                    <h5>Telefone: <span>{{ i.telefone }}</span></h5>
-                    <h5>Ativo: <span>{{ i.ativo|yesno:"Sim,Não" }}</span></h5>
-
-            </a>
-            {% empty %}
-            <p>Nenhum cliente encontrado.</p>
-            {% endfor %}
-        </div>
-        <form>
-            <span class="qtd_age">Total de Clientes: {{ qtd_clientes }}</span>
-            <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
-            <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
-        </form> 
     </div>
-
+        <div class="grid">
+      <div class="table-card">
+        <h3>📊 Clientes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>CPF</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Ativo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in clientes %}     
+            <tr>
+                <td>{{ i.cpf}}</td>
+                <td>{{ i.nome }}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.telefone }}</td>
+                <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
+                <td><a href="{% url 'relatorios:ver_cliente' i.id %}">
+                <button>✏️ Editar</button>
+                </a></td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5">Nenhum agendamento encontrado.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          <form>
+          <span class="qtd_age">Total de Agendamentos: {{ total_agendamentos }}</span><br> <br>
+          <a class="form-btn" href="?pagina={{ pagina|add:-1 }}"
+          >Anterior</a>
+          <a class="form-btn" href="?pagina={{ pagina|add:+1 }}"
+          >Próxima</a>
+          </form> 
+      </div>
+      
 </body>
 </html>

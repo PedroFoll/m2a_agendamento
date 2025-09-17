@@ -43,7 +43,6 @@
 }
 
 
-
 /* Estilos para os links de navegação */
 .nav-link, 
 .navbar-brand {
@@ -71,17 +70,15 @@
 /* Estilos para os botões */
 .button {
     text-decoration: none;
-    padding: 15px 16px;
-    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 2rem;
+    border-radius: 37px;
     transition: background-color 0.3s ease;
-    background-color: #6c757d;
-    color: white;
+    background-color: #9e7d99;
 }
-
-.button:hover {
+.button-red:hover{
     background-color: #5a6268;
     color: rgb(246, 64, 64);
-    
 }
 
 

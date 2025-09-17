@@ -3,12 +3,12 @@
 /* ===== Reset Global ===== */
 * {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
   padding: 0;
 }
 
 /* ===== Layout Geral ===== */
 body {
+  font-family: "Poppins", sans-serif;
   display: flex;
   max-height: 100vh;
   background: #f3f0ff;
@@ -26,15 +26,15 @@ body {
 }
 
 .form-cadastro {
-  background: #383838;
-  color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.15);
-  width: 100%;
-  max-width: 700px;
-  text-align: center;
-  margin: auto;
+    background: #383838;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 670px;
+    text-align: center;
+    margin: auto;
 }
 
 .div-log{
@@ -42,6 +42,7 @@ body {
   padding: 10px;
   border-radius: 8px;
   overflow-y: auto;
+  scrollbar-width: thin;
   max-height: 160px;
   max-width: 700px;
   margin-bottom: 15px;
@@ -76,7 +77,7 @@ li{
 }
 
 .form-input:focus {
-  border-color: #4deb89;
+  border-color: #9e7d99;
   outline: none;
   box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.25);
 }
@@ -98,7 +99,7 @@ li{
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  background: #4deb89;
+  background: #9e7d99;
   color: #222;
   transition: background 0.3s, transform 0.2s;
 }
@@ -109,7 +110,7 @@ li{
 }
 
 .btn{
-  background: #3bc577;
+  background: #9e7d99;
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -124,8 +125,8 @@ li{
 .registro{
   text-align: center;
   margin-top: 15px;
-  background: #ffffff;
-  color: #222;
+  background: #2e2d2d;
+  color: #ffffff;
 }
 
 /* ===== Responsividade ===== */

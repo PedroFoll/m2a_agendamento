@@ -50,6 +50,12 @@
 }
 
 /* Listas */
+
+.nav-label small {
+  font-size: 0.7rem;  /* Faz o texto "Powered by" ser bem menor */
+  color: #666;        /* Cor mais suave para o "Powered by" */
+}
+
 .sidebar .nav-list {
   list-style: none;
   display: flex;
@@ -90,10 +96,14 @@
 
 .sidebar .nav-link,
 .sidebar .nav-linki {
-  padding: 8px 12px;  /* antes: 12px 18px */
-  gap: 8px;           /* antes: 12px */
+  padding: 12px 18px;  /* antes: 12px 18px */
+  gap: 12px;           /* antes: 12px */
 }
 
+.sidebar .nav-link:hover{
+  color: rgb(26, 26, 26);
+  background: #9e7d99;
+}
 
 .sidebar .nav-linki:hover {
   color: rgb(26, 26, 26);
@@ -115,6 +125,7 @@
   opacity: 0;
   white-space: nowrap;
   transition: opacity 0.4s ease;
+  font-size: 1.1rem;
 }
 
 .sidebar:hover .nav-label {
