@@ -24,12 +24,12 @@ body {
 }
 
 .content {
-    width: calc(100vw - 50px);
+   width: calc(100vw - 45px);
     position: relative;
     right: -1rem;
     align-items: center;
-    margin-left: 3.5rem;
-    margin-top: 3rem;
+    margin-left: 3rem;
+    margin-top: 1rem;
     display: flex;
     background: transparent;
   }
@@ -55,7 +55,7 @@ body {
 .calendario {
     background: none;
     flex: 3;
-    margin-left: -1.8rem;
+    margin-left: -1.6rem;
     margin-right: 0rem;
     height: calc(100vh - 45px);
 
@@ -83,7 +83,7 @@ body {
   margin-bottom: 1rem;
   margin-right: 0.5rem;
   margin-top: 0.8rem;
-  background: #30cf80;
+  background: #9e7d99;
   color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 12px 12px 12px 12px;
@@ -104,7 +104,7 @@ body {
 .form-control,
 .form-select {
   position: relative;
-  width: 250px;
+  width: 340px;
   padding: 8px;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
@@ -118,18 +118,78 @@ body {
   outline: none;
   box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.3);
 }
+
+.titulo {
+    background: #9e7d99;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 10px;  /* Reduzido o espaçamento */
+    text-align: center;
+}
+
+.servico-item {
+    display: flex;
+    margin-bottom: 5px;  /* Reduzido para diminuir o espaçamento entre os itens */
+}
+
+.descricao{
+    display: flex;
+    flex-direction: row;
+    width: 360px;
+}
+
+.nome-servico {
+    margin-right: 5px;
+    flex: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    max-width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilo do preço */
+.preco {
+    font-size: 1rem;
+    color: #4deb89;
+    flex: 1;
+    font-weight: bold;
+    display: block;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    align-content: center;
+}
+
+/* Estilo dos checkboxes */
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-check-label {
+    font-weight: 500;
+    margin-bottom: 4px;  /* Menos espaçamento */
+    color: #fff;
+    display: flex;
+    align-items: center; /* Garante que o ícone e o texto fiquem alinhados verticalmente */
+}
+
 .btn-success {
     width: 250px;
     position: relative;
-    top: 50px;
     padding: 12px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     font-size: 1rem;
-    background: #4deb89;
-    color: #000;
+    background: #9e7d99;
+    color: #ffffff;
     transition: all 0.3s ease;
 }
 
