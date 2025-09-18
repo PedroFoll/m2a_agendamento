@@ -1,21 +1,16 @@
+from math import ceil
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
 import pdfkit
-import tempfile
-import fitz  # PyMuPDF
-import os
-import io
-from time import sleep
-
-from PyPDF2 import PdfReader, PdfWriter
 
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.servicos.models import Servico
 from cadastros.funcionarios.models import Profissional
-from core.utils.helpers import Helpers, PDFHelper
+from core.utils.helpers import Helpers
 
 
 def relatorio_agendamentos(request):
@@ -40,6 +35,9 @@ def relatorio_agendamentos(request):
     if data_inicio and data_fim:
         agendamentos = agendamentos.filter(data_agendada__range=[data_inicio, data_fim])
 
+    total_paginas = ceil(qntd_agendamentos / limit)
+    paginas = list(range(1, total_paginas + 1))
+
     offset = (pagina - 1) * limit
     agendamentos = agendamentos.order_by('data_agendada')[offset:offset + limit]
 
@@ -56,6 +54,8 @@ def relatorio_agendamentos(request):
         'pagina': pagina,
         'limit': limit,
         'servico': servico,
+        'total_paginas': total_paginas,
+        'paginas': paginas
 
     }
 

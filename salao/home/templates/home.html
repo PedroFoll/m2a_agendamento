@@ -3,7 +3,7 @@
 <html lang="pt-br">
     <head>
       <meta charset="UTF-8">
-      <title>Dashboard</title> 
+      <title>Painel</title> 
       <link rel="stylesheet" href="{% static 'home_static/css/home.css' %}">
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
@@ -11,13 +11,8 @@
         {% include 'core/navbar.html' %}
         {% include 'core/sidebar.html'%}
     <div class="header">
-      <h1>Relatório Geral de Performance</h1>
+      <h1>Painel de Performance</h1>
       <p>Visão geral dos agendamentos, clientes, Funcionários e performance</p>
-    </div>
-
-    <div class="filters">
-      <button>🖨️ Imprimir</button>
-      <button>⬇️ Exportar</button>
     </div>
 
     <div class="cards">
@@ -97,36 +92,9 @@
       </div>
     </div>
 
-     <div class="charts">
-    <div class="card">
-      <h3>Distribuição por Status</h3>
-      <canvas id="statusChart"></canvas>
-      <div style="margin-top:10px; font-size: 0.9rem;">
-        <span style="color:green;">⬤ Concluídos</span> &nbsp;
-        <span style="color:orange;">⬤ Pendentes</span> &nbsp;
-        <span style="color:red;">⬤ Cancelados</span>
-      </div>
-      </div>
-    </div>
-
-</div>
-
-  <!-- === RANKINGS === -->
-  <div class="ranking-section">
-    <div class="card">
-      <h3>Top 5 Serviços</h3>
-      <div class="ranking">
-        {% for i in rank_serv %}
-          <div class="ranking-item">
-            {{ forloop.counter }}. {{ i.servico__nome }}
-            <small>{{ i.total_servicos }} agendamentos</small>
-          </div>
-        {% endfor %}      
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Top 5 Clientes</h3>
+<div class="ranking-section">
+    <div class="card-rank">
+      <h3>🏆 Top 5 Clientes</h3>
       <div class="ranking">
         {% for i in rank_cli %}
           <div class="ranking-item">
@@ -137,8 +105,8 @@
       </div>
     </div>
 
-    <div class="card">
-      <h3>Top 5 Funcionários</h3>
+    <div class="card-rank">
+      <h3>⭐ Top 5 Funcionários</h3>
       <div class="ranking">
         {% for i in rank_func %}
           <div class="ranking-item">
@@ -148,7 +116,10 @@
         {% endfor %}
       </div>
     </div>
-  </div>
+  </di>
+</div>
+
+ 
 </body>
 <script src="{% static 'geral/js/geral.js' %}"></script>
 </html>

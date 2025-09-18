@@ -22,7 +22,17 @@
     </div>
         <div class="grid">
       <div class="table-card">
-        <h3>📊 Clientes</h3>
+        <h4><span class="qtd_age">Total de de clientes: {{ qntd_clientes }}</span></h4>
+        
+        <div class="paginacao">
+        <span class="qtd_age">Paginas : </span>
+        {% for page_num in paginas %}
+        <a href="?pagina={{ page_num }}" class="page-number">
+        {{ page_num }}
+        </a>
+        {% endfor %}
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -53,11 +63,27 @@
           </tbody>
         </table>
           <form>
-          <span class="qtd_age">Total de Agendamentos: {{ total_agendamentos }}</span><br> <br>
-          <a class="form-btn" href="?pagina={{ pagina|add:-1 }}"
-          >Anterior</a>
-          <a class="form-btn" href="?pagina={{ pagina|add:+1 }}"
-          >Próxima</a>
+          <span class="qtd_age">Total de de clientes: {{ qntd_clientes }}</span><br> <br>
+
+          <div class="paginacao">
+          {% if pagina > 1 %}
+              <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
+          {%else%}
+              <a class="form-btn" >Anterior</a>
+          {% endif %}
+          
+          {% for page_num in paginas %}
+          <a href="?pagina={{ page_num }}" class="page-number">
+              {{ page_num }}
+          </a>
+          {% endfor %}
+
+          {% if pagina < total_paginas %}
+              <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
+          {%else%}
+              <a class="form-btn">Próxima</a>
+          {% endif %}
+          </div>
           </form> 
       </div>
       

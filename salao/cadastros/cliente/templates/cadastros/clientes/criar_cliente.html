@@ -12,9 +12,9 @@
     {% include 'core/navbar.html' %}
     {% include 'core/sidebar.html'%}
     <div class="div-Form">
+        <div>
         <form class="form-cadastro" action="" method="POST">{% csrf_token %}
-            <label class="name-form">Cadastre seu Cliente</label>
-            <br>
+            <h4><label class="name-form">Cadastre seu Cliente</label></h4>
             <div class="form-div-primary">
                 <label for="nome">Nome:</label>
                 <input class="form-input" type="text" name="nome" placeholder="Digite seu nome">
@@ -29,51 +29,59 @@
                 <input class="form-input" type="text" name="cpf" placeholder="Digite seu cpf">
                 <br>
             </div>
-            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">   
-        </form>        
-        <div class="container">  
+            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">
+        </form>      
+        <div class="form-div-secondary">
             <form class="form-cadastro" action="" method="GET">
-            <label class="name-form">Consultar Cliente</label>
-            <br>
-            {% csrf_token %}
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome_filtrar" class="form-input">
-            
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email_filtrar" class="form-input">
-            <input type="submit" value="Filtrar" class="form-btn">
+                <h4><label class="name-form">Consultar Cliente</label></h4>
+                {% csrf_token %}
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome_filtrar" class="form-input">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email_filtrar" class="form-input">
+                <input type="submit" value="Filtrar" class="form-btn">
             </form>
-
+        </div>
+        </div>
+        
+        <div class="container">
+            
         <div class="form-cadastro div-log">
-    {% if clientes %}
-        <ul>
-        {% for c in clientes %}
-            <div class="div-log registro">
-                <li>
-                    <strong>{{ c.nome }}</strong> ({{ c.telefone }})
-                    <div class="info">
-                        CPF: {{ c.cpf }} –
-                        Email: {{ c.email }} –
-                        Ativo: {{ c.ativo|yesno:"Sim,Não" }}
-                    </div>
+            {% if clientes %}
+            <ul>
+            {% for c in clientes %}
+                <div class="div-log registro">
+                    <li>
+                        <strong>{{ c.nome }}</strong> ({{ c.telefone }})
+                        <div class="info">
+                            CPF: {{ c.cpf }} –
+                            Email: {{ c.email }} –
+                            Ativo: {{ c.ativo|yesno:"Sim,Não" }}
+                        </div>
 
-                    <a href="{% url 'relatorios:ver_cliente' c.id %}" class="btn">Editar</a>
-                    <a href="/relatorios/deletar_cliente/{{c.id}}" class="btn">❌ Excluir</a>
-                    <a href="" class="btn">✅ </a>
-                </li>
-            </div>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum cliente encontrado.</p>
-    {% endif %}
-</div>
+                        <a href="{% url 'relatorios:ver_cliente' c.id %}" class="btn">Editar</a>
+                        <a href="/relatorios/deletar_cliente/{{c.id}}" class="btn">❌ Excluir</a>
+                    </li>
+                </div>
+            {% endfor %}
+            </ul>
+            {% else %}
+                <p>Nenhum cliente encontrado.</p>
+            {% endif %}
+        </div>
+        
         <form class="form-cadastro">
             <span class="qtd_age">Total de Clientes: {{ qtd_clientes }}</span>
             <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
             <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
         </form> 
-    </div>
-    </div> 
+        </div>
+        <div class="filtro-alfabeto">
+                {% for l in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+                    <a href="?letra={{ l }}" class="">{{ l }}</a>
+                {% endfor %}
+                <a href="?">Todos</a>
+        </div>
+        </div>
 </body>
 </html>
