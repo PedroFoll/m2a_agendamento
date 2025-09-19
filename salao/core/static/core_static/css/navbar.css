@@ -38,7 +38,7 @@
     height: 190px;
     position: relative;
     top: -50px;
-    background: #9e7d99;
+    background: #8c4bff;
     border-radius: 100px;
 }
 
@@ -74,7 +74,7 @@
     font-size: 2rem;
     border-radius: 37px;
     transition: background-color 0.3s ease;
-    background-color: #9e7d99;
+    background-color: #8c4bff;
 }
 .button-red:hover{
     background-color: #5a6268;

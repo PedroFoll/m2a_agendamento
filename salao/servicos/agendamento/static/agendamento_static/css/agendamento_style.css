@@ -83,7 +83,7 @@ body {
   margin-bottom: 1rem;
   margin-right: 0.5rem;
   margin-top: 0.8rem;
-  background: #9e7d99;
+  background: #8c4bff;
   color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 12px 12px 12px 12px;
@@ -120,7 +120,7 @@ body {
 }
 
 .titulo {
-    background: #9e7d99;
+    background: #8c4bff;
     color: #fff;
     font-weight: bold;
     font-size: 1.2rem;
@@ -132,7 +132,8 @@ body {
 
 .servico-item {
     display: flex;
-    margin-bottom: 5px;  /* Reduzido para diminuir o espaçamento entre os itens */
+    margin-bottom: 5px; 
+    /* Reduzido para diminuir o espaçamento entre os itens */
 }
 
 .descricao{
@@ -171,6 +172,31 @@ body {
     margin-right: 10px;
 }
 
+.form-check{
+  overflow-y: auto;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.form-check::-webkit-scrollbar {
+  width: 4px;              /* largura da barra vertical */
+  height: 4px;             /* altura da barra horizontal */
+}
+
+.form-check::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.form-check::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9b59b6, #8e44ad); /* degradê */
+  border-radius: 10px;
+}
+
+.form-check::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8e44ad, #6c3483); /* hover mais escuro */
+}
+
 .form-check-label {
     font-weight: 500;
     margin-bottom: 4px;  /* Menos espaçamento */
@@ -188,7 +214,7 @@ body {
     cursor: pointer;
     font-weight: 600;
     font-size: 1rem;
-    background: #9e7d99;
+    background: #8c4bff;
     color: #ffffff;
     transition: all 0.3s ease;
 }

@@ -12,20 +12,30 @@
   {% include 'core/navbar.html' %}
   {% include 'core/sidebar.html' %}    
   
-<div class="container">
-    <div class="form-div-secondary">
-            <form class="form-cadastro" action="" method="GET">
-                <h2>Consultar Serviço</h2>
-                {% csrf_token %}
-                <div class="filtros">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome_filtrar" class="form-input">
-                <input type="submit" value="Filtrar" class="form-btn">
-                <a class="form-btn" href="/cadastros/servicos/criar_servico/">Cadastrar Serviço</a>
-                </div>
-            </form>
-        </div>
   <div class="container">
+    <!-- Formulário -->
+    <div class="card form-card">
+      <form class="form-cadastro" action="" method="POST">
+        {% csrf_token %}
+        
+            <label for="nome_servico"><h3>📋 Novo Serviço</h3></label>
+            <label>Nome do Serviço</label>
+            <input class="form-input" type="text" name="nome_servico" placeholder="Digite o Serviço disponivel" id=""><br>
+
+            <label>Descrição</label>
+            <textarea rows="4" placeholder="Descreva o serviço..." name="descricao"></textarea>
+
+            <div class="form-row">
+              <div>
+                <label>Valor (R$)</label>
+                <input type="number" placeholder="0,00" name="preco">
+              </div>
+            </div>
+
+            <input class="btn-submit" type="submit" value="Salvar">
+        </form>   
+    </div>
+
     <!-- Lista de Serviços -->
     <div class="card services-card">
       <h3>Serviços Cadastrados</h3>
@@ -40,6 +50,10 @@
       <div class="price-time">
         <span>💲 R$ {{ servico.preco }}</span>
       </div>
+    </div>
+    <div class="service-actions">
+      <button>✏️</button>
+      <button>🗑️</button>
     </div>
   </div>
   {% empty %}

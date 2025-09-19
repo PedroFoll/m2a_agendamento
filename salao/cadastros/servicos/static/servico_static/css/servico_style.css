@@ -1,0 +1,267 @@
+* {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f5f5f9;
+      /* padding: 0px; */
+      color: #fff;
+      position: relative;
+      top: 5vh;
+      left: calc(10vw - 80px);
+      overflow: hidden;
+    }
+
+    /* ===== Card ===== */
+    .card {
+      background: #383838;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* ===== Lista de Serviços ===== */
+    .services-card {
+      flex: 2;
+      max-height: 72vh;
+      max-width: 92vw;
+      overflow-y: auto;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+
+    .service-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0e6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #8c4bff;
+      flex-shrink: 0;
+    }
+
+    .service-content {
+      flex: 1;
+    }
+
+    .service-content h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .service-content span.tag {
+      display: inline-block;
+      font-size: 12px;
+      background: #f0e6ff;
+      color: #8c4bff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .service-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .price-time {
+      font-weight: 600;
+    color: #4deb89;
+    margin-bottom: 8px;
+    }
+
+/* ===== Container do Form ===== */
+
+.name-form{
+  background: #8c4bff;
+  border-radius: 9px;
+  padding: 8px;
+  position: relative;
+  top: -14px;
+}
+
+/* ===== Formulários ===== */
+.form-cadastro {
+  background: #383838;
+  display: flex;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  flex: 1 1 320px;
+  width: 91vw;
+  margin-bottom: 15px;
+  flex-direction: column;
+}
+
+.form-cadastro label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  margin: 5px;
+  display: block;
+}
+
+.form-input {
+  width: auto;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+
+/* ===== Filtros ===== */
+.filtros{
+  display: flex;
+  align-items: baseline;
+}
+.filtro-alfabeto {
+  position: relative;
+  top: -4px;
+  font-weight: bold;
+  display: flex;
+  z-index: 999;
+  /* justify-content: space-between; */
+  gap: 40px;
+}
+
+.name-form{
+  background: #8c4bff;
+  border-radius: 12px;
+  padding: 1px;
+}
+
+.filtro-alfabeto a {
+  margin: 0;
+  text-decoration: none;
+  color: #8c4bff;
+  padding: 0 0 0 0;
+  transition: 0.2s;
+}
+
+.filtro-alfabeto a:hover {
+  color: #cfcfcf;
+}
+
+.filtro-alfabeto a.ativo {
+  color: white;
+  background: #8c4bff;
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+
+/* ===== Botões ===== */
+.form-btn {
+  width: auto;
+  text-decoration: none;
+  margin-left: 10px;
+  padding: 12px;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #8c4bff;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.form-btn:hover {
+  background: #3bc577;
+  transform: translateY(-1px);
+}
+/* ===== Lista de Clientes ===== */
+.div-log {
+  overflow-x: auto;
+  background: #494444;
+  padding: 10px;
+  border-radius: 8px;
+  height: 31.2rem;      
+  min-width: 687px;     
+  max-width: 707px;
+  word-wrap: break-word;   /* força quebra de texto longo */
+  white-space: normal;     /* deixa texto quebrar em várias linhas */
+}
+
+.div-log::-webkit-scrollbar {
+  display: none;
+}
+
+.div-log .registro {
+  margin-bottom: 12px;
+  padding: 12px;
+  max-height: 171px;
+  /* max-width: 974px; */
+  border-radius: 8px;
+}
+
+.div-log li {
+  list-style: none;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  background: #383838;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s;
+}
+
+.div-log strong {
+  font-size: 1rem;
+}
+
+.div-log .btn {
+  margin: 5px 3px 0 0;
+  display: inline-block;
+}
+
+.info{
+  width: 620px;
+}
+
+/* ===== Paginação ===== */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+

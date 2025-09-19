@@ -1,0 +1,39 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'servico_static/css/criar_servico.css' %}">
+</head>
+<body>
+  {% include 'core/navbar.html' %}
+  {% include 'core/sidebar.html' %}    
+  
+  <div class="container">
+    <!-- Formulário -->
+    <div class="card form-card">
+      <form class="form-cadastro" action="" method="POST">
+        {% csrf_token %}
+            <label for="nome_servico"><h3>📋 Novo Serviço</h3></label>
+            <label>Nome do Serviço</label>
+            <input class="form-input" type="text" name="nome_servico" placeholder="Digite o Serviço disponivel" id=""><br>
+
+            <label>Descrição</label>
+            <textarea rows="4" placeholder="Descreva o serviço..." name="descricao"></textarea>
+
+            <div class="form-row">
+              <div>
+                <label>Valor (R$)</label>
+                <input type="number" placeholder="0,00" name="preco">
+              </div>
+            </div>
+
+            <input class="btn-submit" type="submit" value="Salvar">
+        </form>   
+    </div>
+    </div>
+</body>
+</html>

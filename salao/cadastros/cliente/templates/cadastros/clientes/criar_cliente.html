@@ -1,87 +1,63 @@
 {%load static%}
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Cliente</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"/>
-    <link rel="stylesheet" href="{% static 'cliente_static/css/criacao_Style.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serviços</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'servico_static/css/servico_style.css' %}">
 </head>
-<body class="body">
-    {% include 'core/navbar.html' %}
-    {% include 'core/sidebar.html'%}
-    <div class="div-Form">
-        <div>
-        <form class="form-cadastro" action="" method="POST">{% csrf_token %}
-            <h4><label class="name-form">Cadastre seu Cliente</label></h4>
-            <div class="form-div-primary">
-                <label for="nome">Nome:</label>
-                <input class="form-input" type="text" name="nome" placeholder="Digite seu nome">
-    
-                <label for="email">Email:</label>
-                <input class="form-input" type="email" name="email" placeholder="Digite seu e-mail">
-               
-                <label for="telefone">Telefone:</label>
-                <input class="form-input" type="text" name="telefone" placeholder="Digite seu telefone">
-               
-                <label for="tipo_usuario">Cpf</label>
-                <input class="form-input" type="text" name="cpf" placeholder="Digite seu cpf">
-                <br>
-            </div>
-            <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">
-        </form>      
-        <div class="form-div-secondary">
+<body>
+  {% include 'core/navbar.html' %}
+  {% include 'core/sidebar.html' %}
+  
+  <div class="container">
+    <div class="form-div-secondary">
             <form class="form-cadastro" action="" method="GET">
-                <h4><label class="name-form">Consultar Cliente</label></h4>
+                <h2>Consultar Cliente</h2>
                 {% csrf_token %}
+                <div class="filtros">
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome_filtrar" class="form-input">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email_filtrar" class="form-input">
+                <label for="">CPF</label>
+                <input type="text" id="cpf" name="cpf_filtrar" class="form-input">
                 <input type="submit" value="Filtrar" class="form-btn">
+                <a class="form-btn" href="/cadastros/cliente/cliente"> Cadastrar cliente</a>
+                </div>
             </form>
         </div>
-        </div>
-        
-        <div class="container">
-            
-        <div class="form-cadastro div-log">
-            {% if clientes %}
-            <ul>
-            {% for c in clientes %}
-                <div class="div-log registro">
-                    <li>
-                        <strong>{{ c.nome }}</strong> ({{ c.telefone }})
-                        <div class="info">
-                            CPF: {{ c.cpf }} –
-                            Email: {{ c.email }} –
-                            Ativo: {{ c.ativo|yesno:"Sim,Não" }}
-                        </div>
 
-                        <a href="{% url 'relatorios:ver_cliente' c.id %}" class="btn">Editar</a>
-                        <a href="/relatorios/deletar_cliente/{{c.id}}" class="btn">❌ Excluir</a>
-                    </li>
-                </div>
-            {% endfor %}
-            </ul>
-            {% else %}
-                <p>Nenhum cliente encontrado.</p>
-            {% endif %}
-        </div>
-        
-        <form class="form-cadastro">
-            <span class="qtd_age">Total de Clientes: {{ qtd_clientes }}</span>
-            <a class="form-btn" href="?pagina={{ pagina|add:-1 }}">Anterior</a>
-            <a class="form-btn" href="?pagina={{ pagina|add:1 }}">Próxima</a>
-        </form> 
-        </div>
         <div class="filtro-alfabeto">
                 {% for l in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
                     <a href="?letra={{ l }}" class="">{{ l }}</a>
                 {% endfor %}
                 <a href="?">Todos</a>
         </div>
-        </div>
+    <!-- Lista de Clientes -->
+    <div class="card services-card">
+      <h3>Clientes Cadastrados</h3>
+
+      {% for c in clientes %}
+  <div class="service-item">
+    <div class="service-icon">💇</div>
+    <div class="service-content">
+      <h3>{{ c.nome }}</h3>
+      <span class="tag">{{ servico.categoria.nome }}</span> <!-- se tiver FK categoria -->
+      <p>Telefone: ({{ c.telefone }}) - CPF: {{ c.cpf }} </p>
+      <p>Email: {{ c.email }} - Ativo: {{ c.ativo|yesno:"Sim,Não" }}</p>
+    </div>
+    <div class="service-actions">
+      <a href="{% url 'relatorios:ver_cliente' c.id %}"><button>✏️</button></a>
+      <a href="/relatorios/deletar_cliente/{{c.id}}"><button>🗑️</button></a>
+    </div>
+  </div>
+  {% empty %}
+    <p>Nenhum serviço cadastrado.</p>
+  {% endfor %}
+    </div>
+  </div>
 </body>
 </html>

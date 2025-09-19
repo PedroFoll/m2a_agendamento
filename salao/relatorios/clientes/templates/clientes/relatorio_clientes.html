@@ -51,9 +51,6 @@
                 <td>{{ i.email }}</td>
                 <td>{{ i.telefone }}</td>
                 <td>{{ i.ativo|yesno:"Sim,Não" }}</td>
-                <td><a href="{% url 'relatorios:ver_cliente' i.id %}">
-                <button>✏️ Editar</button>
-                </a></td>
             </tr>
             {% empty %}
             <tr>

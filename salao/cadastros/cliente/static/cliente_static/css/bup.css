@@ -1,37 +1,202 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); 
-/* ===== Reset Global ===== */ 
-* { box-sizing: border-box; padding: 0; } 
-/* ===== Layout Geral ===== */ 
-body { font-family: "Poppins", 
-    sans-serif; 
-    display: flex; 
-    max-height: 100vh; 
-    background: #f3f0ff; 
-    color: #333;
-} /* ===== Container do Form ===== */ 
+/* ===== Reset Global ===== */
+* {
+  box-sizing: border-box;
+}
 
-.div-Form { background: #ccc; 
-    display: flex; width: 100%; 
-    padding: 2rem; 
-    background: none; 
-    flex-direction: row; 
-} 
+/* ===== Layout Geral ===== */
+body {
+  
+font-family: "Poppins", sans-serif;  
+  
+background: #f3f0ff;
+  
+color: #333;  
+  
+position: relative;
 
-.form-cadastro { background: #383838; color: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15); width: 100%; max-width: 670px; text-align: center; margin: auto; } 
-.div-log{ background: #383838; padding: 10px; border-radius: 8px; overflow-y: auto; scrollbar-width: thin; height: 30rem; max-width: 700px; margin-bottom: 15px; margin-top: 10px; z-index: 1; } 
-.div-log a .btn { display: block; background: #f9f9f9; border: 1px solid #e3e3e3; border-radius: 8px; padding: 12px; margin-bottom: 12px; text-decoration: none; color: #333; transition: background 0.2s; } li{ list-style-type: none; } /* ===== Inputs ===== */ 
-.form-input { width: 100%; margin-bottom: 1rem; padding: 10px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; transition: border 0.3s, box-shadow 0.3s; } 
-.form-input:focus { border-color: #9e7d99; outline: none; box-shadow: 0 0 0 3px rgba(77, 235, 137, 0.25); } /* ===== Grupos ===== */ 
-.form-div-primary { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; } /* ===== Botão ===== */ 
-.form-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem; background: #9e7d99; color: #222; transition: background 0.3s, transform 0.2s; } 
-.form-btn:hover { background: #3bc577; transform: translateY(-2px); } 
-.btn{ background: #9e7d99; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.3s; text-decoration: none; display: inline-block; } 
-.registro{ text-align: center; margin-top: 15px; background: #2e2d2d; color: #ffffff; max-height: 119px; } /* ===== Responsividade ===== */ 
+overflow: hidden;
+}
+
+/* ===== Container do Form ===== */
+.div-Form {
+  transform-origin: top left; /* ponto de origem do zoom */
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  left: 88px;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 30px;
+  height: calc(100vh - 4rem);
+  width: 85vw;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.filtro-alfabeto {
+  position: relative;
+  top: 45px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 999;
+}
 
 
 
-@media screen and (max-width: 768px) { 
-    .form-cadastro { padding: 1.5rem; } } 
-@media screen and (max-width: 480px) { 
-    .div-Form { padding: 1rem; } 
-.form-cadastro { padding: 1rem; } }
+.filtro-alfabeto a {
+  margin: 0;
+  text-decoration: none;
+  color: #8c4bff;
+  padding: 0 0 0 0;
+  transition: 0.2s;
+}
+
+.filtro-alfabeto a:hover {
+  color: #cfcfcf;
+}
+
+.filtro-alfabeto a.ativo {
+  color: white;
+  background: #8c4bff;
+  padding: 3px 7px;
+  border-radius: 5px;
+}
+
+    
+
+/* ===== Formulários ===== */
+.form-cadastro {
+  background: #383838;
+  display: flex;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  flex: 1 1 320px;
+  max-width: 707px;
+  min-width: 500px;
+  margin-bottom: 15px;
+  flex-direction: column;
+}
+
+.form-cadastro label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* ===== Botões ===== */
+.form-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #8c4bff;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.form-btn:hover {
+  background: #3bc577;
+  transform: translateY(-1px);
+}
+
+.btn {
+  background: #8c4bff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin: 2px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #3bc577;
+}
+
+/* ===== Lista de Clientes ===== */
+.div-log {
+  overflow-x: auto;
+  background: #494444;
+  padding: 10px;
+  border-radius: 8px;
+  height: 31.2rem;      
+  min-width: 687px;     
+  max-width: 707px;
+  word-wrap: break-word;   /* força quebra de texto longo */
+  white-space: normal;     /* deixa texto quebrar em várias linhas */
+}
+
+.div-log::-webkit-scrollbar {
+  display: none;
+}
+
+.div-log .registro {
+  margin-bottom: 12px;
+  padding: 12px;
+  max-height: 171px;
+  /* max-width: 974px; */
+  border-radius: 8px;
+}
+
+.div-log li {
+  list-style: none;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  background: #383838;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s;
+}
+
+.div-log strong {
+  font-size: 1rem;
+}
+
+.div-log .btn {
+  margin: 5px 3px 0 0;
+  display: inline-block;
+}
+
+.info{
+  width: 620px;
+}
+
+/* ===== Paginação ===== */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+

@@ -16,8 +16,6 @@ def relatorio_clientes(request):
     email_filtrar=request.GET.get('email_filtrar')
     tipo_usuario_filtrar= request.GET.get('tipo_usuario_filtrar')
 
-    clientes = Cliente.objects.all()
-
     if nome_filtrar:
         clientes = clientes.filter(nome__contains=nome_filtrar)
     

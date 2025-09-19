@@ -1,84 +1,34 @@
 /* ===== Reset Global ===== */
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 /* ===== Layout Geral ===== */
 body {
   
-font-family: "Poppins", sans-serif;
-  
-display: flex;
-  
-min-height: 97vh;
-  
+font-family: "Poppins", sans-serif;  
+
 background: #f3f0ff;
   
-color: #333;
-  
-flex-direction: column;
-  
-align-items: center;
+color: #333;  
   
 position: relative;
-  
-top: 8px;
+
+display: flex;
+
+justify-content: center;
 
 overflow: hidden;
 }
 
 /* ===== Container do Form ===== */
-.div-Form {
-  transform: scale(0.9);    /* 90% do tamanho */
-  transform-origin: top left; /* ponto de origem do zoom */
-  display: flex;
-  justify-content: flex-start;
-  position: relative;
-  left: 88px;
-  gap: 1rem;
-  padding: 2rem;
-  border-radius: 30px;
-  height: calc(100vh - 4rem);
-  width: 85vw;
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  flex-direction: column;
+
+.name-form{
+  background: #8c4bff;
+  border-radius: 12px;
+  padding: 1px;
 }
 
-.filtro-alfabeto {
-  position: relative;
-  top: 45px;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  z-index: 999;
-}
-
-.filtro-alfabeto a {
-  margin: 0;
-  text-decoration: none;
-  color: #6a4c7a;
-  padding: 0 0 0 0;
-  transition: 0.2s;
-}
-
-.filtro-alfabeto a:hover {
-  color: #cfcfcf;
-}
-
-.filtro-alfabeto a.ativo {
-  color: white;
-  background: #9e7d99;
-  padding: 3px 7px;
-  border-radius: 5px;
-}
-
-    
-
-/* ===== Formulários ===== */
 .form-cadastro {
   background: #383838;
   display: flex;
@@ -87,7 +37,7 @@ overflow: hidden;
   border-radius: 12px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
   flex: 1 1 320px;
-  max-width: 687px;
+  max-width: 707px;
   min-width: 500px;
   margin-bottom: 15px;
   flex-direction: column;
@@ -108,7 +58,6 @@ overflow: hidden;
   font-size: 1rem;
 }
 
-/* ===== Botões ===== */
 .form-btn {
   width: 100%;
   padding: 12px;
@@ -118,7 +67,7 @@ overflow: hidden;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  background: #9e7d99;
+  background: #8c4bff;
   color: #fff;
   transition: background 0.3s, transform 0.2s;
 }
@@ -127,87 +76,3 @@ overflow: hidden;
   background: #3bc577;
   transform: translateY(-1px);
 }
-
-.btn {
-  background: #9e7d99;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin: 2px;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s;
-}
-
-.btn:hover {
-  background: #3bc577;
-}
-
-/* ===== Lista de Clientes ===== */
-.div-log {
-  background: #494444;
-  padding: 10px;
-  border-radius: 8px;
-  height: 31.2rem;      
-  min-width: 687px;     
-  max-width: 687px;
-  overflow-y: auto hidden;        
-  overflow-x: hidden;      /* remove scroll horizontal */
-  word-wrap: break-word;   /* força quebra de texto longo */
-  white-space: normal;     /* deixa texto quebrar em várias linhas */
-}
-
-.div-log::-webkit-scrollbar {
-  display: none;
-}
-
-.div-log .registro {
-  background: #2e2d2d;
-  margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 8px;
-}
-
-.registro{ 
-  text-align: center;
-  margin-top: 15px; 
-  background: #2e2d2d; 
-  color: #ffffff; 
-  max-height: 119px; 
-}
-
-.div-log li {
-  list-style: none;
-  padding: 1rem;
-  margin-bottom: 0.8rem;
-  background: #383838;
-  border-radius: 8px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.div-log strong {
-  font-size: 1rem;
-}
-
-.div-log .btn {
-  margin: 5px 3px 0 0;
-  display: inline-block;
-}
-
-.info{
-  width: 620px;
-}
-
-/* ===== Paginação ===== */
-.paginacao {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
