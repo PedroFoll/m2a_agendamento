@@ -25,6 +25,7 @@
     list-style-type: none; /* Remove os marcadores de lista */
     margin: 0;
     padding: 0;
+    max-height: 30px;
     display: flex;
     align-items: center;
 }
@@ -41,7 +42,6 @@
     background: #8c4bff;
     border-radius: 100px;
 }
-
 
 /* Estilos para os links de navegação */
 .nav-link, 
@@ -66,7 +66,6 @@
     flex: 0;
 }
 
-
 /* Estilos para os botões */
 .button {
     text-decoration: none;
@@ -76,13 +75,10 @@
     transition: background-color 0.3s ease;
     background-color: #8c4bff;
 }
-.button-red:hover{
+.button:hover{
     background-color: #5a6268;
     color: rgb(246, 64, 64);
 }
-
-
-
 
 /* Para evitar que o conteúdo fique escondido atrás da navbar fixa */
 body {

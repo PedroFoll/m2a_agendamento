@@ -35,7 +35,11 @@
                             <div class="servico-item">
                                 <label class="form-check-label" for="servico{{ i.id }}">
                                     <div class="descricao">
-                                        <input class="form-check-input" type="checkbox" name="servico" value="{{ i.id }}" id="servico{{ i.id }}">
+                                        <input class="form-check-input" 
+                                        type="checkbox" 
+                                        name="servico" 
+                                        value="{{ i.id }}" 
+                                        id="servico{{ i.id }}">
                                         <span class="nome-servico">{{ i.nome }}</span>
                                         <span class="preco">R${{ i.preco }}</span>
                                     </div>
@@ -45,8 +49,13 @@
                     </div>
 
                 <label for="data_hora">Data e Hora:</label>
-                <input type="datetime-local" id="data_hora" name="data_hora" class="form-control">                                    
-                <input type="submit" value="Agendar" class="btn btn-success">
+                <input type="datetime-local" 
+                id="data_hora" 
+                name="data_hora" 
+                class="form-control">                                    
+                <input type="submit" 
+                value="Agendar" 
+                class="btn btn-success">
             </div>
             </form>
         </div>
@@ -71,8 +80,10 @@
                                     - <span class="status-{{a.status|lower|slugify}}">{{a.status}}</span>
                                     <span class="price">R$ {{ a.servico.preco }}</span><br>
                                     <a href="{% url 'relatorios:editar_agendamento' a.id %}"><i>✏️</i><span>Editar</span></a>
-                                    <a href="/servicos/alterar_status/{{ a.id }}/Cancelado/" class="btn"><i>❌</i><span>Cancelar</span></a>
-                                    <a href="/servicos/alterar_status/{{ a.id }}/Concluído" class="btn"><i>✅</i><span>Concluir</span></a>
+                                    <a href="/servicos/alterar_status/{{ a.id }}/Cancelado/" 
+                                    class="btn"><i>❌</i><span>Cancelar</span></a>
+                                    <a href="/servicos/alterar_status/{{ a.id }}/Concluído" 
+                                    class="btn"><i>✅</i><span>Concluir</span></a>
                                 </div>
 
                             </li>

@@ -38,35 +38,46 @@ def relatorio_clientes(request):
         'limit': limit,
         'total_paginas': total_paginas,
         'paginas': paginas,
-
     }
 
-
-    return render(request, "clientes/relatorio_clientes.html", contexto)
-
+    return render(
+        request,
+        "clientes/relatorio_clientes.html",
+        contexto
+        )
 
 
 def ver_cliente(request,id):
     cliente=Cliente.objects.get(id=id)
-    return  render(request, "clientes/ver_clientes.html", {'cliente': cliente})
+    return  render(
+        request,
+        "clientes/ver_clientes.html",
+        {'cliente': cliente}
+        )
 
 
 def ver_agendamento(request, id):
     agendamento=Agendamento.objects.get(id=id)
-    return  render(request, "agendamentos/ver_agendamento.html", {'agendamento': agendamento})
-
+    return  render(
+        request,
+        "agendamentos/ver_agendamento.html",
+        {'agendamento': agendamento}
+    )
 
 
 def deletar_cliente(request,id):
     cliente=Cliente.objects.get(id=id)
     cliente.delete()
-    return redirect('/relatorios/clientes/')
+    return redirect(
+        '/cadastros/cliente/criar_cliente/'
+        )
 
 def deletar_agendamento(request, id):
     agendamento = Agendamento.objects.get(id=id)
     agendamento.delete()
-    return redirect('/relatorios/agendamentos/')
-
+    return redirect(
+        '/relatorios/agendamentos/'
+        )
 
 
 def get_relatorio_clientes(request):
@@ -75,27 +86,30 @@ def get_relatorio_clientes(request):
     letra = request.GET.get("letra")  
 
     clientes = Cliente.objects.all()
-    qntd_clientes = clientes.count()
     nome_filtrar=request.GET.get('nome_filtrar')
     email_filtrar=request.GET.get('email_filtrar')
-    tipo_usuario_filtrar= request.GET.get('tipo_usuario_filtrar')
+    cpf_filtrar = request.GET.get('cpf_filtrar')
+    phone_filtrar = request.GET.get('phone_filtrar')
 
     clientes = Cliente.objects.all()
 
-    
     if nome_filtrar:
         clientes = clientes.filter(nome__contains=nome_filtrar)
     
     if email_filtrar:
         clientes = clientes.filter(email__contains=email_filtrar)
-    
-    if tipo_usuario_filtrar:
-        clientes = clientes.filter(tipo_usuario__iexact=tipo_usuario_filtrar.lower())
 
+    if cpf_filtrar:
+        clientes = clientes.filter(cpf__contains=cpf_filtrar)
+    
+    if phone_filtrar:
+        clientes = clientes.filter(telefone__contains=phone_filtrar)
+    
     if letra:
         clientes = Cliente.objects.filter(nome__istartswith=letra)
-    else:
-        clientes = Cliente.objects.all()
+    
+
+    qntd_clientes = clientes.count()
 
     total_paginas = ceil(qntd_clientes / limit)
     paginas = list(range(1, total_paginas + 1))
@@ -111,7 +125,6 @@ def get_relatorio_clientes(request):
         'total_paginas': total_paginas,
         'paginas': paginas,
         'letra': letra
-
     }
 
     return (contexto)

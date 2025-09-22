@@ -47,9 +47,11 @@ body {
 
 .container {
     background: #383838;
+    display: flex;
     flex: 1;
     height: calc(100vh - 120px);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    flex-direction: column;
 }
 
 .calendario {
@@ -93,18 +95,18 @@ body {
 /* ===== Formulário ===== */
 
 .formulario{
-  height: calc(70vh - 50px);
+  height: 70vh;
   border-radius: 10px;
-  width: 350px;
+  /* width: 350px; */
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  flex-wrap: wrap;
 }
 
 .form-control,
 .form-select {
   position: relative;
-  width: 340px;
+  /* width: 340px; */
   padding: 8px;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
@@ -206,8 +208,9 @@ body {
 }
 
 .btn-success {
-    width: 250px;
+    /* width: 400px; */
     position: relative;
+    /* top: 45px; */
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -240,8 +243,7 @@ form label {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #383838;
-  max-height: 180px;
-  max-width: 1000px;
+  max-height: 245px;
   margin-bottom: 15px;
   z-index: 1;
 }

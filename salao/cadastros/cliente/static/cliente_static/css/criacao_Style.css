@@ -1,48 +1,46 @@
 /* ===== Reset Global ===== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* ===== Layout Geral ===== */
 body {
-  
-font-family: "Poppins", sans-serif;  
-
-background: #f3f0ff;
-  
-color: #333;  
-  
-position: relative;
-
-display: flex;
-
-justify-content: center;
-
-overflow: hidden;
+  font-family: "Poppins", sans-serif;  
+  background: #f3f0ff;
+  color: #333;  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow-y: auto; /* permite scroll se passar da tela */
 }
 
 /* ===== Container do Form ===== */
-
-.name-form{
+.name-form {
   background: #8c4bff;
   border-radius: 12px;
-  padding: 1px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
 }
 
 .form-cadastro {
   background: #383838;
   display: flex;
+  flex-direction: column;
   color: #fff;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
   flex: 1 1 320px;
   max-width: 707px;
-  min-width: 500px;
-  margin-bottom: 15px;
-  flex-direction: column;
+  min-width: 320px;
+  width: 100%;
 }
 
+/* ===== Labels e Inputs ===== */
 .form-cadastro label {
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
@@ -51,17 +49,27 @@ overflow: hidden;
 
 .form-input {
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
+  margin-bottom: 1rem;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
+  background: #fff;
+  color: #333;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
+.form-input:focus {
+  border-color: #8c4bff;
+  box-shadow: 0 0 0 3px rgba(140, 75, 255, 0.3);
+  outline: none;
+}
+
+/* ===== Botão ===== */
 .form-btn {
   width: 100%;
   padding: 12px;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -74,5 +82,32 @@ overflow: hidden;
 
 .form-btn:hover {
   background: #3bc577;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+}
+
+/* ===== Scrollbar Personalizada ===== */
+body::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9b59b6, #8e44ad);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8e44ad, #6c3483);
+}
+
+/* ===== Responsividade ===== */
+@media screen and (max-width: 576px) {
+  .form-cadastro {
+    min-width: 100%;
+    padding: 1rem;
+  }
 }

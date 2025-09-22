@@ -6,19 +6,60 @@ from pydf import generate_pdf
 
 app_name ='relatorios'
 urlpatterns =[
-    path('clientes/', cliente_views.relatorio_clientes, name='relatorio_clientes'),
-    path('agendamentos/', agend_views.relatorio_agendamentos, name='relatorio_agendamentos'),
+    path(
+        'clientes/', 
+        cliente_views.relatorio_clientes, 
+        name='relatorio_clientes'
+        ),
 
-    path('ver_cliente/<int:id>',cliente_views.ver_cliente, name='ver_cliente'),
-    path('ver_agendamento/<int:id>', agend_views.ver_agendamento, name='ver_agendamento'),
+    path(
+        'agendamentos/',
+        agend_views.relatorio_agendamentos,
+        name='relatorio_agendamentos'
+        ),
+
+    path(
+        'ver_cliente/<int:id>',
+        cliente_views.ver_cliente,
+        name='ver_cliente'
+        ),
+
+    path(
+        'ver_agendamento/<int:id>',
+        agend_views.ver_agendamento,
+        name='ver_agendamento'
+        ),
     
-    path('deletar_cliente/<int:id>',cliente_views.deletar_cliente, name='deletar_cliente'),
-    path('deletar_agendamento/<int:id>', agend_views.deletar_agendamento, name='deletar_agendamento'),
+    path(
+        'deletar_cliente/<int:id>',
+        cliente_views.deletar_cliente,
+        name='deletar_cliente'
+        ),
+    
+    path(
+        'deletar_agendamento/<int:id>',
+        agend_views.deletar_agendamento,
+        name='deletar_agendamento'
+        ),
 
-    path('editar_agendamento/<int:id>', agend_views.editar_agendamento, name='editar_agendamento'),
+    path(
+        'editar_agendamento/<int:id>',
+        agend_views.editar_agendamento,
+        name='editar_agendamento'
+        ),
+
     #path('cadastro_gestor_cliente/', views.cadastro_gestor_cliente, name='cadastro_gestor_cliente')
-    path('relatorio_geral/', geral_views.relatorio_geral, name='relatorio_geral'),
+    
+    path(
+        'relatorio_geral/',
+        geral_views.relatorio_geral,
+        name='relatorio_geral'
+        ),
 
-    path('imprimir/', agend_views.imprimir_relatorio, name='imprimir_relatorio'),
+    path(
+        'imprimir/',
+        agend_views.imprimir_relatorio,
+        name='imprimir_relatorio'
+        ),
 
 ]

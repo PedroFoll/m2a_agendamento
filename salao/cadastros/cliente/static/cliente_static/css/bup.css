@@ -44,8 +44,6 @@ overflow: hidden;
   z-index: 999;
 }
 
-
-
 .filtro-alfabeto a {
   margin: 0;
   text-decoration: none;
@@ -64,8 +62,6 @@ overflow: hidden;
   padding: 3px 7px;
   border-radius: 5px;
 }
-
-    
 
 /* ===== Formulários ===== */
 .form-cadastro {

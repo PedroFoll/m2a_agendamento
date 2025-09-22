@@ -65,8 +65,11 @@
     </form>
 
     <form class="">
-        <a href="{% url 'relatorios:deletar_agendamento' agendamento.id %}" class="btn btn-danger acoes">Excluir</a>
-        <button class="btn btn-danger acoes" onclick="window.history.back()">⬅ Voltar</button>
+        <a href="{% url 'relatorios:deletar_agendamento' agendamento.id %}"
+        class="btn btn-danger acoes">Excluir</a>
+        <a href="/servicos/agendamento/"><button
+        class="btn btn-danger acoes" 
+        onclick="window.history.back()">⬅ Voltar</button></a>
 
 
         

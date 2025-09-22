@@ -1,17 +1,17 @@
 from math import ceil
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
 import pdfkit
 
+from core.utils.helpers import Helpers
+
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.servicos.models import Servico
 from cadastros.funcionarios.models import Profissional
-from core.utils.helpers import Helpers
-
 
 def relatorio_agendamentos(request):
     geral = Helpers.relatorio_geral(request)
@@ -59,7 +59,9 @@ def relatorio_agendamentos(request):
 
     }
 
-    return render(request, "agendamentos/relatorio_agendamentos.html", contexto)
+    return render(
+        request, "agendamentos/relatorio_agendamentos.html", contexto
+        )
 
 
 def ver_agendamento(request, id):
@@ -67,16 +69,16 @@ def ver_agendamento(request, id):
     contexto = {
         "agendamento": agendamento
     }
-    return  render(request, "agendamentos/ver_agendamento.html", contexto)
+    return  render(
+        request, "agendamentos/ver_agendamento.html", contexto
+        )
     
-
-
 def deletar_agendamento(request, id):
     agendamento = Agendamento.objects.get(id=id)
     agendamento.delete()
-    return redirect('/relatorios/agendamentos/')
-
-
+    return redirect(
+        '/relatorios/agendamentos/'
+        )
 
 def editar_agendamento(request, id):
     agendamento = get_object_or_404(Agendamento, id=id)
@@ -93,7 +95,9 @@ def editar_agendamento(request, id):
         agendamento.data_agendada = request.POST.get('data_agendada') or agendamento.data_agendada
 
         agendamento.save()
-        return redirect('/relatorios/agendamentos/')
+        return redirect(
+            '/servicos/agendamento/'
+            )
     
     context = {
         'agendamento': agendamento,
@@ -101,12 +105,16 @@ def editar_agendamento(request, id):
         'servicos': servicos,
         'profissionais': profissionais,
     }
-    return render(request, "agendamentos/editar_agendamento.html", context)
+    return render(
+        request,
+        "agendamentos/editar_agendamento.html",
+        context
+        )
 
 
 def imprimir_relatorio(request):
     # Configurações do Selenium para rodar headless
-    data_inicio = request.GET.get('data_inicio', '')
+    """ data_inicio = request.GET.get('data_inicio', '')
     data_fim = request.GET.get('data_fim', '')
     selecionar_status = request.GET.get('selecionar_status', '')
     contexto = {
@@ -123,4 +131,5 @@ def imprimir_relatorio(request):
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="relatorio_agendamentos.pdf'
     return response
-
+ """
+    return HttpResponse("Em desenvolvimento")

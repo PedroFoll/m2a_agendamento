@@ -22,20 +22,38 @@
     {% csrf_token %}
     <div class="filters">
         <label for="data_inicio">Data Início</label>
-        <input type="date" id="data_inicio" name="data_inicio" value="{{ request.GET.data_inicio }}">
+        <input type="date" 
+        id="data_inicio" 
+        name="data_inicio" 
+        value="{{ request.GET.data_inicio }}"
+        >
 
         <label for="data_fim">Data Fim</label>
-        <input type="date" id="data_fim" name="data_fim" value="{{ request.GET.data_fim }}">
+        <input type="date" 
+        id="data_fim" 
+        name="data_fim" 
+        value="{{ request.GET.data_fim }}"
+        >
 
         <label>Status</label>
                 <select name="selecionar_status" class="form-select">
-                    <option class="form-select" value="">Todos</option>
-                    <option class="form-select" value="Agendado">Agendado</option>
-                    <option class="form-select" value="Concluído">Concluído</option>
-                    <option class="form-select" value="Cancelado">Cancelado</option>
+                    <option class="form-select" 
+                    value="">Todos</option
+                    >
+                    <option class="form-select" 
+                    alue="Agendado">Agendado</option
+                    >
+                    <option class="form-select" 
+                    value="Concluído">Concluído</option
+                    >
+                    <option class="form-select" 
+                    value="Cancelado">Cancelado</option
+                    >
                 </select>
         
-        <button type="submit" class="button">Filtrar</button>
+        <button type="submit" 
+        class="button">
+        Filtrar</button>
     </div>
 </form>
   <div class="cards">

@@ -6,11 +6,12 @@
 
     body {
       background: #f5f5f9;
+      display: flex;
+      justify-content: space-evenly;
       /* padding: 0px; */
       color: #fff;
       position: relative;
-      top: 5vh;
-      left: calc(10vw - 80px);
+      top: 3vh;
       overflow: hidden;
     }
 
@@ -25,8 +26,8 @@
     /* ===== Lista de Serviços ===== */
     .services-card {
       flex: 2;
-      max-height: 72vh;
-      max-width: 92vw;
+      max-height: 68vh;
+      max-width: 91vw;
       overflow-y: auto;
     }
 
@@ -136,27 +137,36 @@
   border-radius: 8px;
   font-size: 1rem;
 }
-
-
-/* ===== Filtros ===== */
-.filtros{
-  display: flex;
-  align-items: baseline;
-}
-.filtro-alfabeto {
-  position: relative;
-  top: -4px;
-  font-weight: bold;
-  display: flex;
-  z-index: 999;
-  /* justify-content: space-between; */
-  gap: 40px;
-}
-
 .name-form{
   background: #8c4bff;
   border-radius: 12px;
   padding: 1px;
+}
+
+/* ===== Filtros ===== */
+.filtros {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filtro-alfabeto {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 colunas */
+  gap: 6px;
+  background: #fff;
+  border: 2px solid #8c4bff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 220px;
+  text-align: center;
+  height: fit-content;
+  position: absolute;
+  right: 3rem;
+  top:4rem;
 }
 
 .filtro-alfabeto a {
