@@ -83,7 +83,8 @@ fazer uma lista com esses agendamentos
                             {% if agrp.has_next %}
 
 
-
+#for ($i=1; $i -le 20; $i++) { python manage.py populate_cliente_db }
+#for ($i=1; $i -le 20; $i++) { python manage.py populate_agenda_db } 
 
 Ideias de Métricas e Gráficos
 

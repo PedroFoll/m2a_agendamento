@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.dateparse import parse_datetime
+from django.contrib import messages
 
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
@@ -34,9 +36,27 @@ def agendar_servico(request):
         servico_ID = request.POST.get('servico')
         data_hora = request.POST.get('data_hora')
 
-        clientes = Cliente.objects.get(pk=cliente_ID)
-        profissional = Profissional.objects.get(pk=funcionario_ID)
-        servicos = Servico.objects.get(pk=servico_ID)
+        try:
+            clientes = Cliente.objects.get(pk=cliente_ID)
+        except Cliente.DoesNotExist:
+            messages.error(request, 'alguma coisa deu errado')
+
+        try:
+            profissional = Profissional.objects.get(pk=funcionario_ID)
+        except Profissional.DoesNotExist:
+            messages.error(request, 'alguma coisa deu errado')
+
+        try:
+            servicos = Servico.objects.get(pk=servico_ID)
+        except Servico.DoesNotExist:
+            messages.error(request, 'alguma coisa deu errado')
+        
+        try:
+            data_hora = parse_datetime(data_hora)
+            if data_hora is None:
+                raise ValueError("Formato de data/hora inválido.")
+        except (ValueError, TypeError):
+            messages.error(request, 'alguma coisa deu errado')
 
         agendamento = Agendamento(
             cliente=clientes, 
