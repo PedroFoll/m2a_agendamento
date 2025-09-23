@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de Profissional</title>
+  <link rel="stylesheet" href="{% static 'agendamentos/css/relatorios_Style.css' %}">
+</head>
+<body>
+  {% include 'core/navbar.html' %}
+  {% include 'core/sidebar.html' %}
+  <main class="container">
+    <form class="div-log">
+      <h5>Nome do Profissional: <span>{{ profissional.nome }}</span></h5>
+      <h5>Email: <span>{{ profissional.email }}</span></h5>
+      <h5>Telefone: <span>{{ profissional.telefone }}</span></h5>
+      <h5>CPF: <span>{{ profissional.cpf }}</span></h5>
+      <h5>Ativo: <span>{{ profissional.ativo|yesno:"Sim,Não" }}</span></h5>
+    </form>
+    <form class="">
+      <a href="/cadastros/deletar_funcionario/{{profissional.id}}" class="btn btn-danger acoes">Excluir</a>
+      <a href="/cadastros/funcionarios/listar_funcionarios/" class="btn btn-primary acoes">Voltar</a>
+    </form>
+  </main>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clientes</title>
+  <title>Funcionarios</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'servico_static/css/servico_style.css' %}">
 </head>
@@ -15,7 +15,7 @@
   <div class="container">
     <div class="form-div-secondary">
       <form class="form-cadastro" action="" method="GET">
-        <h2>Consultar Cliente</h2>
+        <h2>Consultar Funcionarios</h2>
         {% csrf_token %}
         <div class="filtros">
 
@@ -49,8 +49,8 @@
           class="form-btn"
         >
         <a class="form-btn" 
-          href="/cadastros/cliente/cliente">
-          Cadastrar cliente</a>
+          href="/cadastros/funcionarios/criar_funcionario/">
+          Cad. Funcionario</a>
           </div>
       </form>
       <div class="filtro-alfabeto">
@@ -65,19 +65,19 @@
 
     <!-- Lista de Clientes -->
     <div class="card services-card">
-      <h3>Clientes Cadastrados</h3>
+      <h3>Funcionarios Cadastrados</h3>
 
-      {% for c in clientes %}
+      {% for profissional in profissionais %}
       <div class="service-item">
-        <div class="service-icon">💇</div>
+        <div class="service-icon">✂️</div>
         <div class="service-content">
-          <h2>{{ c.nome }}</h2>
-          <h2>Telefone: ({{ c.telefone }}) - CPF: {{ c.cpf }} </h2>
-          <h2>Email: {{ c.email }} - Ativo: {{ c.ativo|yesno:"Sim,Não" }}</h2>
+          <h3>Funcionario: {{ profissional.nome }}</h3>
+          <h3>Telefone: ({{ profissional.telefone }}) - CPF: {{ profissional.cpf}} </h3>
+          <h3>Email: {{ profissional.email  }} - Ativo: {{ c.ativo|yesno:"Sim,Não" }}</h3>
         </div>
         <div class="service-actions">
-          <a href="{% url 'relatorios:ver_cliente' c.id %}"><button>✏️</button></a>
-          <a href="/relatorios/deletar_cliente/{{c.id}}"><button>🗑️</button></a>
+          <a href="/cadastros/funcionarios/editar_funcionarios/{{profissional.id}}"><button>✏️</button></a>
+          <a href="/cadastros/funcionarios/deletar_funcionario/{{profissional.id}}"><button>🗑️</button></a>
         </div>
       </div>
       {% empty %}

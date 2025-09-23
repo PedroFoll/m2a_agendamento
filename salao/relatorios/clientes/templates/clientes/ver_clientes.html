@@ -17,9 +17,6 @@
       <h5>Telefone: <span>{{ cliente.telefone }}</span></h5>
       <h5>CPF: <span>{{ cliente.cpf }}</span></h5>
       <h5>Ativo: <span>{{ cliente.ativo|yesno:"Sim,Não" }}</span></h5>
-
-    
-
     </form>
     <form class="">
       <a href="{% url 'relatorios:deletar_cliente' cliente.id %}" class="btn btn-danger acoes">Excluir</a>

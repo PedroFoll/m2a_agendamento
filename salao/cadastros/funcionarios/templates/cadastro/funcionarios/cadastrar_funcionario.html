@@ -23,16 +23,9 @@
 
             <label for="telefone">Telefone:</label>
             <input  type="text" name="telefone" placeholder="Digite seu telefone" class="form-control">
-            
-            <label for="Servico">Serviço:</label>
-            <select id="servico" name="servico" class="form-control">
-                {% for i in servicos %}
-                    <option value="{{i.id}}">{{ i.servico }}</option>
-                {% endfor %}
-            </select>
 
-            <label for="endereco">Endereço:</label>
-            <input  type="text" name="endereco" placeholder="Digite seu endereço" class="form-control">
+            <label for="telefone">CPF:</label>
+            <input  type="text" name="cpf" placeholder="Digite seu CPF" class="form-control">
 
             <input class="form-btn" type="submit" value="Salvar" class ="btn btn-success">    
 

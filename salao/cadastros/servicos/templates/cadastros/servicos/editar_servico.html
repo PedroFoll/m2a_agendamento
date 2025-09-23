@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consultar Agendamentos</title>
+    <link rel="stylesheet" href="{% static 'agendamentos/css/relatorios_Style.css' %}">
+</head>
+<body>
+    {% include 'core/navbar.html' %}
+    {% include 'core/sidebar.html' %}
+  <main class="container">
+    <form method="POST" class="div-logs">
+        {% csrf_token %}
+        
+        <label for="Servico">Serviço Cadastrado: <span>{{servico.nome}}</span></label>
+        <br>
+
+        <label for="funcionario">Descrição do serviço:</label>
+        <textarea rows="4" placeholder="Descreva o serviço..." name="descricao" class="form-control"></textarea>
+
+        <label for="status">Valor do serviço:</label>
+        <input type="number" placeholder="0,00" name="preco" class="form-control">
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+
+    <form class="">
+        <a href="{/cadastros/servicos/deletar_servico/{{ servico.id}}}"
+        class="btn btn-danger acoes">Excluir</a>
+        <a href="/servicos/agendamento/"><button
+        class="btn btn-danger acoes" 
+        onclick="window.history.back()">⬅ Voltar</button></a>
+    </form>
+  </main>
+
+</body>
+</html>

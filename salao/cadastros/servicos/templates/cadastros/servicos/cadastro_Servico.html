@@ -35,12 +35,15 @@
     <div class="service-icon">💇</div>
     <div class="service-content">
       <h3>{{ servico.nome }}</h3>
-      <span class="tag">{{ servico.categoria.nome }}</span> <!-- se tiver FK categoria -->
       <p>{{ servico.descricao }}</p>
       <div class="price-time">
         <span>💲 R$ {{ servico.preco }}</span>
       </div>
     </div>
+    <div class="service-actions">
+       <a href="/cadastros/servicos/editar_servico/{{ servico.id}}"><button>✏️</button></a>
+       <a href="/cadastros/servicos/deletar_servico/{{ servico.id}}"><button>🗑️</button></a>
+     </div>
   </div>
   {% empty %}
     <p>Nenhum serviço cadastrado.</p>

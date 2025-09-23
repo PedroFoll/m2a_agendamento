@@ -4,12 +4,6 @@ from relatorios.clientes.views import get_relatorio_clientes
 
 # Create your views here.
 def cadastro_usuario(request):
-    consulta_cliente = get_relatorio_clientes(request)
-    clientes = consulta_cliente['clientes']
-    qntd_clientes = consulta_cliente['qntd_clientes']
-    pagina = consulta_cliente['pagina']
-    limit = consulta_cliente['limit']
-
     if request.method == "GET":
         return render (request, "cadastros/clientes/cadastrar_login.html")
     else:
@@ -29,6 +23,7 @@ def cadastro_usuario(request):
         return redirect('/cadastros/cliente/criar_cliente/')
 
 def criar_cliente(request):
+    # Inicia a consulta de clientes
     clientes = Cliente.objects.all()
 
     # Captura filtros do GET
@@ -44,14 +39,14 @@ def criar_cliente(request):
     if cpf_filtrar:
         clientes = clientes.filter(cpf__icontains=cpf_filtrar)
 
-    consulta_cliente = get_relatorio_clientes(request)
 
+    # Prepara o contexto com os dados filtrados e a quantidade de agendamentos
+    consulta_cliente = get_relatorio_clientes(request)
     if request.method == "GET":
         contexto = {
-        'clientes': consulta_cliente['clientes'],
-        'qntd_clientes': consulta_cliente['qntd_clientes'],
-        'pagina': consulta_cliente['pagina'],
-        'limit': consulta_cliente['limit'],
-    }
+            'clientes': consulta_cliente['clientes'],
+            'qntd_clientes': consulta_cliente['qntd_clientes'],
+            'pagina': consulta_cliente['pagina'],
+            'limit': consulta_cliente['limit'],
+        }
         return render(request, "cadastros/clientes/criar_cliente.html", contexto)
-   

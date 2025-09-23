@@ -18,13 +18,14 @@ class Profissional(Base):
         max_length=100, 
         verbose_name='Email'
         )
-    especialidade = models.ForeignKey(
-        Servico,
-        to_field='id',
-        on_delete=models.CASCADE,
-        verbose_name="especialidade"
+    cpf = models.CharField(
+        max_length=11, 
+        verbose_name='CPF', 
+        unique=True,
+        blank=True
         )
-    data_contratacao = models.DateField(
+    data_contratacao = models.DateTimeField(
+        auto_now_add=True,
         verbose_name='Data de Contratação'
         )
     

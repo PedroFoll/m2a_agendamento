@@ -27,10 +27,10 @@
         <div class="paginacao">
         <span class="qtd_age">Paginas : </span>
         {% for page_num in paginas %}
-        <a href="?pagina={{ page_num }}" class="page-number">
-        {{ page_num }}
-        </a>
-        {% endfor %}
+          <a href="?pagina={{ page_num }}" class="page-number {% if page_num == pagina %}active{% endif %}">
+          {{ page_num }}
+          </a>
+          {% endfor %}
         </div>
 
         <table>

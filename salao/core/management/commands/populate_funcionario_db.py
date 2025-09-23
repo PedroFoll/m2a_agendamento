@@ -1,10 +1,10 @@
 from faker import Faker
 from datetime import datetime
-import random
 
 from django.core.management.base import BaseCommand
 
 from core.utils.geradores import Helpers
+from core.utils.gerador_cpf import cpf_validado
 
 from cadastros.funcionarios.models import Profissional
 from cadastros.servicos.models import Servico
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         nome = fake.name()
         email = Helpers.gerador_email()
         random_number = Helpers.gerador_telefone()
-        espec=random.choice(list(Servico.objects.all()))
+        cpf = cpf_validado
         data = datetime.now()
 
         #cria manualmente objetos de model empresa
@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 nome=nome,
                 email=email,
                 telefone=random_number,
-                especialidade=espec,
+                cpf=cpf_validado,
                 data_contratacao=data,
             ),           
         ]

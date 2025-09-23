@@ -36,12 +36,25 @@
       <div class="table-card">
         <h4><span class="qtd_age">📊Total de Agendamentos: {{ total_agendamentos }}</span></h4>
         <div class="paginacao">
-        <span class="qtd_age">Paginas : </span>
-        {% for page_num in paginas %}
-        <a href="?pagina={{ page_num }}" class="page-number">
-        {{ page_num }}
-        </a>
-        {% endfor %}
+          {% if pagina > 1 %}
+            <a class="form-btn" href="?pagina={{ pagina|add:-1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+          >Anterior</a>
+          {%else%}
+            <a class="form-btn" href="">Anterior</a>
+          {% endif %}
+
+          {% for page_num in paginas %}
+          <a href="?pagina={{ page_num }}" class="page-number {% if page_num == pagina %}active{% endif %}">
+          {{ page_num }}
+          </a>
+          {% endfor %}
+          
+          {% if pagina < total_paginas %}
+          <a class="form-btn" href="?pagina={{ pagina|add:+1 }}&data_inicio={{request.GET.data_inicio}}&data_fim={{request.GET.data_fim}}&selecionar_status{{request.GET.selecionar_status}}"
+          >Próxima</a>
+          {%else%}
+          <a class="form-btn" href="">Próxima</a>
+          {% endif %}
         </div>
         <table>
           <thead>

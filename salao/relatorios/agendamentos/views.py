@@ -15,13 +15,9 @@ from cadastros.funcionarios.models import Profissional
 
 def relatorio_agendamentos(request):
     geral = Helpers.relatorio_geral(request)
-    rank_func = Helpers.rank_funcionarios()
-    rank_cli = Helpers.rank_clientes()
-    rank_serv = Helpers.rank_servicos()
     limit = 25
     pagina = int(request.GET.get('pagina', 1))
     agendamentos = Agendamento.objects.all()
-    servico = Servico.objects.all()
     qntd_agendamentos = agendamentos.count()
     selecionar_status = request.GET.get('selecionar_status')
     
@@ -38,27 +34,35 @@ def relatorio_agendamentos(request):
     total_paginas = ceil(qntd_agendamentos / limit)
     paginas = list(range(1, total_paginas + 1))
 
+     # Cálculo do número total de páginas
+    total_paginas = ceil(qntd_agendamentos / limit)
+    
+    # Garantir sempre exibir 4 páginas consecutivas
+    if total_paginas <= 4:
+        paginas_exibidas = list(range(1, total_paginas + 1))
+    else:
+        # Lógica para garantir 4 páginas consecutivas
+        if pagina <= 2:
+            paginas_exibidas = [1, 2, 3, 4]
+        elif pagina == total_paginas - 1:
+            paginas_exibidas = [total_paginas - 3, total_paginas - 2, total_paginas - 1, total_paginas]
+        elif pagina == total_paginas:
+            paginas_exibidas = [total_paginas - 3, total_paginas - 2, total_paginas - 1, total_paginas]
+        else:
+            paginas_exibidas = [pagina - 1, pagina, pagina + 1, pagina + 2]
+
     offset = (pagina - 1) * limit
     agendamentos = agendamentos.order_by('data_agendada')[offset:offset + limit]
 
     contexto = {
-        'form': geral['form'],
-        'agendamentos': geral['agendamentos'][:25],
         'total_agendamentos': geral['total_agendamentos'],
-        'total_arrecadado': geral['total_arrecadado'],
-        'rank_func':rank_func,
-        'rank_cli':rank_cli,
-        'rank_serv':rank_serv,
         'agendamentos': agendamentos,
         'qntd_agendamentos': qntd_agendamentos,
         'pagina': pagina,
         'limit': limit,
-        'servico': servico,
         'total_paginas': total_paginas,
-        'paginas': paginas
-
+        'paginas': paginas_exibidas  # Passa apenas as páginas que queremos exibir
     }
-
     return render(
         request, "agendamentos/relatorio_agendamentos.html", contexto
         )

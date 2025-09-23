@@ -35,7 +35,7 @@ def HomePage(request):
             'data_range':data_range,
             'servicos':servicos,
             'rank_func':rank_func,
-            'rank_cli':rank_cli,
+            'rank_cli':rank_cli[:5],
             'rank_serv':rank_serv,
 
             'agend_concluidos': agend_concluidos,

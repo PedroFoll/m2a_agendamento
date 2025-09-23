@@ -42,6 +42,7 @@ a {
   padding: 1rem;
   margin-bottom: 1.5rem;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  height: 200px;
 }
 
 .header h1 {
@@ -135,6 +136,20 @@ a {
   color: white;
   justify-content: center;
   align-items: center;
+}
+
+.page-number:hover {
+  background-color: #ddd;  /* Um leve efeito ao passar o mouse */
+}
+
+.page-number.active {
+  background-color: #4CAF50;  /* Cor de fundo para a página ativa */
+  color: white;  /* Cor do texto para a página ativa */
+  transform: scale(1.1);  /* Aumenta um pouco o tamanho para destacar */
+}
+
+.page-number.active:hover {
+  background-color: #45a049;  /* Cor de fundo para a página ativa ao passar o mouse */
 }
 
 .paginacao {

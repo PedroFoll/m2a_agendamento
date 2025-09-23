@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 
 from cadastros.servicos.models import Servico
 
@@ -25,7 +25,6 @@ def cadastrar_servico(request):
         nome_servico = request.POST.get('nome_servico')
         descricao = request.POST.get('descricao')
         preco = request.POST.get('preco')
-        duracao = request.POST.get('duracao')
 
         serv = Servico(
             nome=nome_servico,
@@ -50,3 +49,26 @@ def criar_servico(request):
         )
         serv.save()
         return redirect('/cadastros/servicos/cadastrar_servico/')
+    
+
+def editar_servico(request,id):
+    servico = get_object_or_404(Servico, id=id)
+
+    if request.method == 'GET':
+        return render(request, 'cadastros/servicos/editar_servico.html', {'servico':servico})
+    else:
+        descricao = request.POST.get('descricao')
+        preco = request.POST.get('preco')
+
+        servico.descricao=descricao
+        servico.preco=preco
+        servico.save()
+        return redirect('/cadastros/servicos/cadastrar_servico/')
+
+    
+def deletar_servico(request,id):
+    servico=Servico.objects.get(id=id)
+    servico.delete()
+    return redirect(
+        '/cadastros/servicos/cadastrar_servico/'
+        )

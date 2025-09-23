@@ -1,22 +1,20 @@
+from math import ceil
+import fitz 
+
 from servicos.agendamento.models import Agendamento
 from cadastros.cliente.models import Cliente
 from cadastros.funcionarios.models import Profissional
 from cadastros.servicos.models import Servico
 
-from django.utils import timezone
-from django.db.models import Count, Sum, Prefetch
+from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from django.shortcuts import redirect, get_object_or_404, HttpResponse
-
 
 from datetime import date, datetime, timedelta
 
 from datetime import datetime, timedelta
 from .forms import FiltroRelatorioForm
 
-import fitz 
-
-import calendar
 from collections import defaultdict
 
 
@@ -138,7 +136,6 @@ class Helpers():
                 inicio_da_semana, 
                 fim_da_semana]).count()
 
-
         context={
             'agendamentos_hoje': agendamentos_hoje,
             'agendamentos_semana': agendamentos_semana,
@@ -177,7 +174,7 @@ class Helpers():
         ranking = (
             Agendamento.objects.values('cliente__nome')
             .annotate(total_servicos=Count('id'))
-            .order_by('-total_servicos')[:5]
+            .order_by('-total_servicos')
         )
         return ranking
     
@@ -205,7 +202,6 @@ class Helpers():
         )
         return total_valor_servicos
     
-
 
     def relatorio_geral(request):
         form = FiltroRelatorioForm(request.GET or None)
@@ -266,6 +262,69 @@ class Helpers():
         }
     
 
+    def agenda_cliente():
+        agenda_cliente = (
+            Agendamento.objects.values('cliente__nome')  # agrupar por nome do cliente
+            .annotate(total_servicos=Count('id'))  # contar quantos agendamentos o cliente tem
+            .order_by('-total_servicos')  # ordena pela quantidade de serviços
+        )
+        return agenda_cliente
+    
+    def get_funcionarios(request):
+        limit = 10  # Limitar a quantidade de registros por página
+        pagina = int(request.GET.get('pagina', 1))  # Página atual
+        letra = request.GET.get("letra")  # Filtro pela primeira letra do nome
+
+        # Consultar todos os profissionais
+        profissionais = Profissional.objects.all()
+
+        # Filtros de pesquisa
+        nome_filtrar = request.GET.get('nome_filtrar')
+        email_filtrar = request.GET.get('email_filtrar')
+        cpf_filtrar = request.GET.get('cpf_filtrar')
+        phone_filtrar = request.GET.get('phone_filtrar')
+
+        # Aplicar filtros de acordo com o que foi passado no formulário
+        if nome_filtrar:
+            profissionais = profissionais.filter(nome__contains=nome_filtrar)
+        
+        if email_filtrar:
+            profissionais = profissionais.filter(email__contains=email_filtrar)
+
+        if cpf_filtrar:
+            profissionais = profissionais.filter(cpf__contains=cpf_filtrar)
+        
+        if phone_filtrar:
+            profissionais = profissionais.filter(telefone__contains=phone_filtrar)
+        
+        # Filtro pela letra inicial do nome
+        if letra:
+            profissionais = Profissional.objects.filter(nome__istartswith=letra)
+
+        # Contagem do total de profissionais
+        qntd_profissionais = profissionais.count()
+
+        # Cálculo de páginas
+        total_paginas = ceil(qntd_profissionais / limit)
+        paginas = list(range(1, total_paginas + 1))
+
+        # Paginação
+        offset = (pagina - 1) * limit
+        profissionais = profissionais.order_by('nome')[offset:offset + limit]
+
+        contexto = {
+            'profissionais': profissionais,  # Lista de profissionais
+            'qntd_profissionais': qntd_profissionais,  # Quantidade total de profissionais
+            'pagina': pagina,  # Página atual
+            'limit': limit,  # Limite de profissionais por página
+            'total_paginas': total_paginas,  # Total de páginas
+            'paginas': paginas,  # Páginas para navegação
+            'letra': letra  # Letra para filtro
+        }
+
+        return contexto
+    
+
 class AgendarHelper():
     @staticmethod
     def proximos_dias_agendamentos():
@@ -321,6 +380,3 @@ class PDFHelper():
         response.write(pdf.tobytes())  # transforma em bytes e escreve na resposta
         pdf.close()
         return response
-    
-
-    

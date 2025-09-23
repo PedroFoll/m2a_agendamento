@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     '#673ab7', 
                     '#00bcd4',
                     '#8bc34a',
+                    '#ff00ccff',
                 ] 
                 // Adicione mais cores se tiver mais de 4 serviços
             }]
