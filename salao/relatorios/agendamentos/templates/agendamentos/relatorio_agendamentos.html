@@ -27,8 +27,8 @@
                         </select>
                 
                 <button type="submit" class="button button-red">Filtrar</button>
-                <a href="{% url 'relatorios:imprimir_relatorio' %}?data_inicio={{ request.GET.data_inicio }}&data_fim={{ request.GET.data_fim }}&selecionar_status={{ request.GET.selecionar_status }}" 
-                class="button" target="_blank">Imprimir PDF</a>
+                <a href="/relatorios/imprimir_relatorio/?data_inicio={{ request.GET.data_inicio }}&data_fim={{ request.GET.data_fim }}&selecionar_status={{ request.GET.selecionar_status }}" 
+                target="_blank">Imprimir PDF</a>
             </div>
         </form>
     </div>

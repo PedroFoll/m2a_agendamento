@@ -1,10 +1,17 @@
 from math import ceil
+from time import sleep
 
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponse
-from django.template.loader import render_to_string
+from django.urls import reverse
+from urllib.parse import urlencode
 
-import pdfkit
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import fitz  # PyMuPDF
 
 from core.utils.helpers import Helpers
 
@@ -116,24 +123,91 @@ def editar_agendamento(request, id):
         )
 
 
-def imprimir_relatorio(request):
-    # Configurações do Selenium para rodar headless
-    """ data_inicio = request.GET.get('data_inicio', '')
+def imprimir_layout(request):
+    data_inicio = request.GET.get('data_inicio', '')
     data_fim = request.GET.get('data_fim', '')
     selecionar_status = request.GET.get('selecionar_status', '')
+
+    qs = Agendamento.objects.all()
+    if data_inicio and data_fim:
+        qs = qs.filter(data_agendada__date__range=[data_inicio, data_fim])
+    if selecionar_status:
+        qs = qs.filter(status=selecionar_status)
+
     contexto = {
         'data_inicio': data_inicio,
         'data_fim': data_fim,
         'selecionar_status': selecionar_status,
+        'agendamentos': qs,
     }
+    return render(request, 'imprimir/layout.html', contexto)
 
-    html_str = render_to_string('imprimir/layout.html', contexto)
-    
-    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf') 
 
-    pdf_file = pdfkit.from_string(html_str, False, configuration=config)
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="relatorio_agendamentos.pdf'
+def imprimir_relatorio_pdf(request):
+    # --- 1) parâmetros / filtros ---
+    data_inicio = request.GET.get('data_inicio', '')
+    data_fim = request.GET.get('data_fim', '')
+    selecionar_status = request.GET.get('selecionar_status', '')
+
+    # --- 2) monta a URL absoluta da página que queremos renderizar ---
+    base_path = reverse('relatorios:imprimir_layout')  # '/relatorios/imprimir_layout/'
+    query = urlencode({
+        'data_inicio': data_inicio,
+        'data_fim': data_fim,
+        'selecionar_status': selecionar_status
+    })
+    url = request.build_absolute_uri(f"{base_path}?{query}")
+
+    # --- 3) configurações do ChromeDriver ---
+    options = Options()
+    options.add_argument("--headless=new")  # ou "--headless" dependendo do Chrome
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
+    # opcional: options.add_argument("--disable-extensions")
+    # path do chromedriver (se não estiver no PATH)
+
+    driver = webdriver.Chrome(options=options)
+
+    try:
+        # 4) abrir a página
+        driver.get(url)
+
+        # 5) opcional: se a página exigir autenticação via sessão:
+        # se for preciso, adicione cookies do request para o driver ANTES de abrir a URL:
+        # (ver nota abaixo sobre sessão)
+        #
+        # 6) esperar que o DOM esteja pronto - usar um elemento marcador "#print-ready"
+        WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.ID, "print-ready"))
+        )
+
+        # 7) capturar tamanho total da página (full page)
+        width = driver.execute_script("return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth);")
+        height = driver.execute_script("return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);")
+        # define a janela para o tamanho total (importante para screenshot full page)
+        driver.set_window_size(width, height)
+        # espera pequena para reflow
+        sleep(0.5)
+
+        # 8) screenshot em PNG (bytes)
+        png = driver.get_screenshot_as_png()
+
+    finally:
+        driver.quit()
+
+    # --- 9) converte PNG para PDF com PyMuPDF ---
+    img_doc = fitz.open("png", png)   # abre imagem em memória
+    rect = img_doc[0].rect
+    pdf_doc = fitz.open()
+    page = pdf_doc.new_page(width=rect.width, height=rect.height)
+    page.insert_image(rect, stream=png)
+    pdf_bytes = pdf_doc.write()
+    pdf_doc.close()
+    img_doc.close()
+
+    # --- 10) retorna para o usuário ---
+    response = HttpResponse(pdf_bytes, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="relatorio_agendamentos.pdf"'
     return response
- """
-    return HttpResponse("Em desenvolvimento")

@@ -71,9 +71,9 @@
       <div class="service-item">
         <div class="service-icon">💇</div>
         <div class="service-content">
-          <h2>{{ c.nome }}</h2>
-          <h2>Telefone: ({{ c.telefone }}) - CPF: {{ c.cpf }} </h2>
-          <h2>Email: {{ c.email }} - Ativo: {{ c.ativo|yesno:"Sim,Não" }}</h2>
+          <h3>Cliente : {{ c.nome }}</h3>
+          <h3>Telefone: ({{ c.telefone }}) - CPF: {{ c.cpf }} </h3>
+          <h3>Email: {{ c.email }} - Ativo: {{ c.ativo|yesno:"Sim,Não" }}</h3>
         </div>
         <div class="service-actions">
           <a href="{% url 'relatorios:ver_cliente' c.id %}"><button>✏️</button></a>

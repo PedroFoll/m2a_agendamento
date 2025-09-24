@@ -58,8 +58,12 @@ urlpatterns =[
 
     path(
         'imprimir/',
-        agend_views.imprimir_relatorio,
+        agend_views.imprimir_relatorio_pdf,
         name='imprimir_relatorio'
         ),
 
+    path('imprimir_layout/', 
+         agend_views.imprimir_layout, 
+         name='imprimir_layout'
+         ),
 ]

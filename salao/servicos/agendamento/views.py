@@ -39,24 +39,29 @@ def agendar_servico(request):
         try:
             clientes = Cliente.objects.get(pk=cliente_ID)
         except Cliente.DoesNotExist:
-            messages.error(request, 'alguma coisa deu errado')
+            messages.error(request, 'Cliente não encontrado')
 
         try:
             profissional = Profissional.objects.get(pk=funcionario_ID)
         except Profissional.DoesNotExist:
-            messages.error(request, 'alguma coisa deu errado')
+            messages.error(request, 'Profissional não encontrado')
 
         try:
             servicos = Servico.objects.get(pk=servico_ID)
         except Servico.DoesNotExist:
-            messages.error(request, 'alguma coisa deu errado')
+            messages.error(request, 'Serviço não encontrado')
         
         try:
             data_hora = parse_datetime(data_hora)
             if data_hora is None:
                 raise ValueError("Formato de data/hora inválido.")
         except (ValueError, TypeError):
-            messages.error(request, 'alguma coisa deu errado')
+            messages.error(request, 'Data/Hora inválida')
+
+        if messages:
+            return redirect(request.path_info)
+
+
 
         agendamento = Agendamento(
             cliente=clientes, 

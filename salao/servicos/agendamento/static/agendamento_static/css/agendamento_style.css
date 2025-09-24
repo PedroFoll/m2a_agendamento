@@ -384,7 +384,34 @@ form label {
   border-radius: 20px;
 }
 
+.alert-container {
+    margin-top: 20px;
+}
 
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.alert.error {
+    background-color: #f44336;
+    position: relative;
+    top: -100px;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+    position: relative;
+    top: -100px;
+}
+
+.alert.info {
+    background-color: #2196F3;
+    position: relative;
+    top: -100px;
+}
 
 /* ===== Responsividade ===== */
 @media screen and (max-width: 768px) {
