@@ -27,8 +27,8 @@
                         </select>
                 
                 <button type="submit" class="button button-red">Filtrar</button>
-                <a href="/relatorios/imprimir_relatorio/?data_inicio={{ request.GET.data_inicio }}&data_fim={{ request.GET.data_fim }}&selecionar_status={{ request.GET.selecionar_status }}" 
-                target="_blank">Imprimir PDF</a>
+                <a href="{% url 'relatorios:imprimir_relatorio' %}?data_inicio={{ request.GET.data_inicio }}&data_fim={{ request.GET.data_fim }}&selecionar_status={{ request.GET.selecionar_status }}" 
+                class="button" target="_blank">Imprimir PDF</a>
             </div>
         </form>
     </div>
@@ -63,6 +63,7 @@
               <th>Serviço</th>
               <th>Profissional</th>
               <th>Data</th>
+              <th>Editar</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -74,6 +75,8 @@
               <td>{{ ag.servico.nome }}</td>
               <td>{{ ag.profissional.nome }}</td>
               <td>{{ ag.data_agendada|date:"d/m/Y H:i" }}</td>
+              <td><a href="{% url 'relatorios:editar_agendamento' ag.id %}">
+            ✏️Editar</a></td>
               <td class="status {{ag.status|lower|slugify}}">{{ ag.status }}</td>
               </a>
             </tr>

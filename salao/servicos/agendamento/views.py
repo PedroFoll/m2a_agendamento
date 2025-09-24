@@ -17,7 +17,6 @@ def agendar_servico(request):
 
         id = request.GET.get('id')
 
-        # Primeiro monta o contexto básico com os dados fixos
         contexto = {
             'clientes': clientes,
             'servicos': servicos,
@@ -25,51 +24,54 @@ def agendar_servico(request):
             'id': id,
         }
 
-        # Atualiza com os dados que vêm do helper (ex: proximos_dias_agendamentos)
         contexto.update(helper.proximos_dias_agendamentos())
 
         return render(request, 'agendar.html', contexto)
-    
+
     elif request.method == 'POST':
         cliente_ID = request.POST.get('cliente')
         funcionario_ID = request.POST.get('funcionario')
         servico_ID = request.POST.get('servico')
         data_hora = request.POST.get('data_hora')
 
+        erro_ocorrido = False
+
         try:
             clientes = Cliente.objects.get(pk=cliente_ID)
         except Cliente.DoesNotExist:
             messages.error(request, 'Cliente não encontrado')
+            erro_ocorrido = True
 
         try:
             profissional = Profissional.objects.get(pk=funcionario_ID)
         except Profissional.DoesNotExist:
             messages.error(request, 'Profissional não encontrado')
+            erro_ocorrido = True
 
         try:
             servicos = Servico.objects.get(pk=servico_ID)
         except Servico.DoesNotExist:
             messages.error(request, 'Serviço não encontrado')
-        
+            erro_ocorrido = True
+
         try:
             data_hora = parse_datetime(data_hora)
             if data_hora is None:
                 raise ValueError("Formato de data/hora inválido.")
         except (ValueError, TypeError):
             messages.error(request, 'Data/Hora inválida')
+            erro_ocorrido = True
 
-        if messages:
+        if erro_ocorrido:
             return redirect(request.path_info)
-
-
 
         agendamento = Agendamento(
             cliente=clientes, 
             profissional=profissional, 
             servico=servicos, 
             data_agendada=data_hora
-            )
-        agendamento.save()        
+        )
+        agendamento.save()
 
         return redirect('/servicos/agendamento/')
     

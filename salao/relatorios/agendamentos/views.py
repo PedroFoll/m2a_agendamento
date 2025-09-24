@@ -11,7 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import fitz  # PyMuPDF
+import fitz
 
 from core.utils.helpers import Helpers
 
@@ -41,14 +41,11 @@ def relatorio_agendamentos(request):
     total_paginas = ceil(qntd_agendamentos / limit)
     paginas = list(range(1, total_paginas + 1))
 
-     # Cálculo do número total de páginas
     total_paginas = ceil(qntd_agendamentos / limit)
     
-    # Garantir sempre exibir 4 páginas consecutivas
     if total_paginas <= 4:
         paginas_exibidas = list(range(1, total_paginas + 1))
     else:
-        # Lógica para garantir 4 páginas consecutivas
         if pagina <= 2:
             paginas_exibidas = [1, 2, 3, 4]
         elif pagina == total_paginas - 1:
@@ -68,7 +65,7 @@ def relatorio_agendamentos(request):
         'pagina': pagina,
         'limit': limit,
         'total_paginas': total_paginas,
-        'paginas': paginas_exibidas  # Passa apenas as páginas que queremos exibir
+        'paginas': paginas_exibidas 
     }
     return render(
         request, "agendamentos/relatorio_agendamentos.html", contexto
@@ -144,13 +141,11 @@ def imprimir_layout(request):
 
 
 def imprimir_relatorio_pdf(request):
-    # --- 1) parâmetros / filtros ---
     data_inicio = request.GET.get('data_inicio', '')
     data_fim = request.GET.get('data_fim', '')
     selecionar_status = request.GET.get('selecionar_status', '')
 
-    # --- 2) monta a URL absoluta da página que queremos renderizar ---
-    base_path = reverse('relatorios:imprimir_layout')  # '/relatorios/imprimir_layout/'
+    base_path = reverse('relatorios:imprimir_layout') 
     query = urlencode({
         'data_inicio': data_inicio,
         'data_fim': data_fim,
@@ -158,47 +153,33 @@ def imprimir_relatorio_pdf(request):
     })
     url = request.build_absolute_uri(f"{base_path}?{query}")
 
-    # --- 3) configurações do ChromeDriver ---
     options = Options()
-    options.add_argument("--headless=new")  # ou "--headless" dependendo do Chrome
+    options.add_argument("--headless=new")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
-    # opcional: options.add_argument("--disable-extensions")
-    # path do chromedriver (se não estiver no PATH)
 
     driver = webdriver.Chrome(options=options)
 
     try:
-        # 4) abrir a página
         driver.get(url)
 
-        # 5) opcional: se a página exigir autenticação via sessão:
-        # se for preciso, adicione cookies do request para o driver ANTES de abrir a URL:
-        # (ver nota abaixo sobre sessão)
-        #
-        # 6) esperar que o DOM esteja pronto - usar um elemento marcador "#print-ready"
         WebDriverWait(driver, 15).until(
             EC.presence_of_element_located((By.ID, "print-ready"))
         )
 
-        # 7) capturar tamanho total da página (full page)
         width = driver.execute_script("return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth);")
         height = driver.execute_script("return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);")
-        # define a janela para o tamanho total (importante para screenshot full page)
-        driver.set_window_size(width, height)
-        # espera pequena para reflow
-        sleep(0.5)
 
-        # 8) screenshot em PNG (bytes)
+        driver.set_window_size(width, height)
+        sleep(0.5)
         png = driver.get_screenshot_as_png()
 
     finally:
         driver.quit()
 
-    # --- 9) converte PNG para PDF com PyMuPDF ---
-    img_doc = fitz.open("png", png)   # abre imagem em memória
+    img_doc = fitz.open("png", png)
     rect = img_doc[0].rect
     pdf_doc = fitz.open()
     page = pdf_doc.new_page(width=rect.width, height=rect.height)
@@ -207,7 +188,6 @@ def imprimir_relatorio_pdf(request):
     pdf_doc.close()
     img_doc.close()
 
-    # --- 10) retorna para o usuário ---
     response = HttpResponse(pdf_bytes, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="relatorio_agendamentos.pdf"'
     return response

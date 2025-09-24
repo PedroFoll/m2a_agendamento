@@ -1,0 +1,3 @@
+for ($i=1; $i -le 20; $i++) {python manage.py populate_funcionario_db}
+for ($i=1; $i -le 20; $i++) {python manage.py populate_cliente_db}
+for ($i=1; $i -le 20; $i++) {python manage.py populate_agenda_db}

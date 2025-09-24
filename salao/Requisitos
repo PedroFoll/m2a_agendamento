@@ -17,12 +17,12 @@ O sistema deve permitir que essas informações sejam cadastradas e consultadas 
 #2.1.1 - Eu como recepcionista, quero cadastrar :
 #clientes - nome, telefone, email, data de nascimento
 #serviços - nome, descrição, preço
-#profissionais - nome, telefone, email, especialidade, data de contratação
+#profissionais - nome, telefone, email, data de contratação
 
 #2.1.2 - Eu como recepcionista, quero consultar:
 #clientes - nome, telefone, email
 #serviços - nome, descrição, preço
-#profissionais - nome, telefone, email, especialidade
+#profissionais - nome, telefone, email
 
 #2.1.3 - Eu como recepcionista, quero que o sistema informe na consulta dos clientes:
 #1- A quantidade total de clientes cadastrados no sistema.
@@ -70,21 +70,11 @@ O que será avaliado:
 * **Qualidade da Solução:** A solução demonstra uma preocupação com a eficiência e a manutenção futura?
 * **Conformidade Técnica:** As versões de Python e Django especificadas foram utilizadas? O ambiente virtual foi configurado corretamente?
 * **Observação sobre Ferramentas de IA:** O uso de inteligência artificial (IA) é permitido durante o desafio, mas não é recomendado. A sua avaliação será focada na sua coerência, conhecimento, qualidade e domínio técnico sobre o que foi implementado. Valorizamos a sua capacidade de pensar e resolver problemas de forma autônoma.
-Você terá **5 dias úteis** para concluir este desafio. Ao finalizar, envie o link do seu repositório para o e-mail que recebeu. Se tiver alguma dúvida, pode nos contatar por e-mail.
 
-
-
-
-#for ($i=1; $i -le 20; $i++) { python manage.py populate_funcionario_db } 
 
 preciso agrupar os agendamentos por dia/mes teve x agendamentos
 fazer uma lista com esses agendamentos                        
-                        {% endif %}
-                            {% if agrp.has_next %}
-
-
-#for ($i=1; $i -le 20; $i++) { python manage.py populate_cliente_db }
-#for ($i=1; $i -le 20; $i++) { python manage.py populate_agenda_db } 
+                     
 
 Ideias de Métricas e Gráficos
 
