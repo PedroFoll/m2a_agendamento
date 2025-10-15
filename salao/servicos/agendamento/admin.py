@@ -10,7 +10,6 @@ class AgendamentoAdmin(admin.ModelAdmin):
     list_display=(
         'cliente__nome',
         'cliente__cpf',
-        'servico',
         'profissional',
         'data_agendada',
         'status',
@@ -18,7 +17,6 @@ class AgendamentoAdmin(admin.ModelAdmin):
         )
     list_filter = (
         "data_agendada",
-        "servico",
         'ativo',
         'status'
         )

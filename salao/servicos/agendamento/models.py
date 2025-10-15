@@ -22,12 +22,13 @@ class Agendamento(Base):
         on_delete=models.CASCADE
     )
     #Serviço
-    servico=models.ForeignKey(
-        Servico,
-        verbose_name='Serviço',
-        to_field='id',
-        on_delete=models.CASCADE
+    servico = models.ManyToManyField(
+    Servico,
+    verbose_name='Serviços'
     )
+
+    quantidade = models.PositiveIntegerField(default=1)
+
     #Profissional Especifico
     profissional=models.ForeignKey(
         Profissional,
@@ -46,6 +47,14 @@ class Agendamento(Base):
         verbose_name="Dia agendado"
     )
     #Foto
+
+    valor_total = models.DecimalField(
+    verbose_name='Valor Total',
+    max_digits=10,
+    decimal_places=2,
+    default=0
+)
+
     
     #gendamento.TipoStatus.CONCLUIDO 1: 
 

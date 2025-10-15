@@ -8,6 +8,16 @@ from cadastros.servicos.models import Servico
 from cadastros.funcionarios.models import Profissional
 from core.utils.helpers import AgendarHelper
 
+from django.utils.dateparse import parse_datetime
+from django.contrib import messages
+from decimal import Decimal
+
+from decimal import Decimal
+from django.utils.dateparse import parse_datetime
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Agendamento, Servico, Cliente, Profissional
+
 def agendar_servico(request):
     if request.method == 'GET':
         clientes = Cliente.objects.all().order_by('nome')
@@ -31,13 +41,14 @@ def agendar_servico(request):
     elif request.method == 'POST':
         cliente_ID = request.POST.get('cliente')
         funcionario_ID = request.POST.get('funcionario')
-        servico_ID = request.POST.get('servico')
+        servicos_IDs = request.POST.getlist('servico')  # pode vir vários serviços
         data_hora = request.POST.get('data_hora')
 
         erro_ocorrido = False
 
+        # validações
         try:
-            clientes = Cliente.objects.get(pk=cliente_ID)
+            cliente = Cliente.objects.get(pk=cliente_ID)
         except Cliente.DoesNotExist:
             messages.error(request, 'Cliente não encontrado')
             erro_ocorrido = True
@@ -49,7 +60,9 @@ def agendar_servico(request):
             erro_ocorrido = True
 
         try:
-            servicos = Servico.objects.get(pk=servico_ID)
+            servicos = Servico.objects.filter(pk__in=servicos_IDs)
+            if not servicos.exists():
+                raise Servico.DoesNotExist
         except Servico.DoesNotExist:
             messages.error(request, 'Serviço não encontrado')
             erro_ocorrido = True
@@ -65,14 +78,30 @@ def agendar_servico(request):
         if erro_ocorrido:
             return redirect(request.path_info)
 
-        agendamento = Agendamento(
-            cliente=clientes, 
-            profissional=profissional, 
-            servico=servicos, 
-            data_agendada=data_hora
-        )
-        agendamento.save()
+        # 🧮 Calcula o valor total com base nas quantidades enviadas
+        total_servicos = Decimal('0.00')
+        servico_quantidades = {}
 
+        for servico in servicos:
+            qtd = int(request.POST.get(f'quantidade_{servico.id}', 1))
+            total_servicos += servico.preco * qtd
+            servico_quantidades[servico.id] = qtd  # guarda para uso futuro, se quiser salvar
+
+        # cria o agendamento
+        agendamento = Agendamento.objects.create(
+            cliente=cliente,
+            profissional=profissional,
+            data_agendada=data_hora,
+            valor_total=total_servicos
+        )
+
+        # associa os serviços
+        agendamento.servico.set(servicos)
+
+        # se quiser salvar quantidades, precisa criar uma relação intermediária (ex: AgendamentoServico)
+        # senão, apenas associa normalmente
+
+        messages.success(request, 'Agendamento criado com sucesso!')
         return redirect('/servicos/agendamento/')
     
 

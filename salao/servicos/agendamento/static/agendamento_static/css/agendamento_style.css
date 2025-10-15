@@ -132,15 +132,20 @@ body {
 }
 
 .servico-item {
-    display: flex;
-    margin-bottom: 5px; 
-    /* Reduzido para diminuir o espaçamento entre os itens */
+  display: flex;                 /* Alinha o conteúdo na mesma linha */
+  margin-bottom: 10px;
+  justify-content: space-between; /* Espaça o conteúdo entre preço e quantidade */
+  align-items: center;           /* Garante que todos os itens fiquem no mesmo alinhamento vertical */
 }
+
 
 .descricao{
     display: flex;
     flex-direction: row;
     width: 360px;
+    display: flex;                 /* Flexbox para manter tudo alinhado horizontalmente */
+    flex: 1;
+    align-items: center;           /* Alinha os itens no centro vertical */
 }
 
 .nome-servico {
@@ -166,7 +171,49 @@ body {
     white-space: nowrap;
     overflow: hidden;
     align-content: center;
+    margin-right: 15px;  
 }
+
+
+/* ===== Estilos do Serviço e Quantidade ===== */
+
+.quantidade-container {
+  display: flex;                 /* Flexbox para alinhar os botões e o input de quantidade */
+  align-items: center;           /* Alinha os itens verticalmente no centro */
+  gap: 5px;                      /* Espaçamento entre os itens de quantidade */
+  margin-left: 10px;
+  visibility: hidden;            /* Inicialmente escondido, será mostrado quando o checkbox for marcado */
+}
+
+.quantidade-container button {
+  background: #8c4bff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantidade-container button:hover {
+  background-color: #5e3bbd;
+}
+
+.input-qtd {
+  width: 50px;
+  text-align: center;
+  padding: 6px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Mostra o campo de quantidade apenas quando o serviço for selecionado */
+.form-check-input:checked + .servico-item .quantidade-container {
+  visibility: visible;
+}
+
+
 
 /* Estilo dos checkboxes */
 .form-check-input {
@@ -459,3 +506,14 @@ form label {
   }
 }
 
+/* Responsividade: Quando a tela for pequena, ajusta o layout */
+@media screen and (max-width: 768px) {
+  .servico-item {
+    flex-direction: column; /* Alinha os itens verticalmente em telas pequenas */
+    gap: 10px;              /* Espaço entre os itens */
+  }
+
+  .quantidade-container {
+    margin-left: 0;        /* Remove o espaço à esquerda em telas pequenas */
+  }
+}
