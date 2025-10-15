@@ -134,8 +134,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'login', 'clientes','static'),
     os.path.join(BASE_DIR, 'configuracao', 'sistema', 'static'),
     os.path.join(BASE_DIR, 'relatorios', 'geral', 'static'),
-    os.path.join(BASE_DIR, 'base','static')
-    
+    os.path.join(BASE_DIR, 'base','static'), #
+    os.path.join(BASE_DIR, 'cadastros', 'cliente', 'static'),
+    os.path.join(BASE_DIR, 'cadastros', 'funcionarios', 'static'),
+    os.path.join(BASE_DIR, 'cadastros', 'servicos', 'static'),  
+    os.path.join(BASE_DIR, 'servicos', 'agendamento', 'static'),    
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
