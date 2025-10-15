@@ -22,8 +22,7 @@ def HomePage(request):
 
         data_range=Helpers.data_range_semana()
         
-        return render(request,'home.html',{
-            'qntd_clientes': dados_clt['qntd_clientes'],
+        context = {'qntd_clientes': dados_clt['qntd_clientes'],
             'total_clientes':dados_clt['total_clientes'],
 
             'qntd_agendamentos':dados_age['qntd_agendamentos'],
@@ -44,4 +43,7 @@ def HomePage(request):
             'valor_total_serv': valor_total_serv,
 
             }
-            )
+        
+        print(context)
+        return render(request,'home.html',context)
+    
