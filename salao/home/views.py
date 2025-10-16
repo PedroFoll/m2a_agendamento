@@ -22,25 +22,25 @@ def HomePage(request):
 
         data_range=Helpers.data_range_semana()
         
-        context = {'qntd_clientes': dados_clt['qntd_clientes'],
-            'total_clientes':dados_clt['total_clientes'],
+        context = {'qntd_clientes': dados_clt['qntd_clientes'] or 0,
+            'total_clientes':dados_clt['total_clientes'] or 0,
 
             'qntd_agendamentos':dados_age['qntd_agendamentos'],
-            'total_agendamentos_serv': dados_age['total_agendamentos_serv'],
+            'total_agendamentos_serv': dados_age['total_agendamentos_serv'] or 0,
 
             'qntd_funcionarios':dados_func['qntd_funcionarios'],
-            'total_func':dados_func['total_func'],
+            'total_func':dados_func['total_func'] or 0,
 
             'data_range':data_range,
-            'servicos':servicos,
-            'rank_func':rank_func,
-            'rank_cli':rank_cli[:5],
-            'rank_serv':rank_serv,
+            'servicos':servicos or 0,
+            'rank_func':rank_func or [],
+            'rank_cli':rank_cli[:5] or [],
+            'rank_serv':rank_serv or [],
 
-            'agend_concluidos': agend_concluidos,
-            'agend_cancelados': agend_cancelados,
-            'agend_pendentes': agend_pendentes,
-            'valor_total_serv': valor_total_serv,
+            'agend_concluidos': agend_concluidos or 0,
+            'agend_cancelados': agend_cancelados or 0,
+            'agend_pendentes': agend_pendentes or 0,
+            'valor_total_serv': valor_total_serv or 0,
 
             }
         
