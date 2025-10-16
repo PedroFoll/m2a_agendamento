@@ -26,13 +26,13 @@ def HomePage(request):
             'total_clientes':dados_clt['total_clientes'] or 0,
 
             'qntd_agendamentos':dados_age['qntd_agendamentos'],
-            'total_agendamentos_serv': dados_age['total_agendamentos_serv'] or 0,
+            'total_agendamentos_serv': dados_age['total_agendamentos_serv'],
 
             'qntd_funcionarios':dados_func['qntd_funcionarios'],
-            'total_func':dados_func['total_func'] or 0,
+            'total_func':dados_func['total_func'],
 
             'data_range':data_range,
-            'servicos':servicos or 0,
+            'servicos':servicos ,
             'rank_func':rank_func or [],
             'rank_cli':rank_cli[:5] or [],
             'rank_serv':rank_serv or [],
