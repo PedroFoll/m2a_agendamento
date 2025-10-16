@@ -108,6 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://m2a-agendamento.onrender.com',
+]
 
 LANGUAGE_CODE = 'pt-br'
 
